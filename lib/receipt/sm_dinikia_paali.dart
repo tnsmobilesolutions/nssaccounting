@@ -16,8 +16,6 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDate = DateTime.now();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('SM Dinikia Paali'),
