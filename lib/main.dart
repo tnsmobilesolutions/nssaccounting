@@ -27,9 +27,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'NSS Accounting',
       theme: ThemeData(
-        primarySwatch: mySwatchColor, // #F6F8FC
+        primarySwatch: Colors.blue, // #F6F8FC
+        // colorScheme: ColorScheme(primary: primary, primaryVariant: primaryVariant, secondary: secondary, secondaryVariant: secondaryVariant, surface: surface, background: background, error: error, onPrimary: onPrimary, onSecondary: onSecondary, onSurface: onSurface, onBackground: onBackground, onError: onError, brightness: brightness),
         scaffoldBackgroundColor: Colors.white, //Color(0xFFEDF2FF),
         backgroundColor: Colors.white,
+        // inputDecorationTheme: InputDecorationTheme(
+
+        // )
       ),
       home: MyHomePage(title: 'Accounts'),
     );

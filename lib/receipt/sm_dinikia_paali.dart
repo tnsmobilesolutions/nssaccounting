@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/common_widgets/natextformfield.dart';
 
 enum Payment { cash, bank }
 enum PaymentType { online, cheque, dd }
@@ -21,26 +23,23 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
         title: Text('SM Dinikia Paali'),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(
-                style: TextStyle(height: 0.5),
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Enter Sangha',
-                    hintText: 'Enter Sangha'),
+              TextFormField(
+                style: TextStyle(height: 0.5, color: Colors.red),
+                decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Sangha Name",
+                    hintTextStr: "Enter Sangha Name"),
               ),
               SizedBox(height: 12),
-              TextField(
+              TextFormField(
                 style: TextStyle(height: 0.5),
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Enter Name',
-                    hintText: 'Enter Name'),
+                decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Name", hintTextStr: "Enter Name"),
               ),
               SizedBox(height: 12),
               TextField(
