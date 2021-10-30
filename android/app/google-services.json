@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063749014704",
+    "project_id": "nssacounting",
+    "storage_bucket": "nssacounting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063749014704:android:6fefbeb5959e7c91f39775",
+        "android_client_info": {
+          "package_name": "com.nsspuri.nssaccounting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063749014704-btco3pc62b944gblasv67cbslg36dfme.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDldoiJHpbPJhJmvA1sqaoEQU5vHNOvlYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063749014704-btco3pc62b944gblasv67cbslg36dfme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
