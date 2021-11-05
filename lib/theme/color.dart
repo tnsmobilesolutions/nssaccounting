@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyColor {
+class NAColor {
   static Color dinikiaPaaliSM = Color(0xFFF4EFFE);
   static Color dinikiaPaaliSSM = Color(0xFFfff9e9);
   static Color bidyaNidhi = Color(0xFFfff7f5);

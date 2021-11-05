@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:nssaccounting/dashboard.dart';
+import 'package:nssaccounting/data/auth.dart';
+import 'package:nssaccounting/model/user.dart';
 // import 'dashboard_screen.dart';
 
 const users = const {
@@ -8,20 +10,34 @@ const users = const {
   'hunter@gmail.com': 'hunter',
 };
 
-class LoginScreen extends StatelessWidget {
-  Duration get loginTime => Duration(milliseconds: 2250);
+const RELEASE_MODE = true;
 
-  Future<String?> _authUser(LoginData data) {
+class LoginScreen extends StatelessWidget {
+  Duration get loginTime => Duration(milliseconds: 1);
+  AppUser? _loggedInUser;
+
+  Future<String?> _authUser(LoginData data) async {
     print('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User not exists';
+    if (RELEASE_MODE) {
+      Login _login = Login();
+      _loggedInUser = await _login.signInWithEmailAndPassword(data);
+      print("Name: ${_loggedInUser?.name}");
+      if (_loggedInUser != null) {
+        return null;
+      } else {
+        return "Wrong credential";
       }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
-    });
+    } else {
+      return Future.delayed(loginTime).then((_) {
+        if (!users.containsKey(data.name)) {
+          return 'User not exists';
+        }
+        if (users[data.name] != data.password) {
+          return 'Password does not match';
+        }
+        return null;
+      });
+    }
   }
 
   Future<String?> _signUp(LoginData data) {
@@ -51,7 +67,9 @@ class LoginScreen extends StatelessWidget {
       hideForgotPasswordButton: true,
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => DashboardScreen(),
+          builder: (context) => DashboardScreen(
+            loggedInUser: _loggedInUser,
+          ),
         ));
       },
       onRecoverPassword: _recoverPassword,

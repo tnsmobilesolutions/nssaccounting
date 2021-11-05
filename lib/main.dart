@@ -1,42 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nssaccounting/login.dart';
+import 'package:nssaccounting/theme/theme.dart';
 import 'package:nssaccounting/widgetConfig.dart';
 import 'package:nssaccounting/widgetTile.dart';
+// Import the firebase_core plugin
+import 'package:firebase_core/firebase_core.dart';
+
+import 'common_widgets/error.dart';
+import 'common_widgets/loading.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   // This widget is the root of your application.
-  final mySwatchColor = const MaterialColor(0xFFEDF2FF, const {
-    50: const Color(0xFFEDF2FF),
-    100: const Color(0xFFD1DEFE),
-    200: const Color(0xFFB3C9FD),
-    300: const Color(0xFF92B2FB),
-    400: const Color(0xFF769DF8),
-    500: const Color(0xFF5A89F6),
-    600: const Color(0xFF527FEA),
-    700: const Color(0xFF4873DC),
-    800: const Color(0xFF4068D0),
-    900: const Color(0xFF3355BA)
-  });
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  /// The future is part of the state of our widget. We should not call `initializeApp`
+  /// directly inside [build].
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'NSS Accounting',
-      theme: ThemeData(
-        primarySwatch: Colors.blue, // #F6F8FC
-        // colorScheme: ColorScheme(primary: primary, primaryVariant: primaryVariant, secondary: secondary, secondaryVariant: secondaryVariant, surface: surface, background: background, error: error, onPrimary: onPrimary, onSecondary: onSecondary, onSurface: onSurface, onBackground: onBackground, onError: onError, brightness: brightness),
-        scaffoldBackgroundColor: Colors.white, //Color(0xFFEDF2FF),
-        backgroundColor: Colors.white,
-        // inputDecorationTheme: InputDecorationTheme(
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return CommonErrorScreen();
+        }
 
-        // )
-      ),
-      home: LoginScreen(),
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+            title: 'NSS Accounting',
+            theme: NATheme.themeData(),
+            home: LoginScreen(),
+          );
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return Loading();
+      },
     );
   }
 }

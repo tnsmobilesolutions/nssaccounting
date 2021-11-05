@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:nssaccounting/model/user.dart';
 import 'package:nssaccounting/widgetConfig.dart';
 import 'package:nssaccounting/widgetTile.dart';
 
 class DashboardScreen extends StatefulWidget {
-  DashboardScreen({Key? key}) : super(key: key);
+  DashboardScreen({Key? key, this.loggedInUser}) : super(key: key);
 
-  // final String title;
+  final AppUser? loggedInUser;
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -17,6 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.loggedInUser?.userId);
     return Scaffold(
       appBar: AppBar(
         title: Text("NSS Accounting"),
