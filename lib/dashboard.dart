@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nssaccounting/model/user.dart';
+import 'package:nssaccounting/settings.dart';
 import 'package:nssaccounting/widgetConfig.dart';
 import 'package:nssaccounting/widgetTile.dart';
 
@@ -22,6 +23,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("NSS Accounting"),
+        actions: [
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SettingsScreen(
+                              loggedInUser: widget.loggedInUser,
+                            )),
+                  );
+                },
+                child: Icon(Icons.settings),
+              )),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
