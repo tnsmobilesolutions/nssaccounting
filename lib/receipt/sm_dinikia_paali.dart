@@ -247,15 +247,7 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
                 ),
                 SizedBox(height: 18),
                 ElevatedButton(
-                  style: ButtonStyle(
-                      minimumSize:
-                          MaterialStateProperty.all<Size>(Size(100, 50)),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.green),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                              side: BorderSide(color: Colors.green)))),
+                  style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(

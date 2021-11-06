@@ -47,4 +47,14 @@ class CommonStyle {
       // labelStyle: new TextStyle(color: Colors.grey),
     );
   }
+
+  static ButtonStyle elevatedSubmitButtonStyle() {
+    return ButtonStyle(
+        minimumSize: MaterialStateProperty.all<Size>(Size(100, 50)),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                side: BorderSide(color: Colors.green))));
+  }
 }
