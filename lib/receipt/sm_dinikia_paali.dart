@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/common_widgets/natextformfield.dart';
 
@@ -28,172 +29,183 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextFormField(
-                    keyboardType: TextInputType.name,
-                    controller: _sanghaNameController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Sangha Name';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(height: 0.5),
-                    decoration: CommonStyle.textFieldStyle(
-                        labelTextStr: "Sangha Name",
-                        hintTextStr: "Enter Sangha Name"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("SSM Bhakta Seba Paali"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 10),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _sanghaNameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Sangha Name';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Sangha Name",
+                    hintTextStr: "Enter Sangha Name",
                   ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    keyboardType: TextInputType.name,
-                    controller: _nameController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Your Name';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(height: 0.5),
-                    decoration: CommonStyle.textFieldStyle(
-                        labelTextStr: "Name", hintTextStr: "Enter Name"),
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Your Name';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Name",
+                    hintTextStr: "Enter Name",
                   ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: _amountController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Amount';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(height: 0.5),
-                    decoration: CommonStyle.textFieldStyle(
-                        labelTextStr: "Amount", hintTextStr: "Enter Amount"),
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        _dateTime == null
-                            ? 'Choose Date'
-                            : _dateTime.toString(),
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2025))
-                                .then((date) {
-                              setState(() {
-                                _dateTime = date;
-                              });
+                ),
+                SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Paali Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      _dateTime == null
+                          ? 'Choose Date'
+                          : DateFormat.yMMMEd()
+                              .format(_dateTime ?? DateTime.now()),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2025))
+                              .then((date) {
+                            setState(() {
+                              _dateTime = date;
                             });
-                          },
-                          child: Icon(Icons.calendar_today)),
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Text(
-                        'Payment',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 5),
-                      Flexible(
-                        child: ListTile(
-                          title: const Text('Cash'),
-                          leading: Radio<Payment>(
-                            value: Payment.cash,
-                            groupValue: _paymentMode,
-                            onChanged: (Payment? value) {
-                              setState(() {
-                                _paymentMode = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: ListTile(
-                          title: const Text('Bank'),
-                          leading: Radio<Payment>(
-                            value: Payment.bank,
-                            groupValue: _paymentMode,
-                            onChanged: (Payment? value) {
-                              setState(() {
-                                _paymentMode = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (_paymentMode == Payment.bank)
-                    Column(
+                          });
+                        },
+                        child: Icon(Icons.calendar_today_outlined)),
+                  ],
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: _amountController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Amount';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                      labelTextStr: "Amount", hintTextStr: "Enter Amount"),
+                ),
+                SizedBox(height: 12),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
+                        Text(
+                          'Payment',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Mode",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            ListTile(
-                              title: Text('Online'),
-                              leading: Radio<PaymentType>(
-                                  value: PaymentType.online,
-                                  groupValue: _paymentType,
-                                  onChanged: (PaymentType? value) {
+                            SizedBox(width: 5),
+                            Flexible(
+                              child: ListTile(
+                                title: const Text('Cash'),
+                                leading: Radio<Payment>(
+                                  value: Payment.cash,
+                                  groupValue: _paymentMode,
+                                  onChanged: (Payment? value) {
                                     setState(() {
-                                      _paymentType = value;
+                                      _paymentMode = value;
                                     });
-                                  }),
+                                  },
+                                ),
+                              ),
                             ),
-                            ListTile(
-                              title: Text('Cheque'),
-                              leading: Radio<PaymentType>(
-                                  value: PaymentType.cheque,
-                                  groupValue: _paymentType,
-                                  onChanged: (PaymentType? value) {
+                            Flexible(
+                              child: ListTile(
+                                title: const Text('Bank'),
+                                leading: Radio<Payment>(
+                                  value: Payment.bank,
+                                  groupValue: _paymentMode,
+                                  onChanged: (Payment? value) {
                                     setState(() {
-                                      _paymentType = value;
+                                      _paymentMode = value;
                                     });
-                                  }),
-                            ),
-                            ListTile(
-                              title: Text('DD'),
-                              leading: Radio<PaymentType>(
-                                  value: PaymentType.dd,
-                                  groupValue: _paymentType,
-                                  onChanged: (PaymentType? value) {
-                                    setState(() {
-                                      _paymentType = value;
-                                    });
-                                  }),
+                                  },
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: TextFormField(
+                        if (_paymentMode == Payment.bank)
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Divider(),
+                              ListTile(
+                                title: Text('Online'),
+                                leading: Radio<PaymentType>(
+                                    value: PaymentType.online,
+                                    groupValue: _paymentType,
+                                    onChanged: (PaymentType? value) {
+                                      setState(() {
+                                        _paymentType = value;
+                                      });
+                                    }),
+                              ),
+                              ListTile(
+                                title: Text('Cheque'),
+                                leading: Radio<PaymentType>(
+                                    value: PaymentType.cheque,
+                                    groupValue: _paymentType,
+                                    onChanged: (PaymentType? value) {
+                                      setState(() {
+                                        _paymentType = value;
+                                      });
+                                    }),
+                              ),
+                              ListTile(
+                                title: Text('DD'),
+                                leading: Radio<PaymentType>(
+                                    value: PaymentType.dd,
+                                    groupValue: _paymentType,
+                                    onChanged: (PaymentType? value) {
+                                      setState(() {
+                                        _paymentType = value;
+                                      });
+                                    }),
+                              ),
+                              SizedBox(height: 10),
+                              TextFormField(
                                 controller: _transactionController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -201,63 +213,71 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
                                   }
                                   return null;
                                 },
-                                style: TextStyle(height: 0.5),
+                                // style: TextStyle(height: 0.5),
                                 decoration: CommonStyle.textFieldStyle(
                                     labelTextStr: "Transacton Number",
                                     hintTextStr: "Enter Transacton Number"),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
                       ],
                     ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    controller: _receivedController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Received By';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(height: 0.5),
-                    decoration: CommonStyle.textFieldStyle(
-                        labelTextStr: "Received By",
-                        hintTextStr: "Enter Received By"),
                   ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    controller: _remarkController,
-                    style: TextStyle(height: 0.5),
-                    decoration: CommonStyle.textFieldStyle(
-                        labelTextStr: "Recmark", hintTextStr: "Remark"),
-                  ),
-                  SizedBox(height: 18),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.green),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Data Submitted.')),
-                        );
-                      }
-                      print(_sanghaNameController.text);
-                      print(_nameController.text);
-                      print(_amountController.text);
-                      print(_dateTime);
-                      print(_paymentMode);
-                      if (_paymentMode == Payment.bank) {
-                        print(_paymentType);
-                        print(_transactionController.text);
-                      }
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  controller: _receivedController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Received By';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                      labelTextStr: "Received By",
+                      hintTextStr: "Enter Received By"),
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  controller: _remarkController,
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                      labelTextStr: "Remarks", hintTextStr: "Remarks"),
+                ),
+                SizedBox(height: 18),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      minimumSize:
+                          MaterialStateProperty.all<Size>(Size(100, 50)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.green),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              side: BorderSide(color: Colors.green)))),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Data Submitted.')),
+                      );
+                    }
+                    print(_sanghaNameController.text);
+                    print(_nameController.text);
+                    print(_amountController.text);
+                    print(_dateTime);
+                    print(_paymentMode);
+                    if (_paymentMode == Payment.bank) {
+                      print(_paymentType);
+                      print(_transactionController.text);
+                    }
 
-                      print(_receivedController.text);
-                      print(_remarkController.text);
-                    },
-                    child: Text('Submit'),
-                  ),
-                ],
-              ),
+                    print(_receivedController.text);
+                    print(_remarkController.text);
+                  },
+                  child: Text('Submit'),
+                ),
+              ],
             ),
           ),
         ),
