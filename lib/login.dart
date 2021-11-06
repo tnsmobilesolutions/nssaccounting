@@ -18,25 +18,30 @@ class LoginScreen extends StatelessWidget {
 
   Future<String?> _authUser(LoginData data) async {
     print('Name: ${data.name}, Password: ${data.password}');
-    if (RELEASE_MODE) {
-      Login _login = Login();
-      _loggedInUser = await _login.signInWithEmailAndPassword(data);
-      print("Name: ${_loggedInUser?.name}");
-      if (_loggedInUser != null) {
-        return null;
+    try {
+      if (RELEASE_MODE) {
+        Login _login = Login();
+        _loggedInUser = await _login.signInWithEmailAndPassword(data);
+        print("Name: ${_loggedInUser?.name}");
+        if (_loggedInUser != null) {
+          return null;
+        } else {
+          return "Wrong credential";
+        }
       } else {
-        return "Wrong credential";
+        return Future.delayed(loginTime).then((_) {
+          if (!users.containsKey(data.name)) {
+            return 'User not exists';
+          }
+          if (users[data.name] != data.password) {
+            return 'Password does not match';
+          }
+          return null;
+        });
       }
-    } else {
-      return Future.delayed(loginTime).then((_) {
-        if (!users.containsKey(data.name)) {
-          return 'User not exists';
-        }
-        if (users[data.name] != data.password) {
-          return 'Password does not match';
-        }
-        return null;
-      });
+    } catch (e) {
+      print(e.toString());
+      return "Exception occured. Please contact administrator.";
     }
   }
 

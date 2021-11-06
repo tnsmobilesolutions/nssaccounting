@@ -23,7 +23,7 @@ class Login {
       CollectionReference users =
           FirebaseFirestore.instance.collection('users');
 
-      return users
+      final user = users
           .where("uid", isEqualTo: userCredential.user?.uid)
           .get()
           .then((querySnapshot) {
@@ -32,6 +32,7 @@ class Login {
         final user = AppUser.fromMap(userData);
         return user;
       });
+      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
