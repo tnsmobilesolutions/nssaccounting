@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:nssaccounting/dashboard_pages/kendra.dart';
+import 'package:nssaccounting/dashboard_pages/samilani.dart';
+import 'package:nssaccounting/dashboard_pages/sm.dart';
+import 'package:nssaccounting/dashboard_pages/ssm.dart';
 import 'package:nssaccounting/model/user.dart';
 import 'package:nssaccounting/settings.dart';
 import 'package:nssaccounting/widgetConfig.dart';
@@ -16,6 +20,21 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final List<WidgetTileConfig> widgetTiles = WidgetConfig.widgetTiles;
+
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    SSM(),
+    SM(),
+    Samilani(),
+    Kendra(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +88,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
           crossAxisSpacing: 10.0,
         ),
       ),
+      bottomNavigationBar: navbarWidget(context),
+    );
+  }
+
+  BottomNavigationBar navbarWidget(BuildContext context) {
+    return BottomNavigationBar(
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.safety_divider),
+          label: 'SSM',
+          backgroundColor: Colors.blue,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.safety_divider),
+          label: 'SM',
+          backgroundColor: Colors.blue,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.safety_divider),
+          label: 'Samilani',
+          backgroundColor: Colors.blue,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.safety_divider),
+          label: 'Kendra',
+          backgroundColor: Colors.blue,
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Theme.of(context).backgroundColor,
+      onTap: _onItemTapped,
     );
   }
 }
