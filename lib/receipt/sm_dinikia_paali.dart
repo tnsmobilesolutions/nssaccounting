@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/common_widgets/natextformfield.dart';
@@ -27,6 +29,8 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
   final _receivedController = TextEditingController();
   final _remarkController = TextEditingController();
 
+  bool _validate = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,43 +47,30 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 TextFormField(
+                  keyboardType: TextInputType.name,
                   controller: _sanghaNameController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Sangha Name';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(height: 0.5, color: Colors.red),
-                  decoration: CommonStyle.textFieldStyle(
-                      labelTextStr: "Sangha Name",
-                      hintTextStr: "Enter Sangha Name"),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter Sangha Name',
+                      errorText: _validate ? 'Value can\'t be empty ' : null),
                 ),
                 SizedBox(height: 12),
                 TextFormField(
+                  keyboardType: TextInputType.name,
                   controller: _nameController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Your Name';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                      labelTextStr: "Name", hintTextStr: "Enter Name"),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter Your Name',
+                      errorText: _validate ? 'Value can\'t be empty ' : null),
                 ),
                 SizedBox(height: 12),
                 TextFormField(
                   controller: _amountController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Amount';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                      labelTextStr: "Amount", hintTextStr: "Enter Amount"),
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter Amount',
+                      errorText: _validate ? 'Value can\'t be empty ' : null),
                 ),
                 SizedBox(height: 12),
                 Row(
@@ -189,16 +180,12 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
                           Flexible(
                             child: TextFormField(
                               controller: _transactionController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter transaction number';
-                                }
-                                return null;
-                              },
-                              style: TextStyle(height: 0.5),
-                              decoration: CommonStyle.textFieldStyle(
-                                  labelTextStr: "Transaction Number",
-                                  hintTextStr: "Transaction Number"),
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Enter Transaction Number',
+                                  errorText: _validate
+                                      ? 'Value can\'t be empty '
+                                      : null),
                             ),
                           ),
                         ],
@@ -208,37 +195,34 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
                 SizedBox(height: 12),
                 TextFormField(
                   controller: _receivedController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Received By';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                      labelTextStr: "Received By", hintTextStr: "Received By"),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Received By',
+                      errorText: _validate ? 'Value can\'t be empty ' : null),
                 ),
                 SizedBox(height: 12),
                 TextFormField(
                   controller: _remarkController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Your Remark';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                      labelTextStr: "Remark", hintTextStr: "Remark"),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Remark',
+                      errorText: _validate ? 'Value can\'t be empty ' : null),
                 ),
                 SizedBox(height: 18),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.green),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Data Submitted.')),
-                      );
+                    style: ElevatedButton.styleFrom(primary: Colors.green),
+                    child: Text('Submit'),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data Submitted.')),
+                        );
+                      }
+                      // setState(() {
+                      //   _sanghaNameController.text.isEmpty
+                      //       ? _validate = true
+                      //       : _validate = false;
+                      // });
                       print(_sanghaNameController.text);
                       print(_nameController.text);
                       print(_amountController.text);
@@ -246,10 +230,7 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
                       print(_transactionController.text);
                       print(_receivedController.text);
                       print(_remarkController.text);
-                    }
-                  },
-                  child: Text('Submit'),
-                ),
+                    }),
               ],
             ),
           ),
