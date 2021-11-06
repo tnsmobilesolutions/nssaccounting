@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nssaccounting/Theme/color.dart';
+import 'package:nssaccounting/theme/color.dart';
 import 'package:nssaccounting/receipt/sm_dinikia_paali.dart';
 import 'package:nssaccounting/receipt/ssm_dinikia_paali.dart';
 import 'package:nssaccounting/widgetTile.dart';
