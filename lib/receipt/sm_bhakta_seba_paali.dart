@@ -6,13 +6,13 @@ import 'package:nssaccounting/common_widgets/natextformfield.dart';
 enum Payment { cash, bank }
 enum PaymentType { online, cheque, dd }
 
-class SMDinikiaPaali extends StatefulWidget {
-  const SMDinikiaPaali({Key? key}) : super(key: key);
+class SMBhaktaSebaPaali extends StatefulWidget {
+  const SMBhaktaSebaPaali({Key? key}) : super(key: key);
   @override
-  State<SMDinikiaPaali> createState() => _SMDinikiaPaaliState();
+  State<SMBhaktaSebaPaali> createState() => _SMBhaktaSebaPaaliState();
 }
 
-class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
+class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
   Payment? _paymentMode = Payment.cash;
   PaymentType? _paymentType = PaymentType.online;
 
@@ -31,7 +31,7 @@ class _SMDinikiaPaaliState extends State<SMDinikiaPaali> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SSM Bhakta Seba Paali"),
+        title: Text("SM Bhakta Seba Paali"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

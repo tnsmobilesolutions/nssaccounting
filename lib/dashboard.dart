@@ -19,8 +19,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final List<WidgetTileConfig> widgetTiles = WidgetConfig.widgetTiles;
-
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
@@ -59,65 +57,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
               )),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: new StaggeredGridView.countBuilder(
-          crossAxisCount: 4,
-          itemCount: widgetTiles.length,
-          itemBuilder: (BuildContext context, int index) => InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => widgetTiles[index].widget),
-              );
-            },
-            child: new Container(
-                color: widgetTiles[index].backgroundColor,
-                child: Column(
-                  children: [
-                    Text(widgetTiles[index].title),
-                    Text(widgetTiles[index].subTitle)
-                  ],
-                )),
-          ),
-          staggeredTileBuilder: (int index) => new StaggeredTile.count(
-              widgetTiles[index].crossAxisCellCount,
-              widgetTiles[index].mainAxisCellCount.toDouble()),
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 10.0,
-        ),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: navbarWidget(context),
     );
   }
 
   BottomNavigationBar navbarWidget(BuildContext context) {
     return BottomNavigationBar(
-      items: [
+      items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.safety_divider),
+          icon: Icon(Icons.business),
           label: 'SSM',
           backgroundColor: Colors.blue,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.safety_divider),
+          icon: Icon(Icons.home),
           label: 'SM',
           backgroundColor: Colors.blue,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.safety_divider),
-          label: 'Samilani',
+          icon: Icon(Icons.group_work),
+          label: 'Sammilani',
           backgroundColor: Colors.blue,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.safety_divider),
+          icon: Icon(Icons.center_focus_strong),
           label: 'Kendra',
           backgroundColor: Colors.blue,
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Theme.of(context).backgroundColor,
+      selectedItemColor: Colors.amberAccent,
       onTap: _onItemTapped,
     );
   }
