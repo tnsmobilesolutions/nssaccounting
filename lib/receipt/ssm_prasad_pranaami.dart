@@ -5,13 +5,13 @@ import 'package:nssaccounting/common_widgets/common_style.dart';
 enum Payment { cash, bank }
 enum PaymentType { online, cheque, dd }
 
-class SSMBhaktaSebaPaali extends StatefulWidget {
-  const SSMBhaktaSebaPaali({Key? key}) : super(key: key);
+class SSMPrasadPranaami extends StatefulWidget {
+  const SSMPrasadPranaami({Key? key}) : super(key: key);
   @override
-  State<SSMBhaktaSebaPaali> createState() => _SSMBhaktaSebaPaaliState();
+  State<SSMPrasadPranaami> createState() => _SSMPrasadPranaamiState();
 }
 
-class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
+class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
   Payment? _paymentMode = Payment.cash;
   PaymentType? _paymentType = PaymentType.online;
 
@@ -31,7 +31,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SSM Bhakta Seba Paali"),
+        title: Text("SSM Prasad Pranaami"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
