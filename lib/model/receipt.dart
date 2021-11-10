@@ -2,13 +2,14 @@ import 'dart:convert';
 
 class Receipt {
   final String? accountCode;
-  final String? amount;
+  final double? amount;
   final String? devoteeId;
   final String? paaliaName;
+  final bool? notMember;
   final String? paymentMode;
   final String? paymentType;
   final String? preparedBy;
-  final String? receiptDate;
+  final DateTime? receiptDate;
   final String? receiptId;
   final String? receiptNo;
   final String? remarks;
@@ -18,6 +19,7 @@ class Receipt {
     this.amount,
     this.devoteeId,
     this.paaliaName,
+    this.notMember,
     this.paymentMode,
     this.paymentType,
     this.preparedBy,
@@ -30,13 +32,14 @@ class Receipt {
 
   Receipt copyWith({
     String? accountCode,
-    String? amount,
+    double? amount,
     String? devoteeId,
     String? paaliaName,
+    bool? notMember,
     String? paymentMode,
     String? paymentType,
     String? preparedBy,
-    String? receiptDate,
+    DateTime? receiptDate,
     String? receiptId,
     String? receiptNo,
     String? remarks,
@@ -47,6 +50,7 @@ class Receipt {
       amount: amount ?? this.amount,
       devoteeId: devoteeId ?? this.devoteeId,
       paaliaName: paaliaName ?? this.paaliaName,
+      notMember: notMember ?? this.notMember,
       paymentMode: paymentMode ?? this.paymentMode,
       paymentType: paymentType ?? this.paymentType,
       preparedBy: preparedBy ?? this.preparedBy,
@@ -64,10 +68,11 @@ class Receipt {
       'amount': amount,
       'devoteeId': devoteeId,
       'paaliaName': paaliaName,
+      'notMember': notMember,
       'paymentMode': paymentMode,
       'paymentType': paymentType,
       'preparedBy': preparedBy,
-      'receiptDate': receiptDate,
+      'receiptDate': receiptDate?.millisecondsSinceEpoch,
       'receiptId': receiptId,
       'receiptNo': receiptNo,
       'remarks': remarks,
@@ -81,10 +86,13 @@ class Receipt {
       amount: map['amount'] != null ? map['amount'] : null,
       devoteeId: map['devoteeId'] != null ? map['devoteeId'] : null,
       paaliaName: map['paaliaName'] != null ? map['paaliaName'] : null,
+      notMember: map['notMember'] != null ? map['notMember'] : null,
       paymentMode: map['paymentMode'] != null ? map['paymentMode'] : null,
       paymentType: map['paymentType'] != null ? map['paymentType'] : null,
       preparedBy: map['preparedBy'] != null ? map['preparedBy'] : null,
-      receiptDate: map['receiptDate'] != null ? map['receiptDate'] : null,
+      receiptDate: map['receiptDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['receiptDate'])
+          : null,
       receiptId: map['receiptId'] != null ? map['receiptId'] : null,
       receiptNo: map['receiptNo'] != null ? map['receiptNo'] : null,
       remarks: map['remarks'] != null ? map['remarks'] : null,
@@ -100,7 +108,7 @@ class Receipt {
 
   @override
   String toString() {
-    return 'Receipt(accountCode: $accountCode, amount: $amount, devoteeId: $devoteeId, paaliaName: $paaliaName, paymentMode: $paymentMode, paymentType: $paymentType, preparedBy: $preparedBy, receiptDate: $receiptDate, receiptId: $receiptId, receiptNo: $receiptNo, remarks: $remarks, transactionRefNo: $transactionRefNo)';
+    return 'Receipt(accountCode: $accountCode, amount: $amount, devoteeId: $devoteeId, paaliaName: $paaliaName, notMember: $notMember, paymentMode: $paymentMode, paymentType: $paymentType, preparedBy: $preparedBy, receiptDate: $receiptDate, receiptId: $receiptId, receiptNo: $receiptNo, remarks: $remarks, transactionRefNo: $transactionRefNo)';
   }
 
   @override
@@ -112,6 +120,7 @@ class Receipt {
         other.amount == amount &&
         other.devoteeId == devoteeId &&
         other.paaliaName == paaliaName &&
+        other.notMember == notMember &&
         other.paymentMode == paymentMode &&
         other.paymentType == paymentType &&
         other.preparedBy == preparedBy &&
@@ -128,6 +137,7 @@ class Receipt {
         amount.hashCode ^
         devoteeId.hashCode ^
         paaliaName.hashCode ^
+        notMember.hashCode ^
         paymentMode.hashCode ^
         paymentType.hashCode ^
         preparedBy.hashCode ^

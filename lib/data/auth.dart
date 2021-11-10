@@ -7,11 +7,16 @@ import 'package:nssaccounting/model/user.dart';
 class Login {
   // FirebaseApp? _nssAcctApp;
   FirebaseAuth? _auth;
+  static AppUser? _loggedInUser;
 
   Login() {
     // _nssAcctApp = Firebase.app('nssacounting');
     // _auth = FirebaseAuth.instanceFor(app: _nssAcctApp!);
     _auth = FirebaseAuth.instance;
+  }
+
+  static AppUser? get loggedInUser {
+    return _loggedInUser;
   }
 
   Future<AppUser?> signInWithEmailAndPassword(LoginData data) async {
@@ -30,6 +35,7 @@ class Login {
         final userData =
             querySnapshot.docs.first.data() as Map<String, dynamic>;
         final user = AppUser.fromMap(userData);
+        _loggedInUser = user;
         return user;
       });
       return user;

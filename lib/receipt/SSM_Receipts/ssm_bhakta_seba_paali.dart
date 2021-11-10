@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/data/auth.dart';
+import 'package:nssaccounting/data/receiptAPI.dart';
+import 'package:nssaccounting/model/receipt.dart';
 
 enum Payment { cash, bank }
 enum PaymentType { online, cheque, dd }
@@ -15,7 +18,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
   Payment? _paymentMode = Payment.cash;
   PaymentType? _paymentType = PaymentType.online;
 
-  bool value = false;
+  bool notMember = false;
   DateTime? _dateTime;
 
   final _formKey = GlobalKey<FormState>();
@@ -81,10 +84,10 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Checkbox(
-                        value: this.value,
+                        value: this.notMember,
                         onChanged: (value) {
                           setState(() {
-                            this.value = value!;
+                            this.notMember = value!;
                           });
                         },
                       ), //Check
@@ -273,6 +276,26 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      Receipt receipt = Receipt(
+                        accountCode: "SSMBSP",
+                        amount: double.parse(_amountController.text),
+                        devoteeId: "NA",
+                        notMember: notMember,
+                        paaliaName: _nameController.text,
+                        paymentMode: getPaymentModeString(_paymentMode),
+                        paymentType: getPaymentTypeString(_paymentType),
+                        preparedBy: Login.loggedInUser?.userId,
+                        receiptDate: DateTime.now(),
+                        receiptId: "",
+                        receiptNo: getReceiptNo(),
+                        remarks: _remarkController.text,
+                        transactionRefNo: _paymentMode == Payment.bank
+                            ? _transactionController.text
+                            : null,
+                      );
+                      final receiptId = ReceiptAPI().createNewReceipt(receipt);
+                      print(receiptId);
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
@@ -280,7 +303,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                     print(_sanghaNameController.text);
                     print(_nameController.text);
                     print(_amountController.text);
-                    print(value);
+                    print(notMember);
                     print(_dateTime);
                     print(_paymentMode);
                     if (_paymentMode == Payment.bank) {
@@ -299,5 +322,33 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
         ),
       ),
     );
+  }
+
+  String getPaymentModeString(Payment? paymentMode) {
+    switch (paymentMode) {
+      case Payment.bank:
+        return "Bank";
+      case Payment.cash:
+        return "Cash";
+      default:
+        return "Cash";
+    }
+  }
+
+  String getPaymentTypeString(PaymentType? paymentType) {
+    switch (paymentType) {
+      case PaymentType.cheque:
+        return "Cheque";
+      case PaymentType.dd:
+        return "DD";
+      case PaymentType.online:
+        return "Online";
+      default:
+        return "Online";
+    }
+  }
+
+  String getReceiptNo() {
+    return "ABCD";
   }
 }
