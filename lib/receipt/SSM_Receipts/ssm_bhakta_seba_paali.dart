@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nssaccounting/utility.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/auth.dart';
 import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
-
-enum Payment { cash, bank }
-enum PaymentType { online, cheque, dd }
 
 class SSMBhaktaSebaPaali extends StatefulWidget {
   const SSMBhaktaSebaPaali({Key? key}) : super(key: key);
@@ -282,12 +280,12 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                         devoteeId: "NA",
                         notMember: notMember,
                         paaliaName: _nameController.text,
-                        paymentMode: getPaymentModeString(_paymentMode),
-                        paymentType: getPaymentTypeString(_paymentType),
+                        paymentMode: Utility.getPaymentModeString(_paymentMode),
+                        paymentType: Utility.getPaymentTypeString(_paymentType),
                         preparedBy: Login.loggedInUser?.userId,
                         receiptDate: DateTime.now(),
                         receiptId: "",
-                        receiptNo: getReceiptNo(),
+                        receiptNo: Utility.getReceiptNo(),
                         remarks: _remarkController.text,
                         transactionRefNo: _paymentMode == Payment.bank
                             ? _transactionController.text
@@ -322,33 +320,5 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
         ),
       ),
     );
-  }
-
-  String getPaymentModeString(Payment? paymentMode) {
-    switch (paymentMode) {
-      case Payment.bank:
-        return "Bank";
-      case Payment.cash:
-        return "Cash";
-      default:
-        return "Cash";
-    }
-  }
-
-  String getPaymentTypeString(PaymentType? paymentType) {
-    switch (paymentType) {
-      case PaymentType.cheque:
-        return "Cheque";
-      case PaymentType.dd:
-        return "DD";
-      case PaymentType.online:
-        return "Online";
-      default:
-        return "Online";
-    }
-  }
-
-  String getReceiptNo() {
-    return "ABCD";
   }
 }

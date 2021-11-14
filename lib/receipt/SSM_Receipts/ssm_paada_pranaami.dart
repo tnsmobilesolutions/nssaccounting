@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 
-enum Payment { cash, bank }
-enum PaymentType { online, cheque, dd }
-
 class SSMPaadaPranaami extends StatefulWidget {
   const SSMPaadaPranaami({Key? key}) : super(key: key);
   @override

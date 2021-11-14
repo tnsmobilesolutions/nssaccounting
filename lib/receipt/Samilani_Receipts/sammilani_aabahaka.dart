@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/common_widgets/payment_widget.dart';
 
-enum Payment { cash, bank }
-enum PaymentType { online, cheque, dd }
+import '../../utility.dart';
 
 class SammilaniAabahaka extends StatefulWidget {
   const SammilaniAabahaka({Key? key}) : super(key: key);
@@ -23,6 +23,8 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
   final _transactionController = TextEditingController();
   final _paidController = TextEditingController();
   final _remarkController = TextEditingController();
+
+  final _paymentInfo = PaymentInfo();
 
   @override
   Widget build(BuildContext context) {
@@ -102,110 +104,7 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                       labelTextStr: "Amount", hintTextStr: "Enter Amount"),
                 ),
                 SizedBox(height: 12),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Payment',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(width: 5),
-                            Flexible(
-                              child: ListTile(
-                                title: const Text('Cash'),
-                                leading: Radio<Payment>(
-                                  value: Payment.cash,
-                                  groupValue: _paymentMode,
-                                  onChanged: (Payment? value) {
-                                    setState(() {
-                                      _paymentMode = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: ListTile(
-                                title: const Text('Bank'),
-                                leading: Radio<Payment>(
-                                  value: Payment.bank,
-                                  groupValue: _paymentMode,
-                                  onChanged: (Payment? value) {
-                                    setState(() {
-                                      _paymentMode = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (_paymentMode == Payment.bank)
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Divider(),
-                              ListTile(
-                                title: Text('Online'),
-                                leading: Radio<PaymentType>(
-                                    value: PaymentType.online,
-                                    groupValue: _paymentType,
-                                    onChanged: (PaymentType? value) {
-                                      setState(() {
-                                        _paymentType = value;
-                                      });
-                                    }),
-                              ),
-                              ListTile(
-                                title: Text('Cheque'),
-                                leading: Radio<PaymentType>(
-                                    value: PaymentType.cheque,
-                                    groupValue: _paymentType,
-                                    onChanged: (PaymentType? value) {
-                                      setState(() {
-                                        _paymentType = value;
-                                      });
-                                    }),
-                              ),
-                              ListTile(
-                                title: Text('DD'),
-                                leading: Radio<PaymentType>(
-                                    value: PaymentType.dd,
-                                    groupValue: _paymentType,
-                                    onChanged: (PaymentType? value) {
-                                      setState(() {
-                                        _paymentType = value;
-                                      });
-                                    }),
-                              ),
-                              SizedBox(height: 10),
-                              TextFormField(
-                                controller: _transactionController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Transacton Number';
-                                  }
-                                  return null;
-                                },
-                                // style: TextStyle(height: 0.5),
-                                decoration: CommonStyle.textFieldStyle(
-                                    labelTextStr: "Transacton Number",
-                                    hintTextStr: "Enter Transacton Number"),
-                              ),
-                            ],
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
+                PaymentWidget(paymentInfo: _paymentInfo),
                 SizedBox(height: 12),
                 TextFormField(
                   controller: _paidController,
