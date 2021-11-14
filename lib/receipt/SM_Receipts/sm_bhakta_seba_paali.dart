@@ -170,7 +170,7 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
                 ElevatedButton(
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
-                    print(_paymentInfo.paymentMode);
+                    //print(_paymentInfo.paymentMode);
                     print(_paymentInfo.paymentType);
                     print(_paymentInfo.transactionRefNo);
                     if (_formKey.currentState!.validate()) {
