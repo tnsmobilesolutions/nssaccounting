@@ -22,7 +22,7 @@ class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
   final _sanghaNameController = TextEditingController();
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
-  //final _transactionController = TextEditingController();
+  final _transactionController = TextEditingController();
   final _paidController = TextEditingController();
   final _receivedController = TextEditingController();
   final _remarkController = TextEditingController();
@@ -186,25 +186,28 @@ class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Receipt receipt = Receipt(
-                      //   accountCode: "SSMBSP",
-                      //   amount: double.parse(_amountController.text),
-                      //   devoteeId: "NA",
-                      //   notMember: notMember,
-                      //   paaliaName: _nameController.text,
-                      //   paymentMode: Utility.getPaymentModeString(_paymentMode),
-                      //   paymentType: Utility.getPaymentTypeString(_paymentType),
-                      //   preparedBy: Login.loggedInUser?.userId,
-                      //   receiptDate: DateTime.now(),
-                      //   receiptId: "",
-                      //   receiptNo: Utility.getReceiptNo(),
-                      //   remarks: _remarkController.text,
-                      //   transactionRefNo: _paymentMode == Payment.bank
-                      //       ? _transactionController.text
-                      //       : null,
-                      // );
-                      // final receiptId = ReceiptAPI().createNewReceipt(receipt);
-                      // print(receiptId);
+                      Receipt receipt = Receipt(
+                        accountCode: "SSMPrP",
+                        amount: double.parse(_amountController.text),
+                        devoteeId: "NA",
+                        notMember: notMember,
+                        paaliaName: _nameController.text,
+                        paymentMode: Utility.getPaymentModeString(
+                            _paymentInfo.paymentMode),
+                        paymentType: Utility.getPaymentTypeString(
+                            _paymentInfo.paymentType),
+                        preparedBy: Login.loggedInUser?.userId,
+                        receiptDate: DateTime.now(),
+                        receiptId: "",
+                        receiptNo: Utility.getReceiptNo(),
+                        remarks: _remarkController.text,
+                        transactionRefNo:
+                            _paymentInfo.paymentMode == Payment.bank
+                                ? _transactionController.text
+                                : null,
+                      );
+                      final receiptId = ReceiptAPI().createNewReceipt(receipt);
+                      print(receiptId);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),

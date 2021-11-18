@@ -170,29 +170,29 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
                 ElevatedButton(
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
-                    //print(_paymentInfo.paymentMode);
-                    print(_paymentInfo.paymentType);
-                    print(_paymentInfo.transactionRefNo);
                     if (_formKey.currentState!.validate()) {
-                      // Receipt receipt = Receipt(
-                      //   accountCode: "SMBSP",
-                      //   amount: double.parse(_amountController.text),
-                      //   devoteeId: "NA",
-                      //   notMember: notMember,
-                      //   paaliaName: _nameController.text,
-                      //   paymentMode: Utility.getPaymentModeString(_paymentMode),
-                      //   paymentType: Utility.getPaymentTypeString(_paymentType),
-                      //   preparedBy: Login.loggedInUser?.userId,
-                      //   receiptDate: DateTime.now(),
-                      //   receiptId: "",
-                      //   receiptNo: Utility.getReceiptNo(),
-                      //   remarks: _remarkController.text,
-                      //   transactionRefNo: _paymentMode == Payment.bank
-                      //       ? _transactionController.text
-                      //       : null,
-                      // );
-                      // final receiptId = ReceiptAPI().createNewReceipt(receipt);
-                      // print(receiptId);
+                      Receipt receipt = Receipt(
+                        accountCode: "SMBSP",
+                        amount: double.parse(_amountController.text),
+                        devoteeId: "NA",
+                        notMember: notMember,
+                        paaliaName: _nameController.text,
+                        paymentMode: Utility.getPaymentModeString(
+                            _paymentInfo.paymentMode),
+                        paymentType: Utility.getPaymentTypeString(
+                            _paymentInfo.paymentType),
+                        preparedBy: Login.loggedInUser?.userId,
+                        receiptDate: DateTime.now(),
+                        receiptId: "",
+                        receiptNo: Utility.getReceiptNo(),
+                        remarks: _remarkController.text,
+                        transactionRefNo:
+                            _paymentInfo.paymentMode == Payment.bank
+                                ? _transactionController.text
+                                : null,
+                      );
+                      final receiptId = ReceiptAPI().createNewReceipt(receipt);
+                      print(receiptId);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),

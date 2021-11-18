@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nssaccounting/Utility.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/utility.dart';
 
 class PaymentInfo {
   Payment? paymentMode;

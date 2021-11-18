@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nssaccounting/common_widgets/payment_widget.dart';
 import 'package:nssaccounting/utility.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/auth.dart';
@@ -13,9 +14,6 @@ class SSMBhaktaSebaPaali extends StatefulWidget {
 }
 
 class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
-  Payment? _paymentMode = Payment.cash;
-  PaymentType? _paymentType = PaymentType.online;
-
   bool notMember = false;
   DateTime? _dateTime;
 
@@ -27,6 +25,8 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
   final _transactionController = TextEditingController();
   final _paidController = TextEditingController();
   final _remarkController = TextEditingController();
+
+  final _paymentInfo = PaymentInfo();
 
   @override
   Widget build(BuildContext context) {
@@ -143,110 +143,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                       labelTextStr: "Amount", hintTextStr: "Enter Amount"),
                 ),
                 SizedBox(height: 12),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Payment',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(width: 5),
-                            Flexible(
-                              child: ListTile(
-                                title: const Text('Cash'),
-                                leading: Radio<Payment>(
-                                  value: Payment.cash,
-                                  groupValue: _paymentMode,
-                                  onChanged: (Payment? value) {
-                                    setState(() {
-                                      _paymentMode = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: ListTile(
-                                title: const Text('Bank'),
-                                leading: Radio<Payment>(
-                                  value: Payment.bank,
-                                  groupValue: _paymentMode,
-                                  onChanged: (Payment? value) {
-                                    setState(() {
-                                      _paymentMode = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (_paymentMode == Payment.bank)
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Divider(),
-                              ListTile(
-                                title: Text('Online'),
-                                leading: Radio<PaymentType>(
-                                    value: PaymentType.online,
-                                    groupValue: _paymentType,
-                                    onChanged: (PaymentType? value) {
-                                      setState(() {
-                                        _paymentType = value;
-                                      });
-                                    }),
-                              ),
-                              ListTile(
-                                title: Text('Cheque'),
-                                leading: Radio<PaymentType>(
-                                    value: PaymentType.cheque,
-                                    groupValue: _paymentType,
-                                    onChanged: (PaymentType? value) {
-                                      setState(() {
-                                        _paymentType = value;
-                                      });
-                                    }),
-                              ),
-                              ListTile(
-                                title: Text('DD'),
-                                leading: Radio<PaymentType>(
-                                    value: PaymentType.dd,
-                                    groupValue: _paymentType,
-                                    onChanged: (PaymentType? value) {
-                                      setState(() {
-                                        _paymentType = value;
-                                      });
-                                    }),
-                              ),
-                              SizedBox(height: 10),
-                              TextFormField(
-                                controller: _transactionController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Transacton Number';
-                                  }
-                                  return null;
-                                },
-                                // style: TextStyle(height: 0.5),
-                                decoration: CommonStyle.textFieldStyle(
-                                    labelTextStr: "Transacton Number",
-                                    hintTextStr: "Enter Transacton Number"),
-                              ),
-                            ],
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
+                PaymentWidget(paymentInfo: _paymentInfo),
                 SizedBox(height: 12),
                 TextFormField(
                   controller: _paidController,
@@ -280,16 +177,19 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                         devoteeId: "NA",
                         notMember: notMember,
                         paaliaName: _nameController.text,
-                        paymentMode: Utility.getPaymentModeString(_paymentMode),
-                        paymentType: Utility.getPaymentTypeString(_paymentType),
+                        paymentMode: Utility.getPaymentModeString(
+                            _paymentInfo.paymentMode),
+                        paymentType: Utility.getPaymentTypeString(
+                            _paymentInfo.paymentType),
                         preparedBy: Login.loggedInUser?.userId,
                         receiptDate: DateTime.now(),
                         receiptId: "",
                         receiptNo: Utility.getReceiptNo(),
                         remarks: _remarkController.text,
-                        transactionRefNo: _paymentMode == Payment.bank
-                            ? _transactionController.text
-                            : null,
+                        transactionRefNo:
+                            _paymentInfo.paymentMode == Payment.bank
+                                ? _transactionController.text
+                                : null,
                       );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);
@@ -298,19 +198,6 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                         const SnackBar(content: Text('Data Submitted.')),
                       );
                     }
-                    print(_sanghaNameController.text);
-                    print(_nameController.text);
-                    print(_amountController.text);
-                    print(notMember);
-                    print(_dateTime);
-                    print(_paymentMode);
-                    if (_paymentMode == Payment.bank) {
-                      print(_paymentType);
-                      print(_transactionController.text);
-                    }
-                    print(_paidController.text);
-
-                    print(_remarkController.text);
                   },
                   child: Text('Submit'),
                 ),

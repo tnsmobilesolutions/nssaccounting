@@ -14,9 +14,6 @@ class SSMAntebasiPranaami extends StatefulWidget {
 }
 
 class _SSMAntebasiPranaamiState extends State<SSMAntebasiPranaami> {
-  Payment? _paymentMode = Payment.cash;
-  PaymentType? _paymentType = PaymentType.online;
-
   bool notMember = false;
   DateTime? _fromTime;
   DateTime? _toTime;
@@ -211,16 +208,19 @@ class _SSMAntebasiPranaamiState extends State<SSMAntebasiPranaami> {
                         devoteeId: "NA",
                         notMember: notMember,
                         paaliaName: _nameController.text,
-                        paymentMode: Utility.getPaymentModeString(_paymentMode),
-                        paymentType: Utility.getPaymentTypeString(_paymentType),
+                        paymentMode: Utility.getPaymentModeString(
+                            _paymentInfo.paymentMode),
+                        paymentType: Utility.getPaymentTypeString(
+                            _paymentInfo.paymentType),
                         preparedBy: Login.loggedInUser?.userId,
                         receiptDate: DateTime.now(),
                         receiptId: "",
                         receiptNo: Utility.getReceiptNo(),
                         remarks: _remarkController.text,
-                        transactionRefNo: _paymentMode == Payment.bank
-                            ? _transactionController.text
-                            : null,
+                        transactionRefNo:
+                            _paymentInfo.paymentMode == Payment.bank
+                                ? _transactionController.text
+                                : null,
                       );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/data/auth.dart';
+import 'package:nssaccounting/data/receiptAPI.dart';
+import 'package:nssaccounting/model/receipt.dart';
+import 'package:nssaccounting/utility.dart';
 
 class SSMPaadaPranaami extends StatefulWidget {
   const SSMPaadaPranaami({Key? key}) : super(key: key);
@@ -87,15 +91,35 @@ class _SSMPaadaPranaamiState extends State<SSMPaadaPranaami> {
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      Receipt receipt = Receipt(
+                        accountCode: "SSMPaP",
+                        amount: double.parse(_amountController.text),
+                        devoteeId: "NA",
+                        notMember: null,
+                        paaliaName: null,
+                        paymentMode: null,
+                        paymentType: null,
+                        preparedBy: Login.loggedInUser?.userId,
+                        receiptDate: DateTime.now(),
+                        receiptId: "",
+                        receiptNo: Utility.getReceiptNo(),
+                        remarks: _remarkController.text,
+                        // transactionRefNo: _paymentMode == Payment.bank
+                        //     ? _transactionController.text
+                        //     : null,
+                      );
+                      final receiptId = ReceiptAPI().createNewReceipt(receipt);
+                      print(receiptId);
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
                     }
 
-                    print(_amountController.text);
-                    print(_dateTime);
+                    // print(_amountController.text);
+                    // print(_dateTime);
 
-                    print(_remarkController.text);
+                    // print(_remarkController.text);
                   },
                   child: Text('Submit'),
                 ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/common_widgets/payment_widget.dart';
+import 'package:nssaccounting/data/auth.dart';
+import 'package:nssaccounting/data/receiptAPI.dart';
+import 'package:nssaccounting/model/receipt.dart';
 
 import '../../utility.dart';
 
@@ -11,9 +14,6 @@ class SammilaniAabahaka extends StatefulWidget {
 }
 
 class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
-  Payment? _paymentMode = Payment.cash;
-  PaymentType? _paymentType = PaymentType.online;
-
   final _formKey = GlobalKey<FormState>();
 
   final _sanghaNameController = TextEditingController();
@@ -132,22 +132,33 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      Receipt receipt = Receipt(
+                        accountCode: "SAMAabahaka",
+                        amount: double.parse(_amountController.text),
+                        devoteeId: "NA",
+                        notMember: null,
+                        paaliaName: _nameController.text,
+                        paymentMode: Utility.getPaymentModeString(
+                            _paymentInfo.paymentMode),
+                        paymentType: Utility.getPaymentTypeString(
+                            _paymentInfo.paymentType),
+                        preparedBy: Login.loggedInUser?.userId,
+                        receiptDate: DateTime.now(),
+                        receiptId: "",
+                        receiptNo: Utility.getReceiptNo(),
+                        remarks: _remarkController.text,
+                        transactionRefNo:
+                            _paymentInfo.paymentMode == Payment.bank
+                                ? _transactionController.text
+                                : null,
+                      );
+                      final receiptId = ReceiptAPI().createNewReceipt(receipt);
+                      print(receiptId);
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
                     }
-                    print(_sanghaNameController.text);
-                    print(_nameController.text);
-                    print(_sammilaniNumberontroller.text);
-
-                    print(_paymentMode);
-                    if (_paymentMode == Payment.bank) {
-                      print(_paymentType);
-                      print(_transactionController.text);
-                    }
-                    print(_paidController.text);
-
-                    print(_remarkController.text);
                   },
                   child: Text('Submit'),
                 ),
