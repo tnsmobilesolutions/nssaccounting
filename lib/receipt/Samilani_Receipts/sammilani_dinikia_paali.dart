@@ -150,7 +150,7 @@ class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SMADinikia",
+                        accountCode: "SMADini",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

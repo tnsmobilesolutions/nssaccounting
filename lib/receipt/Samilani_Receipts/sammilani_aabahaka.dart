@@ -133,7 +133,7 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SAMAabahaka",
+                        accountCode: "SAMAaba",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

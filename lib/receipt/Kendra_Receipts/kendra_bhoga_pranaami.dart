@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:nssaccounting/common_widgets/kendra_widget.dart';
 
 class KendraBhogaPranaami extends StatefulWidget {
@@ -18,7 +17,7 @@ class _KendraBhogaPranaamiState extends State<KendraBhogaPranaami> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(),
+          child: KendraWidget(accountCodeName: 'KeBhPr'),
         ),
       ),
     );
