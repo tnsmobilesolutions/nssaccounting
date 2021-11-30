@@ -40,7 +40,7 @@ class _SSMPaadaPranaamiState extends State<SSMPaadaPranaami> {
                   keyboardType: TextInputType.number,
                   controller: _amountController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please Enter Amount';
                     }
                     return null;

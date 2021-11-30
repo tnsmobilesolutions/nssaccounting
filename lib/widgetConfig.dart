@@ -10,6 +10,7 @@ import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_book.dart';
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_daridranarayana.dart';
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_gruhasana_pranaami.dart';
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_janmoschaba%20delegate.dart';
+import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_miscellaneous.dart';
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_mustivikhya.dart';
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_natural_calamity.dart';
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_nirvikalpa_siddhisthala.dart';
@@ -21,16 +22,19 @@ import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_sthai_nityabhoga.da
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_swastya_seva.dart';
 import 'package:nssaccounting/receipt/Kendra_Receipts/kendra_unnayana.dart';
 import 'package:nssaccounting/receipt/SM_Receipts/sm_bhakta_seba_paali.dart';
+import 'package:nssaccounting/receipt/SM_Receipts/sm_miscellaneous.dart';
 import 'package:nssaccounting/receipt/SM_Receipts/sm_monthly_paali.dart';
 import 'package:nssaccounting/receipt/SM_Receipts/sm_paada_pranaami.dart';
 import 'package:nssaccounting/receipt/SM_Receipts/sm_prasada_pranaami.dart';
 import 'package:nssaccounting/receipt/SM_Receipts/sm_quaterly_paali.dart';
 import 'package:nssaccounting/receipt/SM_Receipts/sm_weekly_paali.dart';
 import 'package:nssaccounting/receipt/SSM_Receipts/ssm_antebasi_pranaami.dart';
+import 'package:nssaccounting/receipt/SSM_Receipts/ssm_miscellaneous.dart';
 import 'package:nssaccounting/receipt/SSM_Receipts/ssm_paada_pranaami.dart';
 import 'package:nssaccounting/receipt/SSM_Receipts/ssm_prasad_pranaami.dart';
 import 'package:nssaccounting/receipt/Samilani_Receipts/sammilani_aabahaka.dart';
 import 'package:nssaccounting/receipt/Samilani_Receipts/sammilani_dinikia_paali.dart';
+import 'package:nssaccounting/receipt/Samilani_Receipts/sammilani_miscellaneous.dart';
 import 'package:nssaccounting/theme/color.dart';
 import 'package:nssaccounting/widgetTile.dart';
 
@@ -62,6 +66,13 @@ class WidgetConfig {
     new WidgetTileConfig(
         widget: SSMPaadaPranaami(),
         title: "Paada Pranaami",
+        subTitle: "Satsikhya Mandira",
+        backgroundColor: NAColor.ssmPadaPranaami,
+        crossAxisCellCount: 4,
+        mainAxisCellCount: 1),
+    new WidgetTileConfig(
+        widget: SSMMiscellaneous(),
+        title: "Miscellaneous",
         subTitle: "Satsikhya Mandira",
         backgroundColor: NAColor.ssmPadaPranaami,
         crossAxisCellCount: 4,
@@ -111,6 +122,13 @@ class WidgetConfig {
         backgroundColor: NAColor.smQtrlyPaali,
         crossAxisCellCount: 4,
         mainAxisCellCount: 1),
+    new WidgetTileConfig(
+        widget: SMMiscellaneous(),
+        title: "Miscellaneous",
+        subTitle: "Smruti Mandira",
+        backgroundColor: NAColor.smQtrlyPaali,
+        crossAxisCellCount: 4,
+        mainAxisCellCount: 1),
   ];
 
   static final List<WidgetTileConfig> sammilaniWidgetTiles = [
@@ -124,6 +142,13 @@ class WidgetConfig {
     new WidgetTileConfig(
         widget: SammilaniDinikiaPaali(),
         title: "Dinikia Paali",
+        subTitle: "Sammilani",
+        backgroundColor: NAColor.sammilaniDinikia,
+        crossAxisCellCount: 4,
+        mainAxisCellCount: 2),
+    new WidgetTileConfig(
+        widget: SammilaniMiscellaneous(),
+        title: "Miscellaneous",
         subTitle: "Sammilani",
         backgroundColor: NAColor.sammilaniDinikia,
         crossAxisCellCount: 4,
@@ -278,6 +303,13 @@ class WidgetConfig {
         backgroundColor: NAColor.kendraClassPuja,
         crossAxisCellCount: 2,
         mainAxisCellCount: 2),
+    new WidgetTileConfig(
+        widget: KendraMiscellaneous(),
+        title: "Miscellaneous",
+        subTitle: "Kendra",
+        backgroundColor: NAColor.kendraClassPuja,
+        crossAxisCellCount: 2,
+        mainAxisCellCount: 1),
   ];
 }
 

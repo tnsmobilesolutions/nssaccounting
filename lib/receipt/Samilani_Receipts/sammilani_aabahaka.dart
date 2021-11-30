@@ -47,8 +47,10 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                   keyboardType: TextInputType.name,
                   controller: _sanghaNameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Sangha Name';
+                    if (value!.isEmpty) {
+                      return 'Please Enter Paid By';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Sangha Name';
                     }
                     return null;
                   },
@@ -63,8 +65,10 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                   keyboardType: TextInputType.name,
                   controller: _nameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Your Name';
+                    if (value!.isEmpty) {
+                      return 'Please Enter Paid By';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Name';
                     }
                     return null;
                   },
@@ -76,11 +80,14 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                 ),
                 SizedBox(height: 12),
                 TextFormField(
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   controller: _sammilaniNumberontroller,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Sammilani Number';
+                    if (value == null ||
+                        value.isEmpty ||
+                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                            .hasMatch(value)) {
+                      return 'Please Enter Sammilani Number';
                     }
                     return null;
                   },
@@ -94,7 +101,10 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                   keyboardType: TextInputType.number,
                   controller: _amountController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                            .hasMatch(value)) {
                       return 'Please Enter Amount';
                     }
                     return null;
@@ -109,8 +119,10 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                 TextFormField(
                   controller: _paidController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please Enter Paid By';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Name';
                     }
                     return null;
                   },

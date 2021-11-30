@@ -23,7 +23,7 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
   final _transactionController = TextEditingController();
-  final _receivedController = TextEditingController();
+  final _paidController = TextEditingController();
   final _remarkController = TextEditingController();
 
   final _paymentInfo = PaymentInfo();
@@ -49,8 +49,10 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
                   keyboardType: TextInputType.name,
                   controller: _sanghaNameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Sangha Name';
+                    if (value!.isEmpty) {
+                      return 'Please Enter Paid By';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Sangha Name';
                     }
                     return null;
                   },
@@ -65,8 +67,10 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
                   keyboardType: TextInputType.name,
                   controller: _nameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Your Name';
+                    if (value!.isEmpty) {
+                      return 'Please Enter Paid By';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Name';
                     }
                     return null;
                   },
@@ -133,7 +137,9 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
                   keyboardType: TextInputType.number,
                   controller: _amountController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value!.isEmpty ||
+                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                            .hasMatch(value)) {
                       return 'Please Enter Amount';
                     }
                     return null;
@@ -146,10 +152,12 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
                 PaymentWidget(paymentInfo: _paymentInfo),
                 SizedBox(height: 12),
                 TextFormField(
-                  controller: _receivedController,
+                  controller: _paidController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Paid By';
+                    if (value!.isEmpty) {
+                      return 'Please Enter Paid By';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Name';
                     }
                     return null;
                   },

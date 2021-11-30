@@ -50,8 +50,10 @@ class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
                   keyboardType: TextInputType.name,
                   controller: _sanghaNameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please Enter Sangha Name';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Sangha Name';
                     }
                     return null;
                   },
@@ -66,8 +68,10 @@ class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
                   keyboardType: TextInputType.name,
                   controller: _nameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Your Name';
+                    if (value!.isEmpty) {
+                      return 'Please Enter Sangha Name';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Name';
                     }
                     return null;
                   },
@@ -134,7 +138,9 @@ class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
                   keyboardType: TextInputType.number,
                   controller: _amountController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value!.isEmpty ||
+                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                            .hasMatch(value)) {
                       return 'Please Enter Amount';
                     }
                     return null;
@@ -164,8 +170,10 @@ class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
                 TextFormField(
                   controller: _receivedController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Received By';
+                    if (value!.isEmpty) {
+                      return 'Please Enter Paid By';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Name';
                     }
                     return null;
                   },

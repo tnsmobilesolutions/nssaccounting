@@ -1,38 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
-import 'package:nssaccounting/common_widgets/payment_widget.dart';
 import 'package:nssaccounting/data/auth.dart';
 import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
+import 'package:nssaccounting/utility.dart';
 
-import '../../utility.dart';
-
-class SammilaniDinikiaPaali extends StatefulWidget {
-  const SammilaniDinikiaPaali({Key? key}) : super(key: key);
+class KendraMiscellaneous extends StatefulWidget {
+  const KendraMiscellaneous({Key? key}) : super(key: key);
   @override
-  State<SammilaniDinikiaPaali> createState() => _SammilaniDinikiaPaaliState();
+  State<KendraMiscellaneous> createState() => _KendraMiscellaneousState();
 }
 
-class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
+class _KendraMiscellaneousState extends State<KendraMiscellaneous> {
   DateTime? _dateTime;
 
   final _formKey = GlobalKey<FormState>();
-
-  final _sanghaNameController = TextEditingController();
-  final _nameController = TextEditingController();
   final _amountController = TextEditingController();
-  final _transactionController = TextEditingController();
-  final _paidController = TextEditingController();
   final _remarkController = TextEditingController();
-
-  final _paymentInfo = PaymentInfo();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sammilani Dinikia Paali"),
+        title: Text("Kendra Miscellaneous"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -44,48 +35,26 @@ class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 10),
-                TextFormField(
-                  keyboardType: TextInputType.name,
-                  controller: _sanghaNameController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Paid By';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Sangha Name';
-                    }
-                    return null;
-                  },
-                  // style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Sangha Name",
-                    hintTextStr: "Enter Sangha Name",
-                  ),
-                ),
                 SizedBox(height: 12),
                 TextFormField(
-                  keyboardType: TextInputType.name,
-                  controller: _nameController,
+                  keyboardType: TextInputType.number,
+                  controller: _amountController,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Paid By';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Name';
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Amount';
                     }
                     return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Name",
-                    hintTextStr: "Enter Name",
-                  ),
+                      labelTextStr: "Amount", hintTextStr: "Enter Amount"),
                 ),
                 SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Paali Date',
+                      'Date',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
@@ -112,42 +81,6 @@ class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
                 ),
                 SizedBox(height: 12),
                 TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _amountController,
-                  validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter Amount';
-                    }
-                    return null;
-                  },
-                  // style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                      labelTextStr: "Amount", hintTextStr: "Enter Amount"),
-                ),
-                SizedBox(height: 12),
-                PaymentWidget(paymentInfo: _paymentInfo),
-                SizedBox(height: 12),
-                TextFormField(
-                  controller: _paidController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Paid By';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Name';
-                    }
-                    return null;
-                  },
-                  // style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Paid By",
-                    hintTextStr: "Enter Paid By",
-                  ),
-                ),
-                SizedBox(height: 12),
-                TextFormField(
                   controller: _remarkController,
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
@@ -159,24 +92,21 @@ class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SMADini",
+                        accountCode: "SSMPaP",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,
-                        paaliaName: _nameController.text,
-                        paymentMode: Utility.getPaymentModeString(
-                            _paymentInfo.paymentMode),
-                        paymentType: Utility.getPaymentTypeString(
-                            _paymentInfo.paymentType),
+                        paaliaName: null,
+                        paymentMode: null,
+                        paymentType: null,
                         preparedBy: Login.loggedInUser?.userId,
                         receiptDate: DateTime.now(),
                         receiptId: "",
                         receiptNo: Utility.getReceiptNo(),
                         remarks: _remarkController.text,
-                        transactionRefNo:
-                            _paymentInfo.paymentMode == Payment.bank
-                                ? _transactionController.text
-                                : null,
+                        // transactionRefNo: _paymentMode == Payment.bank
+                        //     ? _transactionController.text
+                        //     : null,
                       );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);
@@ -185,6 +115,11 @@ class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
                         const SnackBar(content: Text('Data Submitted.')),
                       );
                     }
+
+                    // print(_amountController.text);
+                    // print(_dateTime);
+
+                    // print(_remarkController.text);
                   },
                   child: Text('Submit'),
                 ),
