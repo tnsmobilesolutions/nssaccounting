@@ -191,7 +191,7 @@ class _SMWeeklyPaaliState extends State<SMWeeklyPaali> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SMWeek",
+                        accountCode: "SMWe",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

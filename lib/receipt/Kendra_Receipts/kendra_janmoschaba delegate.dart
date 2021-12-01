@@ -18,7 +18,7 @@ class _KendraJanmoschabaDelegateState extends State<KendraJanmoschabaDelegate> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: 'KeIaDe'),
+          child: KendraWidget(accountCodeName: 'KeJaDe'),
         ),
       ),
     );

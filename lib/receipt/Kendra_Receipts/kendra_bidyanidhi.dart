@@ -17,7 +17,7 @@ class _KendraBidyanidhiState extends State<KendraBidyanidhi> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: 'KeBidya'),
+          child: KendraWidget(accountCodeName: 'KeBidy'),
         ),
       ),
     );

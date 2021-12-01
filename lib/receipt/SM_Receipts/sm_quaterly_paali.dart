@@ -205,7 +205,7 @@ class _SMQuaterlyPaaliState extends State<SMQuaterlyPaali> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SMQuater",
+                        accountCode: "SMQu",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

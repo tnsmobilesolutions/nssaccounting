@@ -92,7 +92,7 @@ class _SSMMiscellaneousState extends State<SSMMiscellaneous> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SSMPaP",
+                        accountCode: "SSMMisc",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

@@ -67,7 +67,8 @@ class _KendraWidgetState extends State<KendraWidget> {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please Enter Your Name';
-              } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+              } else if (!RegExp(r'^[a-zA-Z0-9]+(?:[\w -]*[a-zA-Z0-9]+)*$')
+                  .hasMatch(value)) {
                 return 'Please Enter Correct Name';
               }
               return null;
@@ -98,6 +99,7 @@ class _KendraWidgetState extends State<KendraWidget> {
           PaymentWidget(paymentInfo: _paymentInfo),
           SizedBox(height: 12),
           TextFormField(
+            keyboardType: TextInputType.text,
             controller: _paidController,
             validator: (value) {
               if (value!.isEmpty) {

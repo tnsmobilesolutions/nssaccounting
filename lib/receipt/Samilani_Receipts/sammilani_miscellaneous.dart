@@ -92,7 +92,7 @@ class _SammilaniMiscellaneousState extends State<SammilaniMiscellaneous> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SSMPaP",
+                        accountCode: "SAMMisc",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

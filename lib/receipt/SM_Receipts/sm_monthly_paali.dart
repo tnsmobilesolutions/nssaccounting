@@ -190,7 +190,7 @@ class _SMMonthlyPaaliState extends State<SMMonthlyPaali> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SMMonth",
+                        accountCode: "SMMo",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,
