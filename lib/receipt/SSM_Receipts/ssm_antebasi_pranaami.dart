@@ -70,7 +70,9 @@ class _SSMAntebasiPranaamiState extends State<SSMAntebasiPranaami> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Your Name';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(
+                            r'^[a-zA-Z0-9]+(?:[\w -]*[a-zA-Z0-9]+)*$')
+                        .hasMatch(value)) {
                       return 'Please Enter Correct Name';
                     }
                     return null;

@@ -50,7 +50,7 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
                   controller: _sanghaNameController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please Enter Paid By';
+                      return 'Please Enter Sangha Name';
                     } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                       return 'Please Enter Correct Sangha Name';
                     }
@@ -68,15 +68,17 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
                   controller: _nameController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please Enter Paid By';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Your Name';
+                    } else if (!RegExp(
+                            r'^[a-zA-Z0-9]+(?:[\w -]*[a-zA-Z0-9]+)*$')
+                        .hasMatch(value)) {
                       return 'Please Enter Correct Name';
                     }
                     return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Name",
+                    labelTextStr: "Enter Name",
                     hintTextStr: "Enter Name",
                   ),
                 ),
