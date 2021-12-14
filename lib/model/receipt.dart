@@ -83,16 +83,15 @@ class Receipt {
   factory Receipt.fromMap(Map<String, dynamic> map) {
     return Receipt(
       accountCode: map['accountCode'] != null ? map['accountCode'] : null,
-      amount: map['amount'] != null ? map['amount'] : null,
+      amount:
+          map['amount'] != null ? double.parse(map['amount'].toString()) : null,
       devoteeId: map['devoteeId'] != null ? map['devoteeId'] : null,
       paaliaName: map['paaliaName'] != null ? map['paaliaName'] : null,
       notMember: map['notMember'] != null ? map['notMember'] : null,
       paymentMode: map['paymentMode'] != null ? map['paymentMode'] : null,
       paymentType: map['paymentType'] != null ? map['paymentType'] : null,
       preparedBy: map['preparedBy'] != null ? map['preparedBy'] : null,
-      receiptDate: map['receiptDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['receiptDate'])
-          : null,
+      receiptDate: DateTime.now(),
       receiptId: map['receiptId'] != null ? map['receiptId'] : null,
       receiptNo: map['receiptNo'] != null ? map['receiptNo'] : null,
       remarks: map['remarks'] != null ? map['remarks'] : null,

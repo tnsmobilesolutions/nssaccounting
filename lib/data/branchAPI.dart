@@ -7,13 +7,13 @@ class BranchAPI {
         FirebaseFirestore.instance.collection('branches');
 
     final lstBranches = branches.get().then((querySnapshot) {
-      List<Branch?> lstBrnch = [];
+      List<Branch?> lstBranch = [];
       querySnapshot.docs.forEach((element) {
         final branchData = element.data() as Map<String, dynamic>;
         final branch = Branch.fromMap(branchData);
-        lstBrnch.add(branch);
+        lstBranch.add(branch);
       });
-      return lstBrnch;
+      return lstBranch;
     });
     return lstBranches;
   }

@@ -5,6 +5,7 @@ import 'package:nssaccounting/dashboard_pages/samilani.dart';
 import 'package:nssaccounting/dashboard_pages/sm.dart';
 import 'package:nssaccounting/dashboard_pages/ssm.dart';
 import 'package:nssaccounting/model/user.dart';
+import 'package:nssaccounting/search/search_main.dart';
 import 'package:nssaccounting/settings.dart';
 import 'package:nssaccounting/widgetConfig.dart';
 import 'package:nssaccounting/widgetTile.dart';
@@ -38,23 +39,70 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     print(widget.loggedInUser?.userId);
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.only(right: 20),
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                '${widget.loggedInUser!.name}',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.message),
+              title: Text('Messages'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text("NSS Accounting"),
         actions: [
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SettingsScreen(
-                              loggedInUser: widget.loggedInUser,
-                            )),
-                  );
-                },
-                child: Icon(Icons.settings),
-              )),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SearchMain()));
+                  },
+                  child: Icon(Icons.search),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SettingsScreen(
+                                loggedInUser: widget.loggedInUser,
+                              )),
+                    );
+                  },
+                  child: Icon(Icons.settings),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
