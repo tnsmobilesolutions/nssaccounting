@@ -4,10 +4,13 @@ import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/data/searchAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
+import 'package:nssaccounting/model/user.dart';
 import 'package:nssaccounting/search/receipt_list.dart';
 
 class SearchMain extends StatefulWidget {
-  SearchMain({Key? key}) : super(key: key);
+  SearchMain({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SearchMainState createState() => _SearchMainState();
@@ -61,19 +64,31 @@ class _SearchMainState extends State<SearchMain> {
                   child: Text("Search"),
                   onPressed: () async {
                     print('search btn pressrd');
-                    // final lstReceipts = [
-                    //   Receipt(receiptNo: '123', paaliaName: 'ABS', amount: 500),
-                    //   Receipt(receiptNo: '13', paaliaName: 'ABS', amount: 500),
-                    // ];
+
+                    final List<Receipt>? allReceipts;
+
                     final searchAPI = SearchAPI();
-                    final allReceipts = await searchAPI.getAllReceipt();
+
+                    if (_selectedOption == "Name") {
+                      allReceipts = await searchAPI
+                          .getReceiptByName(_nameController.text);
+                    } else if (_selectedOption == 'Date') {
+                      allReceipts =
+                          await searchAPI.getReceiptByReceiptDate(_dateTime);
+                    } else if (_selectedOption == "Account/Head") {
+                      allReceipts = await searchAPI
+                          .getReceiptByAccount(_accountController.text);
+                    } else {
+                      allReceipts = [];
+                    }
 
                     print(allReceipts);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ReceiptList(receipts: allReceipts)));
+                            builder: (context) => ReceiptList(
+                                  receipts: allReceipts,
+                                )));
                   }),
             ],
           ),
