@@ -5,6 +5,7 @@ import 'package:nssaccounting/common_widgets/payment_widget.dart';
 import 'package:nssaccounting/data/auth.dart';
 import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
+import 'package:nssaccounting/search/receipt_preview.dart';
 import 'package:nssaccounting/utility.dart';
 
 class SMPrasadaPranaami extends StatefulWidget {
@@ -205,6 +206,11 @@ class _SMPrasadaPranaamiState extends State<SMPrasadaPranaami> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ReceiptPreview(receipt: receipt)));
                     }
                   },
                   child: Text('Submit'),

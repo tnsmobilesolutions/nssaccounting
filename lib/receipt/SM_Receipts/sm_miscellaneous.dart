@@ -4,6 +4,7 @@ import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/auth.dart';
 import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
+import 'package:nssaccounting/search/receipt_preview.dart';
 import 'package:nssaccounting/utility.dart';
 
 class SMMiscellaneous extends StatefulWidget {
@@ -114,6 +115,11 @@ class _SMMiscellaneousState extends State<SMMiscellaneous> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ReceiptPreview(receipt: receipt)));
                     }
 
                     // print(_amountController.text);

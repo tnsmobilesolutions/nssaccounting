@@ -38,6 +38,25 @@ class SearchAPI {
     return lstReceipts;
   }
 
+  Future<Receipt?> getReceiptByReceiptNo(String receiptNo) {
+    CollectionReference receipts =
+        FirebaseFirestore.instance.collection('receipts');
+
+    final lstReceipts = receipts.get().then((querySnapshot) {
+      List<Receipt>? lstReceipt = [];
+      querySnapshot.docs.forEach((element) {
+        final receiptData = element.data() as Map<String, dynamic>;
+        print(receiptData);
+        final receipt = Receipt.fromMap(receiptData);
+        if (receipt.receiptNo == receiptNo) {
+          lstReceipt.add(receipt);
+        }
+      });
+      return lstReceipt[0];
+    });
+    return lstReceipts;
+  }
+
   Future<List<Receipt>?> getReceiptByReceiptDate(DateTime? date) {
     CollectionReference receipts =
         FirebaseFirestore.instance.collection('receipts');

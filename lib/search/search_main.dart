@@ -6,6 +6,7 @@ import 'package:nssaccounting/data/searchAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
 import 'package:nssaccounting/model/user.dart';
 import 'package:nssaccounting/search/receipt_list.dart';
+import 'package:nssaccounting/search/receipt_preview.dart';
 
 class SearchMain extends StatefulWidget {
   SearchMain({
@@ -83,12 +84,22 @@ class _SearchMainState extends State<SearchMain> {
                     }
 
                     print(allReceipts);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ReceiptList(
-                                  receipts: allReceipts,
-                                )));
+                    if (_selectedOption == "Receipt No") {
+                      final singleReceipt = await searchAPI
+                          .getReceiptByReceiptNo(_receiptNoController.text);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ReceiptPreview(receipt: singleReceipt)));
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReceiptList(
+                                    receipts: allReceipts,
+                                  )));
+                    }
                   }),
             ],
           ),

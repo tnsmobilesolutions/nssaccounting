@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/payment_widget.dart';
+import 'package:nssaccounting/search/receipt_preview.dart';
 import 'package:nssaccounting/utility.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/auth.dart';
@@ -207,6 +208,11 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ReceiptPreview(receipt: receipt)));
                     }
                   },
                   child: Text('Submit'),
