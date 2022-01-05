@@ -216,6 +216,7 @@ class _SSMPrasadPranaamiState extends State<SSMPrasadPranaami> {
                             _paymentInfo.paymentMode == Payment.bank
                                 ? _transactionController.text
                                 : null,
+                        paidBy: _paidController.text,
                       );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);

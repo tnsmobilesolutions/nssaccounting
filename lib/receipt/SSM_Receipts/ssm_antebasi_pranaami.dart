@@ -214,25 +214,26 @@ class _SSMAntebasiPranaamiState extends State<SSMAntebasiPranaami> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                          accountCode: "SSMABP",
-                          amount: double.parse(_amountController.text),
-                          devoteeId: "NA",
-                          notMember: notMember,
-                          paaliaName: _nameController.text,
-                          paymentMode: Utility.getPaymentModeString(
-                              _paymentInfo.paymentMode),
-                          paymentType: Utility.getPaymentTypeString(
-                              _paymentInfo.paymentType),
-                          preparedBy: Login.loggedInUser?.userId,
-                          receiptDate: DateTime.now(),
-                          receiptId: "",
-                          receiptNo: Utility.getReceiptNo(),
-                          remarks: _remarkController.text,
-                          transactionRefNo:
-                              _paymentInfo.paymentMode == Payment.bank
-                                  ? _transactionController.text
-                                  : null,
-                          paidBy: _paidController.text);
+                        accountCode: "SSMABP",
+                        amount: double.parse(_amountController.text),
+                        devoteeId: "NA",
+                        notMember: notMember,
+                        paaliaName: _nameController.text,
+                        paymentMode: Utility.getPaymentModeString(
+                            _paymentInfo.paymentMode),
+                        paymentType: Utility.getPaymentTypeString(
+                            _paymentInfo.paymentType),
+                        preparedBy: Login.loggedInUser?.userId,
+                        receiptDate: DateTime.now(),
+                        receiptId: "",
+                        receiptNo: Utility.getReceiptNo(),
+                        remarks: _remarkController.text,
+                        transactionRefNo:
+                            _paymentInfo.paymentMode == Payment.bank
+                                ? _transactionController.text
+                                : null,
+                        paidBy: _paidController.text,
+                      );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);
                       ScaffoldMessenger.of(context).showSnackBar(
