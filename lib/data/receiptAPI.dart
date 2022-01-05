@@ -18,7 +18,8 @@ class ReceiptAPI {
       "receiptId": receipt.receiptId,
       "receiptNo": receipt.receiptNo,
       "remarks": receipt.remarks,
-      "transactionRefNo": receipt.transactionRefNo
+      "transactionRefNo": receipt.transactionRefNo,
+      "paidBy": receipt.paidBy
     });
     return reference.id;
   }

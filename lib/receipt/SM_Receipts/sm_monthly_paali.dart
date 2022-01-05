@@ -211,6 +211,7 @@ class _SMMonthlyPaaliState extends State<SMMonthlyPaali> {
                             _paymentInfo.paymentMode == Payment.bank
                                 ? _transactionController.text
                                 : null,
+                        paidBy: _paidController.text,
                       );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);

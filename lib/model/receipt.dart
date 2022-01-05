@@ -14,6 +14,7 @@ class Receipt {
   final String? receiptNo;
   final String? remarks;
   final String? transactionRefNo;
+  final String? paidBy;
   Receipt({
     this.accountCode,
     this.amount,
@@ -28,6 +29,7 @@ class Receipt {
     this.receiptNo,
     this.remarks,
     this.transactionRefNo,
+    this.paidBy,
   });
 
   Receipt copyWith({
@@ -44,6 +46,7 @@ class Receipt {
     String? receiptNo,
     String? remarks,
     String? transactionRefNo,
+    String? paidBy,
   }) {
     return Receipt(
       accountCode: accountCode ?? this.accountCode,
@@ -59,6 +62,7 @@ class Receipt {
       receiptNo: receiptNo ?? this.receiptNo,
       remarks: remarks ?? this.remarks,
       transactionRefNo: transactionRefNo ?? this.transactionRefNo,
+      paidBy: paidBy ?? this.paidBy,
     );
   }
 
@@ -77,26 +81,28 @@ class Receipt {
       'receiptNo': receiptNo,
       'remarks': remarks,
       'transactionRefNo': transactionRefNo,
+      'paidBy': paidBy,
     };
   }
 
   factory Receipt.fromMap(Map<String, dynamic> map) {
     return Receipt(
-      accountCode: map['accountCode'] != null ? map['accountCode'] : null,
-      amount:
-          map['amount'] != null ? double.parse(map['amount'].toString()) : null,
-      devoteeId: map['devoteeId'] != null ? map['devoteeId'] : null,
-      paaliaName: map['paaliaName'] != null ? map['paaliaName'] : null,
-      notMember: map['notMember'] != null ? map['notMember'] : null,
-      paymentMode: map['paymentMode'] != null ? map['paymentMode'] : null,
-      paymentType: map['paymentType'] != null ? map['paymentType'] : null,
-      preparedBy: map['preparedBy'] != null ? map['preparedBy'] : null,
-      receiptDate: DateTime.now(),
-      receiptId: map['receiptId'] != null ? map['receiptId'] : null,
-      receiptNo: map['receiptNo'] != null ? map['receiptNo'] : null,
-      remarks: map['remarks'] != null ? map['remarks'] : null,
-      transactionRefNo:
-          map['transactionRefNo'] != null ? map['transactionRefNo'] : null,
+      accountCode: map['accountCode'],
+      amount: map['amount']?.toDouble(),
+      devoteeId: map['devoteeId'],
+      paaliaName: map['paaliaName'],
+      notMember: map['notMember'],
+      paymentMode: map['paymentMode'],
+      paymentType: map['paymentType'],
+      preparedBy: map['preparedBy'],
+      receiptDate: map['receiptDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['receiptDate'])
+          : null,
+      receiptId: map['receiptId'],
+      receiptNo: map['receiptNo'],
+      remarks: map['remarks'],
+      transactionRefNo: map['transactionRefNo'],
+      paidBy: map['paidBy'],
     );
   }
 
@@ -107,7 +113,7 @@ class Receipt {
 
   @override
   String toString() {
-    return 'Receipt(accountCode: $accountCode, amount: $amount, devoteeId: $devoteeId, paaliaName: $paaliaName, notMember: $notMember, paymentMode: $paymentMode, paymentType: $paymentType, preparedBy: $preparedBy, receiptDate: $receiptDate, receiptId: $receiptId, receiptNo: $receiptNo, remarks: $remarks, transactionRefNo: $transactionRefNo)';
+    return 'Receipt(accountCode: $accountCode, amount: $amount, devoteeId: $devoteeId, paaliaName: $paaliaName, notMember: $notMember, paymentMode: $paymentMode, paymentType: $paymentType, preparedBy: $preparedBy, receiptDate: $receiptDate, receiptId: $receiptId, receiptNo: $receiptNo, remarks: $remarks, transactionRefNo: $transactionRefNo, paidBy: $paidBy)';
   }
 
   @override
@@ -127,7 +133,8 @@ class Receipt {
         other.receiptId == receiptId &&
         other.receiptNo == receiptNo &&
         other.remarks == remarks &&
-        other.transactionRefNo == transactionRefNo;
+        other.transactionRefNo == transactionRefNo &&
+        other.paidBy == paidBy;
   }
 
   @override
@@ -144,6 +151,7 @@ class Receipt {
         receiptId.hashCode ^
         receiptNo.hashCode ^
         remarks.hashCode ^
-        transactionRefNo.hashCode;
+        transactionRefNo.hashCode ^
+        paidBy.hashCode;
   }
 }
