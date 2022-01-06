@@ -57,4 +57,7 @@ class CommonStyle {
                 borderRadius: BorderRadius.circular(25.0),
                 side: BorderSide(color: Colors.green))));
   }
+
+  static TextStyle myStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.green);
 }

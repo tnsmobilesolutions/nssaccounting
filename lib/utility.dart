@@ -27,6 +27,6 @@ class Utility {
   }
 
   static String getReceiptNo() {
-    return "ABCD";
+    return DateTime.now().millisecondsSinceEpoch.toString();
   }
 }

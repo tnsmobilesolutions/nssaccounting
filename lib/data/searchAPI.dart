@@ -23,11 +23,14 @@ class SearchAPI {
     CollectionReference receipts =
         FirebaseFirestore.instance.collection('receipts');
 
+    print('all receipt here');
+    print(receipts);
+
     final lstReceipts = receipts.get().then((querySnapshot) {
       List<Receipt>? lstReceipt = [];
       querySnapshot.docs.forEach((element) {
         final receiptData = element.data() as Map<String, dynamic>;
-        print(receiptData);
+        //print(receiptData);
         final receipt = Receipt.fromMap(receiptData);
         if ((receipt.paaliaName ?? '').startsWith(name)) {
           lstReceipt.add(receipt);
@@ -46,6 +49,7 @@ class SearchAPI {
       List<Receipt>? lstReceipt = [];
       querySnapshot.docs.forEach((element) {
         final receiptData = element.data() as Map<String, dynamic>;
+
         print(receiptData);
         final receipt = Receipt.fromMap(receiptData);
         if (receipt.receiptNo == receiptNo) {
