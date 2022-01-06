@@ -201,6 +201,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                             _paymentInfo.paymentMode == Payment.bank
                                 ? _transactionController.text
                                 : null,
+                        paidBy: _paidController.text,
                       );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);
