@@ -243,9 +243,9 @@ class Receipt {
       paymentMode: map['paymentMode'],
       paymentType: map['paymentType'],
       preparedBy: map['preparedBy'],
-      receiptDate: map['receiptDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['receiptDate'])
-          : null,
+      //receiptDate: map['receiptDate'] != null
+      // ? DateTime.fromMillisecondsSinceEpoch(map['receiptDate'])
+      // : null,
       receiptId: map['receiptId'],
       receiptNo: map['receiptNo'],
       remarks: map['remarks'],

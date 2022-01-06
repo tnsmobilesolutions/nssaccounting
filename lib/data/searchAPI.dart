@@ -24,13 +24,14 @@ class SearchAPI {
         FirebaseFirestore.instance.collection('receipts');
 
     print('all receipt here');
-    print(receipts);
+    print(name);
 
     final lstReceipts = receipts.get().then((querySnapshot) {
       List<Receipt>? lstReceipt = [];
+      print(querySnapshot.docs.length);
       querySnapshot.docs.forEach((element) {
         final receiptData = element.data() as Map<String, dynamic>;
-        //print(receiptData);
+        print(receiptData);
         final receipt = Receipt.fromMap(receiptData);
         if ((receipt.paaliaName ?? '').startsWith(name)) {
           lstReceipt.add(receipt);
