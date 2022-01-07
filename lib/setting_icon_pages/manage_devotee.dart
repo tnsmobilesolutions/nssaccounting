@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/setting_icon_pages/add_manage_devotee.dart';
+import 'package:nssaccounting/setting_icon_pages/edit_manage_devotee.dart';
 
 class ManageDevotee extends StatefulWidget {
   ManageDevotee({Key? key}) : super(key: key);
@@ -26,7 +28,17 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                   hintText: 'search By Devotee Name', icon: Icon(Icons.search)),
             ),
             SizedBox(height: 24),
-            DataFeilds(),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  color: Colors.lightBlue[100]),
+              padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
+              child: Text(
+                'Name : Srinivas Panda',
+                style: TextStyle(fontSize: 22),
+              ),
+              width: double.infinity,
+            ),
             SizedBox(height: 12),
             Container(
               decoration: BoxDecoration(
@@ -90,7 +102,12 @@ class _ManageDevoteeState extends State<ManageDevotee> {
             SizedBox(height: 20),
             ElevatedButton(
                 style: CommonStyle.elevatedSubmitButtonStyle(),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ManageDevoteeEdit()));
+                },
                 child: Text(
                   'Edit',
                   style: TextStyle(fontSize: 24),
@@ -99,30 +116,12 @@ class _ManageDevoteeState extends State<ManageDevotee> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ManageDevoteeAdd()));
+        },
         child: Text('Add'),
       ),
-    );
-  }
-}
-
-class DataFeilds extends StatelessWidget {
-  const DataFeilds({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          color: Colors.lightBlue[100]),
-      padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
-      child: Text(
-        'Name : Srinivas Panda',
-        style: TextStyle(fontSize: 22),
-      ),
-      width: double.infinity,
     );
   }
 }

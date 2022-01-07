@@ -39,41 +39,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     print(widget.loggedInUser?.userId);
     return Scaffold(
-      // drawer: Drawer(
-      //   child: ListView(
-      //     //padding: EdgeInsets.only(right: 0),
-      //     children: <Widget>[
-      //       DrawerHeader(
-      //         decoration: BoxDecoration(
-      //           color: Colors.blueAccent[400],
-      //         ),
-      //         child: Text(
-      //           '${widget.loggedInUser?.name}',
-      //           style: TextStyle(
-      //             color: Colors.white,
-      //             fontSize: 24,
-      //           ),
-      //         ),
-      //       ),
-      //       ListTile(
-      //         leading: Icon(Icons.manage_accounts),
-      //         title: Text('Manage Branch'),
-      //         onTap: () {
-      //           Navigator.push(context,
-      //               MaterialPageRoute(builder: (context) => ManageBranch()));
-      //         },
-      //       ),
-      //       ListTile(
-      //         leading: Icon(Icons.people),
-      //         title: Text('Manage Devote'),
-      //       ),
-      //       ListTile(
-      //         leading: Icon(Icons.logout),
-      //         title: Text('Logout'),
-      //       ),
-      //     ],
-      //   ),
-      // ),
       appBar: AppBar(
         title: Text("NSS Accounting"),
         actions: [

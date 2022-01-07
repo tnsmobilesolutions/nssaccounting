@@ -20,6 +20,8 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.only(left: 24, top: 16, right: 16),
         child: Column(
           children: [
+            Text("Welcome - ${loggedInUser?.name}"),
+            SizedBox(height: 24),
             GestureDetector(
                 child: Align(
                   alignment: Alignment.topRight,

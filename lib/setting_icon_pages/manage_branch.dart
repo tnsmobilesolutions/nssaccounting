@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/setting_icon_pages/add_manage_branch.dart';
+import 'package:nssaccounting/setting_icon_pages/edit_manage_branch.dart';
 
 class ManageBranch extends StatefulWidget {
   ManageBranch({Key? key}) : super(key: key);
@@ -124,7 +126,12 @@ class _ManageBranchState extends State<ManageBranch> {
             SizedBox(height: 20),
             ElevatedButton(
                 style: CommonStyle.elevatedSubmitButtonStyle(),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ManageEditPage()));
+                },
                 child: Text(
                   'Edit',
                   style: TextStyle(fontSize: 24),
@@ -133,7 +140,10 @@ class _ManageBranchState extends State<ManageBranch> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ManageAddBranch()));
+        },
         child: Text('Add'),
       ),
     );

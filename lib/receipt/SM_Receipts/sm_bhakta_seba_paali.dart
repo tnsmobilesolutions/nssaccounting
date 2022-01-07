@@ -24,7 +24,7 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
   final _transactionController = TextEditingController();
-  final _receivedController = TextEditingController();
+  final _paidController = TextEditingController();
   final _remarkController = TextEditingController();
 
   final _paymentInfo = PaymentInfo();
@@ -157,7 +157,7 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
                 ),
                 SizedBox(height: 12),
                 TextFormField(
-                  controller: _receivedController,
+                  controller: _paidController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Paid By';
@@ -201,6 +201,7 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
                             _paymentInfo.paymentMode == Payment.bank
                                 ? _transactionController.text
                                 : null,
+                        paidBy: _paidController.text,
                       );
                       final receiptId = ReceiptAPI().createNewReceipt(receipt);
                       print(receiptId);

@@ -16,7 +16,7 @@ class _ReceiptPreviewState extends State<ReceiptPreview> {
   @override
   Widget build(BuildContext context) {
     print(widget.receipt?.receiptNo);
-    print('${widget.loggedInUser?.name}');
+    print(widget.loggedInUser?.userId);
     return Scaffold(
         appBar: AppBar(
           title: Text('Receipt Preview '),
@@ -85,7 +85,7 @@ class _ReceiptPreviewState extends State<ReceiptPreview> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Paid By', style: commonTextStyle()),
-                    Text(widget.receipt?.preparedBy ?? '',
+                    Text(widget.receipt?.paidBy ?? '',
                         style: commonTextStyle()),
                   ],
                 ),
@@ -94,8 +94,8 @@ class _ReceiptPreviewState extends State<ReceiptPreview> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Received By', style: commonTextStyle()),
-                    Text('${widget.loggedInUser?.name}',
-                        style: commonTextStyle()),
+                    Text('widget.loggedInUser?.name', style: commonTextStyle()),
+                    Text('data')
                   ],
                 ),
                 SizedBox(height: 30),
