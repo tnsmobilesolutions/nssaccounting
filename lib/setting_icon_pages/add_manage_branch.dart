@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/data/branchAPI.dart';
+import 'package:nssaccounting/model/branch.dart';
 
 class ManageAddBranch extends StatefulWidget {
   ManageAddBranch({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class ManageAddBranch extends StatefulWidget {
 class _ManageAddBranchState extends State<ManageAddBranch> {
   final _formKey = GlobalKey<FormState>();
 
-  final _sanghaNameController = TextEditingController();
+  final _nameController = TextEditingController();
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
   final _stateController = TextEditingController();
@@ -30,7 +32,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
               children: [
                 TextFormField(
                   keyboardType: TextInputType.name,
-                  controller: _sanghaNameController,
+                  controller: _nameController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Name';
@@ -102,6 +104,20 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 SizedBox(height: 26),
                 ElevatedButton(
                     onPressed: () {
+                      Branch branch = Branch(
+                        branchId: "",
+                        branchName: _nameController.text,
+                        address: _addressController.text,
+                        city: _cityController.text,
+                        state: _stateController.text,
+                      );
+
+                      final branchId = BranchAPI().createNewBranch(branch);
+                      print(branchId);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Data Submitted.')),
+                      );
                       Navigator.pop(context);
                     },
                     style: CommonStyle.elevatedSubmitButtonStyle(),

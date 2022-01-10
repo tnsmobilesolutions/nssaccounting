@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/data/branchAPI.dart';
+import 'package:nssaccounting/model/branch.dart';
 
 class ManageEditPage extends StatefulWidget {
   ManageEditPage({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class ManageEditPage extends StatefulWidget {
 class _ManageEditPageState extends State<ManageEditPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final _sanghaNameController = TextEditingController();
+  final _nameController = TextEditingController();
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
   final _stateController = TextEditingController();
@@ -35,7 +37,7 @@ class _ManageEditPageState extends State<ManageEditPage> {
               children: [
                 TextFormField(
                   keyboardType: TextInputType.name,
-                  controller: _sanghaNameController,
+                  controller: _nameController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Name';
@@ -181,6 +183,25 @@ class _ManageEditPageState extends State<ManageEditPage> {
                     style: CommonStyle.elevatedSubmitButtonStyle(),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        Branch branch = Branch(
+                          branchId: "",
+                          branchName: _nameController.text,
+                          address: _addressController.text,
+                          city: _cityController.text,
+                          state: _stateController.text,
+                          country: _countryController.text,
+                          pin: double.parse(_pinController.text),
+                          devotees: int.parse(_devoteeController.text),
+                          year: double.parse(_yearController.text),
+                        );
+
+                        final branchId = BranchAPI().createNewBranch(branch);
+                        print(branchId);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data Submitted.')),
+                        );
+
                         Navigator.pop(context);
                       }
                     },

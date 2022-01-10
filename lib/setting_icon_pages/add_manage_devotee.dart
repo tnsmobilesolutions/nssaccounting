@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/data/devoteeAPI.dart';
+import 'package:nssaccounting/model/devotee.dart';
 
 class ManageDevoteeAdd extends StatefulWidget {
   ManageDevoteeAdd({Key? key}) : super(key: key);
@@ -122,6 +124,17 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 SizedBox(height: 26),
                 ElevatedButton(
                     onPressed: () {
+                      Devotee devotee = Devotee(
+                        branchId: "",
+                        branchName: _branchController.text,
+                        devoteeName: _nameController.text,
+                        joiningYear: double.parse(_joinedController.text),
+                        contact: double.parse(_contactController.text),
+                        email: _emailController.text,
+                      );
+
+                      final devoteeId = DevoteeAPI().createNewDevotee(devotee);
+                      print(devoteeId);
                       Navigator.pop(context);
                     },
                     style: CommonStyle.elevatedSubmitButtonStyle(),

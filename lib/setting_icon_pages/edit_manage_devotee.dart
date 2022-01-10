@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/data/devoteeAPI.dart';
+import 'package:nssaccounting/model/devotee.dart';
 
 class ManageDevoteeEdit extends StatefulWidget {
   ManageDevoteeEdit({Key? key}) : super(key: key);
@@ -68,7 +70,7 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.name,
                   controller: _ppidController,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -110,14 +112,14 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                     if (value!.isEmpty ||
                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                             .hasMatch(value)) {
-                      return 'Please Enter Amount';
+                      return 'Please Enter Conact No';
                     }
                     return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Devotee No",
-                    hintTextStr: "Enter Devotee No",
+                    labelTextStr: "Contact No",
+                    hintTextStr: "Enter Contact No",
                   ),
                 ),
                 SizedBox(height: 16),
@@ -143,6 +145,19 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                     style: CommonStyle.elevatedSubmitButtonStyle(),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        Devotee devotee = Devotee(
+                          branchId: "",
+                          branchName: _branchController.text,
+                          devoteeName: _nameController.text,
+                          ppid: _ppidController.text,
+                          joiningYear: double.parse(_joinedController.text),
+                          contact: double.parse(_contactController.text),
+                          email: _emailController.text,
+                        );
+
+                        final devoteeId =
+                            DevoteeAPI().createNewDevotee(devotee);
+                        print(devoteeId);
                         Navigator.pop(context);
                       }
                     },

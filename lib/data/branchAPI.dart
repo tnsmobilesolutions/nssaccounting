@@ -17,4 +17,36 @@ class BranchAPI {
     });
     return lstBranches;
   }
+
+  Future<String> createNewBranch(Branch branch) async {
+    CollectionReference branchsCol =
+        FirebaseFirestore.instance.collection('branches');
+    final reference = await branchsCol.add({
+      "branchId": branch.branchId,
+      "branchName": branch.branchName,
+      "address": branch.address,
+      "city": branch.city,
+      "state": branch.state,
+      "country": branch.country,
+      "pin": branch.pin,
+      "devotees": branch.devotees,
+      "year": branch.year,
+
+      // "accountCode": branch.accountCode,
+      // "amount": branch.amount,
+      // "devoteeId": branch.devoteeId,
+      // "paaliaName": branch.paaliaName,
+      // "notMember": branch.notMember,
+      // "paymentMode": branch.paymentMode,
+      // "paymentType": branch.paymentType,
+      // "preparedBy": branch.preparedBy,
+      // "receiptDate": receipt.receiptDate,
+      // "receiptId": receipt.receiptId,
+      // "receiptNo": branch.branchNo,
+      // "remarks": branch.remarks,
+      // "transactionRefNo": branch.transactionRefNo,
+      // "paidBy": branch.paidBy
+    });
+    return reference.id;
+  }
 }
