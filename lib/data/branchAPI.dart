@@ -18,6 +18,22 @@ class BranchAPI {
     return lstBranches;
   }
 
+  Future<List<Branch?>> getBranchByName(String branchName) {
+    CollectionReference branches =
+        FirebaseFirestore.instance.collection('branches');
+
+    final lstBranches = branches.get().then((querySnapshot) {
+      List<Branch?> lstBranch = [];
+      querySnapshot.docs.forEach((element) {
+        final branchData = element.data() as Map<String, dynamic>;
+        final branch = Branch.fromMap(branchData);
+        lstBranch.add(branch);
+      });
+      return lstBranch;
+    });
+    return lstBranches;
+  }
+
   Future<String> createNewBranch(Branch branch) async {
     CollectionReference branchsCol =
         FirebaseFirestore.instance.collection('branches');
@@ -48,5 +64,13 @@ class BranchAPI {
       // "paidBy": branch.paidBy
     });
     return reference.id;
+  }
+
+  Future<void> updateBranch(Branch branch) async {
+    // Implement Update branch logic here
+    var collection = FirebaseFirestore.instance.collection('branches');
+    collection
+        .doc(branch.branchId) // <-- Doc ID where data should be updated.
+        .update(branch.toMap());
   }
 }

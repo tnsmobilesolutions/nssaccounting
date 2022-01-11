@@ -4,7 +4,9 @@ import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
 
 class ManageEditPage extends StatefulWidget {
-  ManageEditPage({Key? key}) : super(key: key);
+  ManageEditPage({Key? key, required this.branch}) : super(key: key);
+
+  final Branch branch;
 
   @override
   _ManageEditPageState createState() => _ManageEditPageState();
