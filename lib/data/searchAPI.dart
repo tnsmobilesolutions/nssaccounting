@@ -12,7 +12,7 @@ class SearchAPI {
         final receiptData = element.data() as Map<String, dynamic>;
         print(receiptData);
         final receipt = Receipt.fromMap(receiptData);
-        lstReceipt.add(receipt);
+        lstReceipt.add(receipt); 
       });
       return lstReceipt;
     });
@@ -24,6 +24,7 @@ class SearchAPI {
         FirebaseFirestore.instance.collection('receipts');
 
     print('all receipt here');
+    print(receipts);
     print(name);
 
     final lstReceipts = receipts.get().then((querySnapshot) {
