@@ -30,7 +30,9 @@ class BranchAPI {
       querySnapshot.docs.forEach((element) {
         final branchData = element.data() as Map<String, dynamic>;
         final branch = Branch.fromMap(branchData);
-        lstBranch.add(branch);
+        if ((branch.branchName ?? '').startsWith(branchName)) {
+          lstBranch.add(branch);
+        }
       });
       return lstBranch;
     });

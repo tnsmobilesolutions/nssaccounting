@@ -20,65 +20,64 @@ class _ManageBranchState extends State<ManageBranch> {
 
   static const historyLength = 5;
 
-  List<String> _searchHistory = [
-    'atanu',
-    'amrut',
-    'abhishek',
-    'aabha',
-    'arnav',
-    'badrinath',
-    'binayak',
-    'biswaprakash',
-    'biswanath',
-    'chetan',
-    'chintu',
-    'dinesh',
-    'digambar',
-  ];
+  List<String>? _branchHistory;
+  //  = [
+  //   'atanu',
+  //   'amrut',
+  //   'abhishek',
+  //   'aabha',
+  //   'arnav',
+  //   'badrinath',
+  //   'binayak',
+  //   'biswaprakash',
+  //   'biswanath',
+  //   'chetan',
+  //   'chintu',
+  //   'dinesh',
+  //   'digambar',
+  // ];
 
   List<String>? filteredSearchHistory;
 
   String? selectedTerm;
 
   //this method filters the search like h, he, hey
-  List<String> filterSearchTerms({
+  Future<List<String>> filterSearchTerms({
     @required String? filter,
-  }) {
+  }) async {
     if (filter != null && filter.isNotEmpty) {
-      final branches = BranchAPI().getBranchByName(filter);
-      return _searchHistory
-          .where((branch) => branch.startsWith(filter))
-          .toList();
+      final branches = await BranchAPI().getBranchByName(filter);
+      return branches.map((b) => b?.branchName ?? "").toList();
     } else {
-      return _searchHistory.toList();
+      return [];
     }
   }
 
-  //adds the recent search branch
-  void addSearchTerm(String branch) {
-    if (_searchHistory.contains(branch)) {
-      putSearchTermFirst(branch);
-      return;
-    }
-    _searchHistory.add(branch);
-    if (_searchHistory.length > historyLength) {
-      _searchHistory.removeRange(0, _searchHistory.length - historyLength);
-    }
+  // //adds the recent search branch
+  // void addSearchTerm(String branch) async {
+  //   if (_branchHistory?.contains(branch)) {
+  //     putSearchTermFirst(branch);
+  //     return;
+  //   }
+  //   _branchHistory.add(branch);
+  //   if (_branchHistory.length > historyLength) {
+  //     _branchHistory.removeRange(0, _branchHistory.length - historyLength);
+  //   }
 
-    filteredSearchHistory = filterSearchTerms(filter: null);
-  }
+  //   filteredSearchHistory = await filterSearchTerms(filter: null);
+  // }
 
-  // deletes the search history when someone touches 'x'
-  void deleteSearchTerm(String branch) {
-    _searchHistory.removeWhere((t) => t == branch);
-    filteredSearchHistory = filterSearchTerms(filter: null);
-  }
+  // // deletes the search history when someone touches 'x'
+  // void deleteSearchTerm(String branch) async {
+  //   _branchHistory.removeWhere((t) => t == branch);
+  //   filteredSearchHistory = await filterSearchTerms(filter: null);
+  // }
 
-  // puts recent search item at top
-  void putSearchTermFirst(String branch) {
-    deleteSearchTerm(branch);
-    addSearchTerm(branch);
-  }
+  // // puts recent search item at top
+  // void putSearchTermFirst(String branch) {
+  //   deleteSearchTerm(branch);
+  //   addSearchTerm(branch);
+  // }
 
   late FloatingSearchBarController controller;
 
@@ -87,7 +86,7 @@ class _ManageBranchState extends State<ManageBranch> {
   void initState() {
     super.initState();
     controller = FloatingSearchBarController();
-    filteredSearchHistory = filterSearchTerms(filter: null);
+    filteredSearchHistory = [];
   }
 
   @override
@@ -124,14 +123,17 @@ class _ManageBranchState extends State<ManageBranch> {
 
         //when searched item is started being searched
         onQueryChanged: (query) async {
-          print(query);
+          print("onQueryChanged: $query");
+          final lstBranches = await filterSearchTerms(filter: query);
+          print(lstBranches);
           setState(() {
-            filteredSearchHistory = filterSearchTerms(filter: query);
+            filteredSearchHistory = lstBranches;
           });
         },
         onSubmitted: (query) {
+          print("onSubmitted: $query");
           setState(() {
-            addSearchTerm(query);
+            // addSearchTerm(query);
             selectedTerm = query;
           });
           controller.close();
@@ -162,8 +164,9 @@ class _ManageBranchState extends State<ManageBranch> {
                       title: Text(controller.query),
                       leading: const Icon(Icons.search),
                       onTap: () {
+                        print("Selected $selectedTerm");
                         setState(() {
-                          addSearchTerm(controller.query);
+                          // addSearchTerm(controller.query);
                           selectedTerm = controller.query;
                         });
                         controller.close();
@@ -185,13 +188,14 @@ class _ManageBranchState extends State<ManageBranch> {
                                 icon: const Icon(Icons.clear),
                                 onPressed: () {
                                   setState(() {
-                                    deleteSearchTerm(branch);
+                                    // deleteSearchTerm(branch);
                                   });
                                 },
                               ),
                               onTap: () {
+                                print("onTap of ListTile: $branch");
                                 setState(() {
-                                  putSearchTermFirst(branch);
+                                  // putSearchTermFirst(branch);
                                   selectedTerm = branch;
                                 });
                                 controller.close();
