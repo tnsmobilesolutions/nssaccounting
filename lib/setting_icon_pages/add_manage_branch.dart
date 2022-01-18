@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
+import 'package:uuid/uuid.dart';
 
 class ManageAddBranch extends StatefulWidget {
   ManageAddBranch({Key? key}) : super(key: key);
@@ -105,7 +106,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 ElevatedButton(
                     onPressed: () {
                       Branch branch = Branch(
-                        branchId: "",
+                        branchId: Uuid().v1(),
                         branchName: _nameController.text,
                         address: _addressController.text,
                         city: _cityController.text,

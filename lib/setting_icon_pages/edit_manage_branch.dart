@@ -28,7 +28,7 @@ class _ManageEditPageState extends State<ManageEditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mumbai'),
+        title: Text(widget.branch.branchName ?? ""),
       ),
       body: SingleChildScrollView(
         child: Form(

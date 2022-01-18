@@ -46,36 +46,29 @@ class BranchAPI {
     // }
   }
 
-  Future<String> createNewBranch(Branch branch) async {
+  Future<void> createNewBranch(Branch branch) async {
     CollectionReference branchsCol =
         FirebaseFirestore.instance.collection('branches');
-    final reference = await branchsCol.add({
-      "branchId": branch.branchId,
-      "branchName": branch.branchName,
-      "address": branch.address,
-      "city": branch.city,
-      "state": branch.state,
-      "country": branch.country,
-      "pin": branch.pin,
-      "devotees": branch.devotees,
-      "year": branch.year,
+    // final reference = await branchsCol.add({
+    //   "branchId": branch.branchId,
+    //   "branchName": branch.branchName,
+    //   "address": branch.address,
+    //   "city": branch.city,
+    //   "state": branch.state,
+    //   "country": branch.country,
+    //   "pin": branch.pin,
+    //   "devotees": branch.devotees,
+    //   "year": branch.year,
+    // });
+    final reference = await branchsCol.doc(branch.branchId).set(branch.toMap());
 
-      // "accountCode": branch.accountCode,
-      // "amount": branch.amount,
-      // "devoteeId": branch.devoteeId,
-      // "paaliaName": branch.paaliaName,
-      // "notMember": branch.notMember,
-      // "paymentMode": branch.paymentMode,
-      // "paymentType": branch.paymentType,
-      // "preparedBy": branch.preparedBy,
-      // "receiptDate": receipt.receiptDate,
-      // "receiptId": receipt.receiptId,
-      // "receiptNo": branch.branchNo,
-      // "remarks": branch.remarks,
-      // "transactionRefNo": branch.transactionRefNo,
-      // "paidBy": branch.paidBy
-    });
-    return reference.id;
+    // branchsCol
+    //     .doc(branch.branchId)
+    //     .update({"branchId": reference.id}).whenComplete(() async {
+    //   print("Completed");
+    // }).catchError((e) => print(e));
+
+    // return branch.branchId;
   }
 
   Future<void> updateBranch(Branch branch) async {
