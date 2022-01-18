@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
-import 'package:uuid/uuid.dart';
 
 class ManageAddBranch extends StatefulWidget {
   ManageAddBranch({Key? key}) : super(key: key);
@@ -18,6 +18,10 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
   final _stateController = TextEditingController();
+  final _countryController = TextEditingController();
+  final _pinController = TextEditingController();
+  final _estYearController = TextEditingController();
+  final _numDevController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +40,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                   controller: _nameController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please Enter Name';
+                      return 'Please Enter Branch Name';
                     } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                       return 'Please Enter Correct Name';
                     }
@@ -44,7 +48,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Name",
+                    labelTextStr: "Branch Name",
                     hintTextStr: "Enter Name",
                   ),
                 ),
@@ -87,6 +91,78 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.name,
+                  controller: _countryController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter Country Name';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Country Name';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Country ",
+                    hintTextStr: "Enter Country Name",
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _numDevController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter Number of Devotees';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Number';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Number of Devotees ",
+                    hintTextStr: "Enter Number of Devotees",
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _pinController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter Pincode';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Pincode';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Pincode ",
+                    hintTextStr: "Enter Pincode",
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _estYearController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter Established Year';
+                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Year';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Established Year ",
+                    hintTextStr: "Enter Established Year",
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  keyboardType: TextInputType.name,
                   controller: _stateController,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -106,11 +182,15 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 ElevatedButton(
                     onPressed: () {
                       Branch branch = Branch(
-                        branchId: Uuid().v1(),
+                        //branchId: Uuid().v1(),
                         branchName: _nameController.text,
                         address: _addressController.text,
                         city: _cityController.text,
                         state: _stateController.text,
+                        country: _countryController.text,
+                        devotees: int.parse(_numDevController.text),
+                        pin: double.parse(_pinController.text),
+                        year: double.parse(_estYearController.text),
                       );
 
                       final branchId = BranchAPI().createNewBranch(branch);
@@ -130,4 +210,6 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
       ),
     );
   }
+
+  Uuid() {}
 }
