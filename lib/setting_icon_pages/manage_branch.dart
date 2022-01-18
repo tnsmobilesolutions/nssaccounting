@@ -16,7 +16,8 @@ class ManageBranch extends StatefulWidget {
 }
 
 class _ManageBranchState extends State<ManageBranch> {
-  Branch? _branch;
+  Branch? _selectedBranch;
+  List<Branch?>? _filteredBranches;
 
   static const historyLength = 5;
 
@@ -47,6 +48,9 @@ class _ManageBranchState extends State<ManageBranch> {
   }) async {
     if (filter != null && filter.isNotEmpty) {
       final branches = await BranchAPI().getBranchByName(filter);
+      setState(() {
+        _filteredBranches = branches;
+      });
       return branches.map((b) => b?.branchName ?? "").toList();
     } else {
       return [];
@@ -105,11 +109,6 @@ class _ManageBranchState extends State<ManageBranch> {
         automaticallyImplyBackButton: false,
         closeOnBackdropTap: false,
         controller: controller,
-        // body: FloatingSearchBarScrollNotifier(
-        //   child: SearchResultsListView(
-        //     searchTerm: selectedTerm,
-        //   ),
-        // ),
         transition: CircularFloatingSearchBarTransition(),
         physics: BouncingScrollPhysics(),
         title: Text(
@@ -197,6 +196,10 @@ class _ManageBranchState extends State<ManageBranch> {
                                 setState(() {
                                   // putSearchTermFirst(branch);
                                   selectedTerm = branch;
+
+                                  _selectedBranch =
+                                      _filteredBranches?.firstWhere((element) =>
+                                          element?.branchName == branch);
                                 });
                                 controller.close();
                               },
@@ -215,17 +218,17 @@ class _ManageBranchState extends State<ManageBranch> {
         child: ElevatedButton(
           style: CommonStyle.elevatedSubmitButtonStyle(),
           onPressed: () {
-            if (_branch != null) {
+            if (_selectedBranch != null) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => ManageEditPage(
-                            branch: _branch!,
+                            branch: _selectedBranch!,
                           )));
             }
           },
           child: Text(
-            'Edit',
+            'Edit "${_selectedBranch?.branchName}"',
             style: TextStyle(fontSize: 24),
           ),
         ),
