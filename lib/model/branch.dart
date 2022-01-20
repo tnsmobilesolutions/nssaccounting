@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class Branch {
   final String? branchId;
   final String? branchName;
@@ -7,9 +9,9 @@ class Branch {
   final String? city;
   final String? state;
   final String? country;
-  final double? pin;
+  final int? pin;
   final int? devotees;
-  final double? year;
+  final int? year;
   Branch({
     this.branchId,
     this.branchName,
@@ -29,9 +31,9 @@ class Branch {
     String? city,
     String? state,
     String? country,
-    double? pin,
+    int? pin,
     int? devotees,
-    double? year,
+    int? year,
   }) {
     return Branch(
       branchId: branchId ?? this.branchId,
@@ -68,9 +70,9 @@ class Branch {
       city: map['city'],
       state: map['state'],
       country: map['country'],
-      pin: map['pin']?.toDouble(),
+      pin: map['pin']?.toInt(),
       devotees: map['devotees']?.toInt(),
-      year: map['year']?.toDouble(),
+      year: map['year']?.toInt(),
     );
   }
 

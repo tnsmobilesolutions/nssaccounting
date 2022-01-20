@@ -186,16 +186,15 @@ class _ManageEditPageState extends State<ManageEditPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Branch branch = Branch(
-                          branchId: "",
-                          branchName: _nameController.text,
-                          address: _addressController.text,
-                          city: _cityController.text,
-                          state: _stateController.text,
-                          country: _countryController.text,
-                          pin: double.parse(_pinController.text),
-                          devotees: int.parse(_devoteeController.text),
-                          year: double.parse(_yearController.text),
-                        );
+                            branchId: "",
+                            branchName: _nameController.text,
+                            address: _addressController.text,
+                            city: _cityController.text,
+                            state: _stateController.text,
+                            country: _countryController.text,
+                            pin: int.parse(_pinController.text),
+                            devotees: int.parse(_devoteeController.text),
+                            year: int.parse(_yearController.text));
 
                         final branchId = BranchAPI().createNewBranch(branch);
                         print(branchId);

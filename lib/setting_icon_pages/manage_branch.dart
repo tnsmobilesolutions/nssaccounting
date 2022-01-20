@@ -1,12 +1,13 @@
 //import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+
 import 'package:nssaccounting/common_widgets/common_style.dart';
+import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
 import 'package:nssaccounting/setting_icon_pages/add_manage_branch.dart';
 import 'package:nssaccounting/setting_icon_pages/edit_manage_branch.dart';
-import 'package:nssaccounting/data/branchAPI.dart';
+import 'package:uuid/uuid.dart';
 
 class ManageBranch extends StatefulWidget {
   ManageBranch({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class ManageBranch extends StatefulWidget {
 class _ManageBranchState extends State<ManageBranch> {
   Branch? _selectedBranch;
   List<Branch?>? _filteredBranches;
+
+  double _searchbarHeight = 60;
 
   //static const historyLength = 5;
 
@@ -103,6 +106,7 @@ class _ManageBranchState extends State<ManageBranch> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepOrange[900],
         title: Text('Manage Branch'),
       ),
       body: Padding(
@@ -154,7 +158,7 @@ class _ManageBranchState extends State<ManageBranch> {
                       borderRadius:
                           BorderRadius.circular(6), // search history body
                       child: Material(
-                        color: Colors.yellow[100],
+                        color: Colors.yellowAccent[700],
                         elevation: 4,
                         child: Builder(
                           builder: (context) {
@@ -206,15 +210,19 @@ class _ManageBranchState extends State<ManageBranch> {
                                         ),
                                         onTap: () {
                                           print("onTap of ListTile: $branch");
-                                          setState(() {
-                                            // putSearchTermFirst(branch);
-                                            selectedTerm = branch;
+                                          setState(
+                                            () {
+                                              // putSearchTermFirst(branch);
+                                              selectedTerm = branch;
 
-                                            _selectedBranch = _filteredBranches
-                                                ?.firstWhere((element) =>
-                                                    element?.branchName ==
-                                                    branch);
-                                          });
+                                              _selectedBranch =
+                                                  _filteredBranches?.firstWhere(
+                                                      (element) =>
+                                                          element?.branchName ==
+                                                          branch);
+                                              print(_selectedBranch);
+                                            },
+                                          );
                                           controller.close();
                                         },
                                       ),
@@ -229,11 +237,11 @@ class _ManageBranchState extends State<ManageBranch> {
                   },
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
                 child: Text(
                   'Address: ${_selectedBranch?.address}',
@@ -245,19 +253,7 @@ class _ManageBranchState extends State<ManageBranch> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Branch ID: ${_selectedBranch?.city}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Text(
                   'Branch Name: ${_selectedBranch?.branchName}',
@@ -269,7 +265,7 @@ class _ManageBranchState extends State<ManageBranch> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Text(
                   'City: ${_selectedBranch?.city}',
@@ -281,7 +277,7 @@ class _ManageBranchState extends State<ManageBranch> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Text(
                   'Country: ${_selectedBranch?.country}',
@@ -293,7 +289,7 @@ class _ManageBranchState extends State<ManageBranch> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Text(
                   'Number of devotees: ${_selectedBranch?.devotees}',
@@ -305,7 +301,7 @@ class _ManageBranchState extends State<ManageBranch> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Text(
                   'Pincode: ${_selectedBranch?.pin}',
@@ -317,7 +313,7 @@ class _ManageBranchState extends State<ManageBranch> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Text(
                   'State: ${_selectedBranch?.state}',
@@ -329,7 +325,7 @@ class _ManageBranchState extends State<ManageBranch> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.lightBlue[100]),
+                    color: Colors.yellowAccent[700]),
                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Text(
                   'Established year: ${_selectedBranch?.year}',
@@ -348,11 +344,13 @@ class _ManageBranchState extends State<ManageBranch> {
           onPressed: () {
             if (_selectedBranch != null) {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ManageEditPage(
-                            branch: _selectedBranch!,
-                          )));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ManageEditPage(
+                    branch: _selectedBranch!,
+                  ),
+                ),
+              );
             }
           },
           child: Text(
@@ -413,115 +411,5 @@ class SearchResultsListView extends StatelessWidget {
 
 
 /*
-FloatingSearchBar(
-                  automaticallyImplyBackButton: false,
-                  closeOnBackdropTap: false,
-                  controller: controller,
-                  transition: CircularFloatingSearchBarTransition(),
-                  physics: BouncingScrollPhysics(),
-                  title: Text(
-                    selectedTerm ?? 'Search',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  hint: 'Search branch',
-                  actions: [
-                    FloatingSearchBarAction.searchToClear(),
-                  ],
 
-                  //when searched item is started being searched
-                  onQueryChanged: (query) async {
-                    print("onQueryChanged: $query");
-                    final lstBranches = await filterSearchTerms(filter: query);
-                    print(lstBranches);
-                    setState(() {
-                      filteredSearchHistory = lstBranches;
-                    });
-                  },
-                  onSubmitted: (query) {
-                    print("onSubmitted: $query");
-                    setState(() {
-                      // addSearchTerm(query);
-                      selectedTerm = query;
-                    });
-                    controller.close();
-                  },
-                  builder: (context, transition) {
-                    return ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(6), // search history body
-                      child: Material(
-                        color: Colors.yellow[100],
-                        elevation: 4,
-                        child: Builder(
-                          builder: (context) {
-                            if (filteredSearchHistory!.isEmpty &&
-                                controller.query.isEmpty) {
-                              return Container(
-                                height: 56,
-                                width: double.infinity,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Start searching',
-                                  maxLines: 10,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.caption,
-                                ),
-                              );
-                            } else if (filteredSearchHistory!.isEmpty) {
-                              return ListTile(
-                                title: Text(controller.query),
-                                leading: const Icon(Icons.search),
-                                onTap: () {
-                                  print("Selected $selectedTerm");
-                                  setState(() {
-                                    // addSearchTerm(controller.query);
-                                    selectedTerm = controller.query;
-                                  });
-                                  controller.close();
-                                },
-                              );
-                            } else {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: filteredSearchHistory!
-                                    .map(
-                                      (branch) => ListTile(
-                                        title: Text(
-                                          branch,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        leading: const Icon(Icons.history),
-                                        trailing: IconButton(
-                                          icon: const Icon(Icons.clear),
-                                          onPressed: () {
-                                            setState(() {
-                                              // deleteSearchTerm(branch);
-                                            });
-                                          },
-                                        ),
-                                        onTap: () {
-                                          print("onTap of ListTile: $branch");
-                                          setState(() {
-                                            // putSearchTermFirst(branch);
-                                            selectedTerm = branch;
-
-                                            _selectedBranch = _filteredBranches
-                                                ?.firstWhere((element) =>
-                                                    element?.branchName ==
-                                                    branch);
-                                          });
-                                          controller.close();
-                                        },
-                                      ),
-                                    )
-                                    .toList(),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
  */
