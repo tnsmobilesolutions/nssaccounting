@@ -27,7 +27,10 @@ class DevoteeAPI {
       querySnapshot.docs.forEach((element) {
         final devoteeData = element.data() as Map<String, dynamic>;
         final devotee = Devotee.fromMap(devoteeData);
-        lstDevotee.add(devotee);
+        if ((devotee.devoteeName ?? '').startsWith(devoteeName)) {
+          lstDevotee.add(devotee);
+        }
+        //lstDevotee.add(devotee);
       });
       return lstDevotee;
     });

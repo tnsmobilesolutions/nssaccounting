@@ -73,6 +73,7 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   controller: _joinedController,
                   validator: (value) {
                     if (value!.isEmpty ||
+                        value.length != 4 ||
                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                             .hasMatch(value)) {
                       return 'Please Enter Joined Year';
@@ -91,6 +92,7 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   controller: _contactController,
                   validator: (value) {
                     if (value!.isEmpty ||
+                        value.length != 10 ||
                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                             .hasMatch(value)) {
                       return 'Please Enter Contact No';
@@ -107,10 +109,13 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
+
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Branch';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
                       return 'Please Enter Email Address';
                     }
                     return null;
@@ -124,18 +129,21 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 SizedBox(height: 26),
                 ElevatedButton(
                     onPressed: () {
-                      Devotee devotee = Devotee(
-                        branchId: "",
-                        branchName: _branchController.text,
-                        devoteeName: _nameController.text,
-                        joiningYear: double.parse(_joinedController.text),
-                        contact: double.parse(_contactController.text),
-                        email: _emailController.text,
-                      );
+                      if (_formKey.currentState!.validate()) {
+                        Devotee devotee = Devotee(
+                          branchId: "",
+                          branchName: _branchController.text,
+                          devoteeName: _nameController.text,
+                          joiningYear: int.parse(_joinedController.text),
+                          contact: _contactController.text,
+                          email: _emailController.text,
+                        );
 
-                      final devoteeId = DevoteeAPI().createNewDevotee(devotee);
-                      print(devoteeId);
-                      Navigator.pop(context);
+                        final devoteeId =
+                            DevoteeAPI().createNewDevotee(devotee);
+                        print(devoteeId);
+                        Navigator.pop(context);
+                      }
                     },
                     style: CommonStyle.elevatedSubmitButtonStyle(),
                     child: Text('ADD BRANCH')),

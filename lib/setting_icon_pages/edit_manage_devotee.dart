@@ -4,7 +4,9 @@ import 'package:nssaccounting/data/devoteeAPI.dart';
 import 'package:nssaccounting/model/devotee.dart';
 
 class ManageDevoteeEdit extends StatefulWidget {
-  ManageDevoteeEdit({Key? key}) : super(key: key);
+  ManageDevoteeEdit({Key? key, required this.devotee}) : super(key: key);
+
+  final Devotee devotee;
 
   @override
   _ManageDevoteeEditState createState() => _ManageDevoteeEditState();
@@ -24,7 +26,7 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Devotee'),
+        title: Text(widget.devotee.devoteeName ?? ""),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -150,8 +152,8 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
                           ppid: _ppidController.text,
-                          joiningYear: double.parse(_joinedController.text),
-                          contact: double.parse(_contactController.text),
+                          joiningYear: int.parse(_joinedController.text),
+                          contact: _contactController.text,
                           email: _emailController.text,
                         );
 

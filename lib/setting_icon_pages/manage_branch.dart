@@ -147,6 +147,7 @@ class _ManageBranchState extends State<ManageBranch> {
                   },
                   onSubmitted: (query) {
                     print("onSubmitted: $query");
+
                     setState(() {
                       // addSearchTerm(query);
                       selectedTerm = query;
