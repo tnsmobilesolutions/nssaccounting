@@ -30,8 +30,10 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal[100],
       appBar: AppBar(
-        title: Text("SM Bhakta Seba Paali"),
+        backgroundColor: Colors.teal[800],
+        title: Text("Add Branch"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -247,7 +249,7 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
                 ),
                 SizedBox(height: 18),
                 ElevatedButton(
-                  style: CommonStyle.elevatedSubmitButtonStyle(),
+                  //style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -267,7 +269,11 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
                     print(_receivedController.text);
                     print(_remarkController.text);
                   },
-                  child: Text('Submit'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.teal[500],
+                    shadowColor: Colors.black12,
+                  ),
+                  child: Text('Submitttt'),
                 ),
               ],
             ),

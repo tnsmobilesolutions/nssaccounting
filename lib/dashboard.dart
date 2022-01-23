@@ -7,8 +7,8 @@ import 'package:nssaccounting/dashboard_pages/ssm.dart';
 import 'package:nssaccounting/model/user.dart';
 import 'package:nssaccounting/search/search_main.dart';
 import 'package:nssaccounting/settings.dart';
-import 'package:nssaccounting/widgetConfig.dart';
-import 'package:nssaccounting/widgetTile.dart';
+// import 'package:nssaccounting/widgetConfig.dart';
+// import 'package:nssaccounting/widgetTile.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({Key? key, this.loggedInUser}) : super(key: key);
@@ -39,8 +39,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     print(widget.loggedInUser?.userId);
     return Scaffold(
+      backgroundColor: Colors.teal[100],
       appBar: AppBar(
-        title: Text("NSS Accounting"),
+        backgroundColor: Colors.teal[800],
+        centerTitle: true,
+        title: Text('NSS Accounting'),
+        //title: Text("NSS Accounting"),
         actions: [
           Row(
             children: [
@@ -73,37 +77,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
       bottomNavigationBar: navbarWidget(context),
     );
   }
 
   BottomNavigationBar navbarWidget(BuildContext context) {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.business),
           label: 'SSM',
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.teal[800],
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'SM',
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.teal[800],
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.group_work),
+          icon: Icon(Icons.groups_rounded),
           label: 'Sammilani',
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.teal[800],
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.center_focus_strong),
+          icon: Icon(Icons.center_focus_strong_rounded),
           label: 'Kendra',
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.teal[800],
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.amberAccent,
+      selectedItemColor: Colors.teal[200],
       onTap: _onItemTapped,
     );
   }

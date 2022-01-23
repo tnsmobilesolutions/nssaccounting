@@ -262,7 +262,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                 ),
                 SizedBox(height: 18),
                 ElevatedButton(
-                  style: CommonStyle.elevatedSubmitButtonStyle(),
+                  //style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -282,6 +282,10 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                     print(_receivedController.text);
                     print(_remarkController.text);
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.teal[500],
+                    shadowColor: Colors.black12,
+                  ),
                   child: Text('Submit'),
                 ),
               ],

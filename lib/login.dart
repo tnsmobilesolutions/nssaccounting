@@ -12,6 +12,7 @@ const users = const {
 
 const RELEASE_MODE = true;
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1);
   AppUser? _loggedInUser;

@@ -12,7 +12,7 @@ class SM extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(90.0),
       child: new StaggeredGridView.countBuilder(
         crossAxisCount: 4,
         itemCount: widgetTiles.length,
@@ -25,28 +25,64 @@ class SM extends StatelessWidget {
             );
           },
           child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: widgetTiles[index].backgroundColor,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: NAColor.darken(widgetTiles[index].backgroundColor),
-              ),
-              child: Center(
-                child: Text(
-                  widgetTiles[index].title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color:
-                        NAColor.darken(widgetTiles[index].backgroundColor, 0.7),
+            decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                    offset: Offset(0.0, 30.0),
+                    blurRadius: 30.0,
+                    color: Colors.black12)
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  height: 60.0,
+                  width: 200.0,
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 13.5, horizontal: 12.0),
+                  // child: const Text(
+                  //   'Add Branch',
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //   ),
+                  //   // style: Theme.of(context)
+                  //   //     .textTheme
+                  //   //     .button
+                  //   //     ?.apply(color: Colors.black),
+                  // ),
+                  decoration: BoxDecoration(
+                    color: Colors.teal[300],
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(89.0),
+                      topLeft: Radius.circular(89.0),
+                      bottomRight: Radius.circular(200.0),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      widgetTiles[index].title,
+                      style: TextStyle(
+                        fontSize: 20,
+                        // color:
+                        //     NAColor.darken(widgetTiles[index].backgroundColor, 0.7),
+                      ),
+                    ),
                   ),
                 ),
-              )),
+                const Icon(
+                  Icons.money,
+                  size: 30.0,
+                ),
+              ],
+            ),
+          ),
         ),
         staggeredTileBuilder: (int index) => new StaggeredTile.count(
             widgetTiles[index].crossAxisCellCount,
             widgetTiles[index].mainAxisCellCount.toDouble()),
-        mainAxisSpacing: 10.0,
+        mainAxisSpacing: 32.0,
         crossAxisSpacing: 10.0,
       ),
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
+import 'package:uuid/uuid.dart';
 
 class ManageEditPage extends StatefulWidget {
   ManageEditPage({Key? key, required this.branch}) : super(key: key);
@@ -25,6 +27,18 @@ class _ManageEditPageState extends State<ManageEditPage> {
   final _yearController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.branch.branchName ?? "";
+    _addressController.text = widget.branch.address ?? "";
+    _cityController.text = widget.branch.city ?? "";
+    _stateController.text = widget.branch.state ?? "";
+    _countryController.text = widget.branch.country ?? "";
+    _pinController.text = widget.branch.pin?.toString() ?? "";
+    _devoteeController.text = widget.branch.devotees?.toString() ?? "";
+    _yearController.text = widget.branch.year?.toString() ?? "";
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -40,6 +54,9 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _nameController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Name';
@@ -50,7 +67,7 @@ class _ManageEditPageState extends State<ManageEditPage> {
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Name",
+                    labelTextStr: "Sangha Name",
                     hintTextStr: "Enter Name",
                   ),
                 ),
@@ -58,10 +75,12 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _addressController,
+
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Address';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(r'^[a-z A-Z 0-9 , / - .]+$')
+                        .hasMatch(value)) {
                       return 'Please Enter Correct Address';
                     }
                     return null;
@@ -76,10 +95,13 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _cityController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z , A-Z]"))
+                  ],
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter City Name';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(r'^[a-z A-Z ,]+$').hasMatch(value)) {
                       return 'Please Enter Correct City Name';
                     }
                     return null;
@@ -94,6 +116,9 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _stateController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter State Name';
@@ -112,6 +137,9 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _countryController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Country Name';
@@ -128,15 +156,15 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,6}'))
+                  ],
                   controller: _pinController,
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter Amount';
+                    if (value!.length < 6) {
+                      return 'Enter atleast 6 digit';
                     }
-                    return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
@@ -146,7 +174,8 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   controller: _devoteeController,
                   validator: (value) {
                     if (value!.isEmpty ||
@@ -159,25 +188,25 @@ class _ManageEditPageState extends State<ManageEditPage> {
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Devotee No",
-                    hintTextStr: "Enter Devotee No",
+                    hintTextStr: "Enter Total Devotee No",
                   ),
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,4}'))
+                  ],
                   controller: _yearController,
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter Amount';
+                    if (value!.length < 4) {
+                      return 'Enter a valid year';
                     }
-                    return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Year of Joining",
-                    hintTextStr: "Enter Year of Joining",
+                    labelTextStr: "Year of Establishment",
+                    hintTextStr: "Enter Year of establishment",
                   ),
                 ),
                 SizedBox(height: 20),
@@ -186,7 +215,7 @@ class _ManageEditPageState extends State<ManageEditPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Branch branch = Branch(
-                            branchId: "",
+                            branchId: widget.branch.branchId,
                             branchName: _nameController.text,
                             address: _addressController.text,
                             city: _cityController.text,
@@ -196,7 +225,7 @@ class _ManageEditPageState extends State<ManageEditPage> {
                             devotees: int.parse(_devoteeController.text),
                             year: int.parse(_yearController.text));
 
-                        final branchId = BranchAPI().createNewBranch(branch);
+                        final branchId = BranchAPI().updateBranch(branch);
                         print(branchId);
 
                         ScaffoldMessenger.of(context).showSnackBar(

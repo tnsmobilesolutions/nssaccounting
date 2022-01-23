@@ -17,8 +17,6 @@ class ManageAddBranch extends StatefulWidget {
 class _ManageAddBranchState extends State<ManageAddBranch> {
   final _formKey = GlobalKey<FormState>();
 
-  List<int> digit = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
@@ -27,15 +25,19 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
   final _pinController = TextEditingController();
   final _estYearController = TextEditingController();
   final _numDevController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal[100],
       appBar: AppBar(
+        backgroundColor: Colors.teal[800],
         title: Text("Add Branch"),
       ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Padding(
             padding: EdgeInsets.all(22.0),
             child: Column(
@@ -43,29 +45,40 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _nameController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Branch Name';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Name';
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Sangha Name';
                     }
                     return null;
                   },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please Enter Name';
+                  //   } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                  //     return 'Please Enter Correct Name';
+                  //   }
+                  //   return null;
+                  // },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Branch Name",
+                    labelTextStr: "Sangha Name",
                     hintTextStr: "Enter Name",
                   ),
                 ),
                 SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.phone,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+                  ],
                   controller: _numDevController,
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return 'Please Enter Number of Devotees';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                       return 'Please Enter Correct Number';
                     }
                     return null;
@@ -79,30 +92,31 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.phone,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{1,4}'))
+                  ],
                   controller: _estYearController,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Established Year';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Year';
+                    if (value!.length < 4) {
+                      return 'Enter a valid year';
                     }
-                    return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Established Year ",
-                    hintTextStr: "Enter Established Year",
+                    labelTextStr: "Year of Establishment",
+                    hintTextStr: "Enter Year of establishment",
                   ),
                 ),
                 SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _addressController,
+
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Address';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(r'^[a-z A-Z 0-9 , / - .]+$')
+                        .hasMatch(value)) {
                       return 'Please Enter Correct Address';
                     }
                     return null;
@@ -117,10 +131,13 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _cityController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z , A-Z]"))
+                  ],
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter City Name';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(r'^[a-z A-Z ,]+$').hasMatch(value)) {
                       return 'Please Enter Correct City Name';
                     }
                     return null;
@@ -136,7 +153,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                   keyboardType: TextInputType.name,
                   controller: _stateController,
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return 'Please Enter State Name';
                     } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                       return 'Please Enter Correct State Name';
@@ -154,7 +171,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                   keyboardType: TextInputType.name,
                   controller: _countryController,
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return 'Please Enter Country Name';
                     } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                       return 'Please Enter Correct Country Name';
@@ -170,15 +187,14 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.phone,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[0-9]{0,6}"))
+                  ],
                   controller: _pinController,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Pincode';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Pincode';
+                    if (value == null || value.length < 6) {
+                      return 'Enter atleast 6 digit';
                     }
-                    return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
@@ -189,27 +205,35 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 SizedBox(height: 16),
                 ElevatedButton(
                     onPressed: () {
-                      Branch branch = Branch(
-                        branchId: Uuid().v1(),
-                        branchName: _nameController.text,
-                        address: _addressController.text,
-                        city: _cityController.text,
-                        state: _stateController.text,
-                        country: _countryController.text,
-                        devotees: int.parse(_numDevController.text),
-                        pin: int.parse(_pinController.text),
-                        year: int.parse(_estYearController.text),
-                      );
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data Submitted.')),
+                        );
 
-                      final branchId = BranchAPI().createNewBranch(branch);
-                      print(branchId);
+                        Branch branch = Branch(
+                          branchId: Uuid().v1(),
+                          branchName: _nameController.text,
+                          address: _addressController.text,
+                          city: _cityController.text,
+                          state: _stateController.text,
+                          country: _countryController.text,
+                          devotees: int.tryParse(_numDevController.text),
+                          pin: int.tryParse(_pinController.text),
+                          year: int.tryParse(_estYearController.text),
+                        );
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Data Submitted.')),
-                      );
-                      Navigator.pop(context);
+                        final branchId = BranchAPI().createNewBranch(branch);
+                        print(branchId);
+
+                        Navigator.pop(context);
+                      }
+
+                      //
                     },
-                    style: CommonStyle.elevatedSubmitButtonStyle(),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.teal[500],
+                      shadowColor: Colors.black12,
+                    ),
                     child: Text('ADD BRANCH')),
               ],
             ),

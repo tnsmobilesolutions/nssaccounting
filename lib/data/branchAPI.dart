@@ -60,6 +60,7 @@ class BranchAPI {
     //   "devotees": branch.devotees,
     //   "year": branch.year,
     // });
+
     final reference = await branchsCol.doc(branch.branchId).set(branch.toMap());
 
     // branchsCol
@@ -71,15 +72,14 @@ class BranchAPI {
     // return branch.branchId;
   }
 
-  Future<void> updateBranch(Branch branch) async {
+  Future updateBranch(Branch branch) async {
     // Implement Update branch logic here
-    var collection = FirebaseFirestore.instance.collection('branches');
-    collection
-        .doc(branch.branchId) // <-- Doc ID where data should be updated.
+    return FirebaseFirestore.instance
+        .collection('branches')
+        .doc('${branch.branchId}') // <-- Doc ID where data should be updated.
         .update(branch.toMap());
   }
 }
-
 
 /*
 void main() => runApp(MyApp());
