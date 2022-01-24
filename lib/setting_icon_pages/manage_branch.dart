@@ -54,6 +54,7 @@ class _ManageBranchState extends State<ManageBranch> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(22.0),
                   ),
+
                   child: Row(
                     children: [
                       Container(
