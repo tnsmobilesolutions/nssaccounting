@@ -15,6 +15,7 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
 
   final _nameController = TextEditingController();
   final _branchController = TextEditingController();
+  final _ppidController = TextEditingController();
   final _joinedController = TextEditingController();
   final _contactController = TextEditingController();
   final _emailController = TextEditingController();
@@ -65,6 +66,26 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Branch",
                     hintTextStr: "Enter Branch",
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: _ppidController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter PPID';
+                    } else if (!RegExp(
+                            r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                        .hasMatch(value)) {
+                      return 'Please Enter Correct PPID';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "PPID",
+                    hintTextStr: "Enter PPID",
                   ),
                 ),
                 SizedBox(height: 16),
@@ -134,6 +155,7 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                           branchId: "",
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
+                          ppid: _ppidController.text,
                           joiningYear: int.parse(_joinedController.text),
                           contact: _contactController.text,
                           email: _emailController.text,

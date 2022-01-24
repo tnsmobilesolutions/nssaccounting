@@ -23,6 +23,18 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
   final _emailController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    _nameController.text = widget.devotee.devoteeName ?? "";
+    _branchController.text = widget.devotee.branchName ?? "";
+    _ppidController.text = widget.devotee.ppid ?? "";
+    _joinedController.text = widget.devotee.joiningYear?.toString() ?? "";
+    _contactController.text = widget.devotee.contact ?? "";
+    _emailController.text = widget.devotee.email ?? "";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +89,9 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter PPID';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(
+                            r'^([a-zA-Z0-9]+[_-])*[a-zA-Z0-9]+\.[a-zA-Z0-9]+')
+                        .hasMatch(value)) {
                       return 'Please Enter Correct PPID';
                     }
                     return null;
@@ -148,7 +162,7 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Devotee devotee = Devotee(
-                          branchId: "",
+                          branchId: widget.devotee.branchId,
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
                           ppid: _ppidController.text,

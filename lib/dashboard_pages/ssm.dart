@@ -38,8 +38,8 @@ class SSM extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  height: 60.0,
-                  width: 200.0,
+                  height: 80.0,
+                  width: 150.0,
                   padding: const EdgeInsets.symmetric(
                       vertical: 13.5, horizontal: 12.0),
                   // child: const Text(
