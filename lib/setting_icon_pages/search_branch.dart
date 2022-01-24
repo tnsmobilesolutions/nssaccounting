@@ -9,7 +9,9 @@ import 'package:nssaccounting/setting_icon_pages/edit_manage_branch.dart';
 //import 'package:uuid/uuid.dart';
 
 class SearchBranch extends StatefulWidget {
-  SearchBranch({Key? key}) : super(key: key);
+  SearchBranch({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SearchBranchState createState() => _SearchBranchState();
@@ -18,7 +20,9 @@ class SearchBranch extends StatefulWidget {
 class _SearchBranchState extends State<SearchBranch> {
   Branch? _selectedBranch;
   List<Branch?>? _filteredBranches;
-  bool _folded = true;
+  //bool _folded = true;
+
+  bool _isSearchStarted = true;
 
   //double _searchbarHeight = 60;
 
@@ -225,6 +229,7 @@ class _SearchBranchState extends State<SearchBranch> {
                                                       (element) =>
                                                           element?.branchName ==
                                                           branch);
+                                              // now _selectedBranch has all the information of searched branch
                                               print(_selectedBranch);
                                             },
                                           );
@@ -297,103 +302,110 @@ class _SearchBranchState extends State<SearchBranch> {
               //     ),
               //   ),
               // ),
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Branch Name: ${_selectedBranch?.branchName}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
-                child: Text(
-                  'Address: ${_selectedBranch?.address}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Number of devotees: ${_selectedBranch?.devotees}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Established year: ${_selectedBranch?.year}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'City: ${_selectedBranch?.city}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'State: ${_selectedBranch?.state}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Country: ${_selectedBranch?.country}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Pincode: ${_selectedBranch?.pin}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
+
+              Builder(builder: (context) {
+                return Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                      child: Text(
+                        'Branch Name: ${_selectedBranch?.branchName}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
+                      child: Text(
+                        'Address: ${_selectedBranch?.address}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                      child: Text(
+                        'Number of devotees: ${_selectedBranch?.devotees}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                      child: Text(
+                        'Established year: ${_selectedBranch?.year}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                      child: Text(
+                        'City: ${_selectedBranch?.city}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                      child: Text(
+                        'State: ${_selectedBranch?.state}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                      child: Text(
+                        'Country: ${_selectedBranch?.country}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.yellowAccent[700]),
+                      padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                      child: Text(
+                        'Pincode: ${_selectedBranch?.pin}',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 12),
+                  ],
+                );
+              }),
             ],
           ),
         ),
@@ -403,7 +415,7 @@ class _SearchBranchState extends State<SearchBranch> {
           style: CommonStyle.elevatedSubmitButtonStyle(),
           onPressed: () {
             if (_selectedBranch != null) {
-              Navigator.push(
+              final updatedBranch = Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ManageEditPage(
@@ -411,6 +423,8 @@ class _SearchBranchState extends State<SearchBranch> {
                   ),
                 ),
               );
+              print('Updated Branch = $updatedBranch');
+              // function will be called here to print the updated branch
             }
           },
           child: Text(
@@ -460,3 +474,31 @@ class SearchResultsListView extends StatelessWidget {
     );
   }
 }
+
+
+// class MyAlertDialog extends StatelessWidget {
+//   final String title;
+//   final String content;
+//   final List<Widget> actions;
+
+//   MyAlertDialog({
+//     this.title,
+//     this.content,
+//     this.actions = const [],
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       title: Text(
+//         this.title,
+//         style: Theme.of(context).textTheme.headline6,
+//       ),
+//       actions: this.actions,
+//       content: Text(
+//         this.content,
+//         style: Theme.of(context).textTheme.bodyText2,
+//       ),
+//     );
+//   }
+// }
