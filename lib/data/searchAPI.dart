@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:nssaccounting/model/receipt.dart';
 
 class SearchAPI {
@@ -12,7 +13,7 @@ class SearchAPI {
         final receiptData = element.data() as Map<String, dynamic>;
         print(receiptData);
         final receipt = Receipt.fromMap(receiptData);
-        lstReceipt.add(receipt); 
+        lstReceipt.add(receipt);
       });
       return lstReceipt;
     });
@@ -67,13 +68,15 @@ class SearchAPI {
     CollectionReference receipts =
         FirebaseFirestore.instance.collection('receipts');
 
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
     final lstReceipts = receipts.get().then((querySnapshot) {
       List<Receipt>? lstReceipt = [];
       querySnapshot.docs.forEach((element) {
         final receiptData = element.data() as Map<String, dynamic>;
         print(receiptData);
         final receipt = Receipt.fromMap(receiptData);
-        if (receipt.receiptDate == date) {
+        if (formatter.format(receipt.receiptDate!) == formatter.format(date!)) {
           lstReceipt.add(receipt);
         }
       });

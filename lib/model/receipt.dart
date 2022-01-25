@@ -148,6 +148,8 @@
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Receipt {
   final String? accountCode;
   final double? amount;
@@ -234,6 +236,9 @@ class Receipt {
   }
 
   factory Receipt.fromMap(Map<String, dynamic> map) {
+    Timestamp timeStamp = map['receiptDate'];
+    final receiptDate =
+        DateTime.fromMillisecondsSinceEpoch(timeStamp.seconds * 1000);
     return Receipt(
       accountCode: map['accountCode'],
       amount: map['amount']?.toDouble(),
@@ -243,9 +248,7 @@ class Receipt {
       paymentMode: map['paymentMode'],
       paymentType: map['paymentType'],
       preparedBy: map['preparedBy'],
-      //receiptDate: map['receiptDate'] != null
-      // ? DateTime.fromMillisecondsSinceEpoch(map['receiptDate'])
-      // : null,
+      receiptDate: receiptDate,
       receiptId: map['receiptId'],
       receiptNo: map['receiptNo'],
       remarks: map['remarks'],
