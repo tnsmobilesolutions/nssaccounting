@@ -43,7 +43,7 @@ class DevoteeAPI {
     final reference = await devoteeCol.add({
       "branchId": devotee.branchId,
       "branchName": devotee.branchName,
-      "name": devotee.devoteeName,
+      "devoteeName": devotee.devoteeName,
       "ppid": devotee.ppid,
       "joiningYear": devotee.joiningYear,
       "contact": devotee.contact,

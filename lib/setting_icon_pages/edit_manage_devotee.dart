@@ -23,6 +23,18 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
   final _emailController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    _nameController.text = widget.devotee.devoteeName ?? "";
+    _branchController.text = widget.devotee.branchName ?? "";
+    _ppidController.text = widget.devotee.ppid ?? "";
+    _joinedController.text = widget.devotee.joiningYear?.toString() ?? "";
+    _contactController.text = widget.devotee.contact ?? "";
+    _emailController.text = widget.devotee.email ?? "";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -72,20 +84,22 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.number,
                   controller: _ppidController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter PPID';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    } else if (!RegExp(
+                            r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                        .hasMatch(value)) {
                       return 'Please Enter Correct PPID';
                     }
                     return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "PPID No ",
-                    hintTextStr: "Enter PPID No",
+                    labelTextStr: "PPID",
+                    hintTextStr: "Enter PPID",
                   ),
                 ),
                 SizedBox(height: 16),
@@ -128,14 +142,14 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-                  validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter Email';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value!.isEmpty ||
+                  //       !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                  //           .hasMatch(value)) {
+                  //     return 'Please Enter Email';
+                  //   }
+                  //   return null;
+                  // },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Email",
@@ -148,7 +162,7 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Devotee devotee = Devotee(
-                          branchId: "",
+                          branchId: widget.devotee.branchId,
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
                           ppid: _ppidController.text,
@@ -157,10 +171,15 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                           email: _emailController.text,
                         );
 
-                        final devoteeId =
-                            DevoteeAPI().createNewDevotee(devotee);
-                        print(devoteeId);
-                        Navigator.pop(context);
+                        final branchId = DevoteeAPI().updateDevotee(devotee);
+                        print(devotee);
+                        print(branchId);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data Updated.')),
+                        );
+
+                        Navigator.pop(context, devotee);
                       }
                     },
                     child: Text('UPDATE')),

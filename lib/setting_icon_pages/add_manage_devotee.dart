@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/devoteeAPI.dart';
 import 'package:nssaccounting/model/devotee.dart';
+import 'package:uuid/uuid.dart';
 
 class ManageDevoteeAdd extends StatefulWidget {
   ManageDevoteeAdd({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
 
   final _nameController = TextEditingController();
   final _branchController = TextEditingController();
+  final _ppidController = TextEditingController();
   final _joinedController = TextEditingController();
   final _contactController = TextEditingController();
   final _emailController = TextEditingController();
@@ -70,6 +72,26 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.number,
+                  controller: _ppidController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter PPID';
+                    } else if (!RegExp(
+                            r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                        .hasMatch(value)) {
+                      return 'Please Enter Correct PPID';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "PPID",
+                    hintTextStr: "Enter PPID",
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  keyboardType: TextInputType.number,
                   controller: _joinedController,
                   validator: (value) {
                     if (value!.isEmpty ||
@@ -110,16 +132,16 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
 
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Branch';
-                    } else if (!RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return 'Please Enter Email Address';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value!.isEmpty) {
+                  //     return 'Please Enter Email';
+                  //   } else if (!RegExp(
+                  //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  //       .hasMatch(value)) {
+                  //     return 'Please Enter Email Address';
+                  //   }
+                  //   return null;
+                  // },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Email Address",
@@ -131,9 +153,10 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Devotee devotee = Devotee(
-                          branchId: "",
+                          branchId: Uuid().v1(),
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
+                          ppid: _ppidController.text,
                           joiningYear: int.parse(_joinedController.text),
                           contact: _contactController.text,
                           email: _emailController.text,
@@ -142,6 +165,10 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                         final devoteeId =
                             DevoteeAPI().createNewDevotee(devotee);
                         print(devoteeId);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data Submitted.')),
+                        );
                         Navigator.pop(context);
                       }
                     },

@@ -24,6 +24,8 @@ class _ManageDevoteeState extends State<ManageDevotee> {
 
   String? selectedTerm;
 
+  bool _isSearchedSelected = false;
+
   Future<List<String>> filterSearchTerms({
     @required String? name,
   }) async {
@@ -171,6 +173,7 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                                               ?.devoteeName ==
                                                           devotee);
                                               print(_selectedDevotee);
+                                              _isSearchedSelected = true;
                                             },
                                           );
                                           controller.close();
@@ -188,102 +191,130 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                 ),
               ),
               SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
-                child: Text(
-                  'Name: ${_selectedDevotee?.devoteeName}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'BranchName: ${_selectedDevotee?.branchName}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'PPID: ${_selectedDevotee?.ppid}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Contact: ${_selectedDevotee?.contact}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Email: ${_selectedDevotee?.email}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
-              SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.yellowAccent[700]),
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-                child: Text(
-                  'Joining Year: ${_selectedDevotee?.joiningYear}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                width: double.infinity,
-              ),
+              _isSearchedSelected
+                  ? Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
+                            child: Text(
+                              'Name: ${_selectedDevotee?.devoteeName}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'BranchName: ${_selectedDevotee?.branchName}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'PPID: ${_selectedDevotee?.ppid}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Contact: ${_selectedDevotee?.contact}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Email: ${_selectedDevotee?.email}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Joining Year: ${_selectedDevotee?.joiningYear}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            style: CommonStyle.elevatedSubmitButtonStyle(),
+                            onPressed: () {
+                              if (_selectedDevotee != null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ManageDevoteeEdit(
+                                      devotee: _selectedDevotee!,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              'Edit',
+                              style: TextStyle(fontSize: 24),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Text('Search Your Desired Devotee Name'),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: ElevatedButton(
-          style: CommonStyle.elevatedSubmitButtonStyle(),
-          onPressed: () {
-            if (_selectedDevotee != null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ManageDevoteeEdit(
-                    devotee: _selectedDevotee!,
-                  ),
-                ),
-              );
-            }
-          },
-          child: Text(
-            'Edit',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   child: ElevatedButton(
+      //     style: CommonStyle.elevatedSubmitButtonStyle(),
+      //     onPressed: () {
+      //       if (_selectedDevotee != null) {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //             builder: (context) => ManageDevoteeEdit(
+      //               devotee: _selectedDevotee!,
+      //             ),
+      //           ),
+      //         );
+      //       }
+      //     },
+      //     child: Text(
+      //       'Edit',
+      //       style: TextStyle(fontSize: 24),
+      //     ),
+      //   ),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
