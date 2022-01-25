@@ -30,7 +30,7 @@ class DevoteeAPI {
         if ((devotee.devoteeName ?? '').startsWith(devoteeName)) {
           lstDevotee.add(devotee);
         }
-        // lstDevotee.add(devotee);
+        //lstDevotee.add(devotee);
       });
       return lstDevotee;
     });
@@ -43,7 +43,7 @@ class DevoteeAPI {
     final reference = await devoteeCol.add({
       "branchId": devotee.branchId,
       "branchName": devotee.branchName,
-      "devoteeName": devotee.devoteeName,
+      "name": devotee.devoteeName,
       "ppid": devotee.ppid,
       "joiningYear": devotee.joiningYear,
       "contact": devotee.contact,

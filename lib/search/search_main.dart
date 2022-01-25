@@ -29,10 +29,8 @@ class _SearchMainState extends State<SearchMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[100],
       appBar: AppBar(
-        backgroundColor: Colors.teal[800],
-        title: Text("Add Branch"),
+        title: Text('Search'),
       ),
       body: Center(
         child: Padding(
@@ -41,7 +39,7 @@ class _SearchMainState extends State<SearchMain> {
             children: [
               DropdownButton(
                 hint: Text('Search By'),
-                dropdownColor: Colors.amberAccent[200],
+                dropdownColor: Colors.amberAccent,
                 value: _selectedOption,
                 onChanged: (value) {
                   setState(() {
@@ -63,11 +61,7 @@ class _SearchMainState extends State<SearchMain> {
               getAccountWidget(_selectedOption),
               SizedBox(height: 40),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.teal[500],
-                    shadowColor: Colors.black12,
-                  ),
-                  //style: CommonStyle.elevatedSubmitButtonStyle(),
+                  style: CommonStyle.elevatedSubmitButtonStyle(),
                   child: Text("Search"),
                   onPressed: () async {
                     print('search btn pressrd');
