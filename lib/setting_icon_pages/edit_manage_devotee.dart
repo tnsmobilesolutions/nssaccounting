@@ -150,6 +150,7 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                     }
                     return null;
                   },
+
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Email",
