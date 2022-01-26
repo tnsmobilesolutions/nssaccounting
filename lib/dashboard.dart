@@ -101,6 +101,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           label: 'Kendra',
           backgroundColor: Colors.blue,
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.payments_rounded),
+          label: 'Payment Voucher',
+          backgroundColor: Colors.blue,
+        ),
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: Colors.amberAccent,

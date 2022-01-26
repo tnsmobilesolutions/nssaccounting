@@ -226,8 +226,8 @@ class _ManageEditPageState extends State<ManageEditPage> {
                             year: int.parse(_yearController.text));
 
                         final branchId = BranchAPI().updateBranch(branch);
-                        print(branch);
-                        print(branchId);
+                        // print(branch);
+                        print(branch.branchId);
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Data Updated.')),
