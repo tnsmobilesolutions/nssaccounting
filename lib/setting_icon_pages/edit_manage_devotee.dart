@@ -84,18 +84,19 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
+                  readOnly: true,
                   keyboardType: TextInputType.number,
                   controller: _ppidController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter PPID';
-                    } else if (!RegExp(
-                            r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                        .hasMatch(value)) {
-                      return 'Please Enter Correct PPID';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value!.isEmpty) {
+                  //     return 'Please Enter PPID';
+                  //   } else if (!RegExp(
+                  //           r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                  //       .hasMatch(value)) {
+                  //     return 'Please Enter Correct PPID';
+                  //   }
+                  //   return null;
+                  // },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "PPID",
@@ -162,24 +163,24 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Devotee devotee = Devotee(
-                          branchId: widget.devotee.branchId,
+                          devoteeId: widget.devotee.devoteeId,
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
-                          ppid: _ppidController.text,
+                          //ppid: _ppidController.text,
                           joiningYear: int.parse(_joinedController.text),
                           contact: _contactController.text,
                           email: _emailController.text,
                         );
 
-                        final branchId = DevoteeAPI().updateDevotee(devotee);
+                        final devoteeId = DevoteeAPI().updateDevotee(devotee);
                         print(devotee);
-                        print(branchId);
+                        print(devoteeId);
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Data Updated.')),
                         );
 
-                        Navigator.pop(context, devotee);
+                        Navigator.pop(context, devoteeId);
                       }
                     },
                     child: Text('UPDATE')),

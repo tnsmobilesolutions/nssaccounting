@@ -70,26 +70,26 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _ppidController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter PPID';
-                    } else if (!RegExp(
-                            r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                        .hasMatch(value)) {
-                      return 'Please Enter Correct PPID';
-                    }
-                    return null;
-                  },
-                  // style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "PPID",
-                    hintTextStr: "Enter PPID",
-                  ),
-                ),
-                SizedBox(height: 16),
+                // TextFormField(
+                //   keyboardType: TextInputType.number,
+                //   controller: _ppidController,
+                //   validator: (value) {
+                //     if (value!.isEmpty) {
+                //       return 'Please Enter PPID';
+                //     } else if (!RegExp(
+                //             r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                //         .hasMatch(value)) {
+                //       return 'Please Enter Correct PPID';
+                //     }
+                //     return null;
+                //   },
+                //   // style: TextStyle(height: 0.5),
+                //   decoration: CommonStyle.textFieldStyle(
+                //     labelTextStr: "PPID",
+                //     hintTextStr: "Enter PPID",
+                //   ),
+                // ),
+                //SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: _joinedController,
@@ -153,10 +153,10 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Devotee devotee = Devotee(
-                          branchId: Uuid().v1(),
+                          devoteeId: Uuid().v1(),
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
-                          ppid: _ppidController.text,
+                          ppid: Uuid().v1(),
                           joiningYear: int.parse(_joinedController.text),
                           contact: _contactController.text,
                           email: _emailController.text,

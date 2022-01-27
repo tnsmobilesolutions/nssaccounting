@@ -1,5 +1,7 @@
 //import 'dart:ui';
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
@@ -267,24 +269,64 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                             width: double.infinity,
                           ),
                           SizedBox(height: 20),
-                          ElevatedButton(
-                            style: CommonStyle.elevatedSubmitButtonStyle(),
-                            onPressed: () {
-                              if (_selectedDevotee != null) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ManageDevoteeEdit(
-                                      devotee: _selectedDevotee!,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            child: Text(
-                              'Edit',
-                              style: TextStyle(fontSize: 24),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green,
+                                    padding: EdgeInsets.only(
+                                        left: 30,
+                                        top: 10,
+                                        right: 30,
+                                        bottom: 10),
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () {
+                                  if (_selectedDevotee != null) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ManageDevoteeEdit(
+                                          devotee: _selectedDevotee!,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  'Edit',
+                                  style: TextStyle(fontSize: 24),
+                                ),
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    final devoteeId = DevoteeAPI()
+                                        .deleteDevote(_selectedDevotee!);
+                                    print(devoteeId);
+                                    print(_selectedDevotee);
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Document Deleted.')),
+                                    );
+
+                                    Navigator.pop(context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.green,
+                                      padding: EdgeInsets.only(
+                                          left: 20,
+                                          top: 10,
+                                          right: 20,
+                                          bottom: 10),
+                                      textStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold)),
+                                  child: Text('Delete')),
+                            ],
                           ),
                         ],
                       ),
