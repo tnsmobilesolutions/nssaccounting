@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+//import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nssaccounting/dashboard_pages/kendra.dart';
 import 'package:nssaccounting/dashboard_pages/pv.dart';
 import 'package:nssaccounting/dashboard_pages/samilani.dart';
@@ -8,8 +8,8 @@ import 'package:nssaccounting/dashboard_pages/ssm.dart';
 import 'package:nssaccounting/model/user.dart';
 import 'package:nssaccounting/search/search_main.dart';
 import 'package:nssaccounting/settings.dart';
-import 'package:nssaccounting/widgetConfig.dart';
-import 'package:nssaccounting/widgetTile.dart';
+// import 'package:nssaccounting/widgetConfig.dart';
+// import 'package:nssaccounting/widgetTile.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({Key? key, this.loggedInUser}) : super(key: key);
@@ -94,7 +94,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           backgroundColor: Colors.blue,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.group_work),
+          icon: Icon(Icons.groups_rounded),
           label: 'Sammilani',
           backgroundColor: Colors.blue,
         ),
