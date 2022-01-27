@@ -296,6 +296,8 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                       ),
                                     );
                                   }
+                                  print(updateDevotee);
+
                                   setState(() {
                                     _selectedDevotee = updateDevotee;
                                   });

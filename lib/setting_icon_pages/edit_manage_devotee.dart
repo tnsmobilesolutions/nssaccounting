@@ -180,7 +180,7 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                           const SnackBar(content: Text('Data Updated.')),
                         );
 
-                        Navigator.pop(context, devoteeId);
+                        Navigator.pop(context, devotee);
                       }
                     },
                     child: Text('UPDATE')),
