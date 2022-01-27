@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 
 class Branch {
   final String? branchId;
@@ -12,6 +12,8 @@ class Branch {
   final int? pin;
   final int? devotees;
   final int? year;
+
+  var get;
   Branch({
     this.branchId,
     this.branchName,

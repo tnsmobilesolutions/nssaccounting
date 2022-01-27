@@ -277,8 +277,15 @@ class _ManageBranchState extends State<ManageBranch> {
                       ),
                     ),
                   );
-                  BranchDetails().getContainer(updatedBranch);
-                  //print(updatedBranch);
+                  print(updatedBranch);
+                  _isSearchSelected = false;
+                  setState(
+                    () {
+                      _isSearchSelected
+                          ? Text('Search Branch By Name')
+                          : BranchDetails().getContainer(updatedBranch);
+                    },
+                  );
                 }
               },
               child: Text(
@@ -297,9 +304,13 @@ class _ManageBranchState extends State<ManageBranch> {
                       FirebaseFirestore.instance.collection('branches');
                   collection.doc(_selectedBranch!.branchId).delete();
 
-                  _selectedBranch = null;
-                  print(_selectedBranch);
-                  BranchDetails().getContainer(_selectedBranch);
+                  _isSearchSelected = false;
+
+                  setState(() {
+                    _isSearchSelected
+                        ? BranchDetails().getContainer(_selectedBranch)
+                        : Text('Search Branch By Name');
+                  });
                 }
               },
               child: Text(
