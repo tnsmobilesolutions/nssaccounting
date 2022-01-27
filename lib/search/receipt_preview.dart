@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nssaccounting/model/receipt.dart';
 import 'package:nssaccounting/model/user.dart';
 
@@ -13,6 +14,18 @@ class ReceiptPreview extends StatefulWidget {
 }
 
 class _ReceiptPreviewState extends State<ReceiptPreview> {
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+  String? receiptDate;
+
+  @override
+  void initState() {
+    if (widget.receipt?.receiptDate != null) {
+      final rcptDt = widget.receipt?.receiptDate;
+      receiptDate = formatter.format(rcptDt!);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.receipt?.receiptNo);
@@ -49,8 +62,7 @@ class _ReceiptPreviewState extends State<ReceiptPreview> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Receipt Date', style: commonTextStyle()),
-                    Text(widget.receipt?.receiptDate.toString() ?? '',
-                        style: commonTextStyle()),
+                    Text(receiptDate ?? '', style: commonTextStyle()),
                   ],
                 ),
                 SizedBox(height: 30),
