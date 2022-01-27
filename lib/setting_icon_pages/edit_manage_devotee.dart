@@ -166,7 +166,7 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                           devoteeId: widget.devotee.devoteeId,
                           branchName: _branchController.text,
                           devoteeName: _nameController.text,
-                          //ppid: _ppidController.text,
+                          ppid: _ppidController.text,
                           joiningYear: int.parse(_joinedController.text),
                           contact: _contactController.text,
                           email: _emailController.text,

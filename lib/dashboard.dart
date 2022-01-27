@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nssaccounting/dashboard_pages/kendra.dart';
+import 'package:nssaccounting/dashboard_pages/pv.dart';
 import 'package:nssaccounting/dashboard_pages/samilani.dart';
 import 'package:nssaccounting/dashboard_pages/sm.dart';
 import 'package:nssaccounting/dashboard_pages/ssm.dart';
@@ -27,6 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     SM(),
     Samilani(),
     Kendra(),
+    PaymentVoucher(),
   ];
 
   void _onItemTapped(int index) {
@@ -103,7 +105,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.payments_rounded),
-          label: 'Payment Voucher',
+          label: 'P Voucher',
           backgroundColor: Colors.blue,
         ),
       ],

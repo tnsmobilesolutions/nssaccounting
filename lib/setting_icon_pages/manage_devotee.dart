@@ -28,6 +28,8 @@ class _ManageDevoteeState extends State<ManageDevotee> {
 
   bool _isSearchedSelected = false;
 
+  var updateDevotee;
+
   Future<List<String>> filterSearchTerms({
     @required String? name,
   }) async {
@@ -283,9 +285,9 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                     textStyle: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold)),
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_selectedDevotee != null) {
-                                    Navigator.push(
+                                    updateDevotee = await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ManageDevoteeEdit(
@@ -294,6 +296,9 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                       ),
                                     );
                                   }
+                                  setState(() {
+                                    _selectedDevotee = updateDevotee;
+                                  });
                                 },
                                 child: Text(
                                   'Edit',
@@ -307,12 +312,16 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                     print(devoteeId);
                                     print(_selectedDevotee);
 
+                                    setState(() {
+                                      _isSearchedSelected = false;
+                                    });
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content: Text('Document Deleted.')),
                                     );
 
-                                    Navigator.pop(context);
+                                    // Navigator.pop(context);
                                   },
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.green,
@@ -336,27 +345,6 @@ class _ManageDevoteeState extends State<ManageDevotee> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //   child: ElevatedButton(
-      //     style: CommonStyle.elevatedSubmitButtonStyle(),
-      //     onPressed: () {
-      //       if (_selectedDevotee != null) {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => ManageDevoteeEdit(
-      //               devotee: _selectedDevotee!,
-      //             ),
-      //           ),
-      //         );
-      //       }
-      //     },
-      //     child: Text(
-      //       'Edit',
-      //       style: TextStyle(fontSize: 24),
-      //     ),
-      //   ),
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
@@ -405,119 +393,3 @@ class SearchResultsListView extends StatelessWidget {
     );
   }
 }
-
-
-//  @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Manage Devotee'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(18.0),
-//         child: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               TextFormField(
-//                 decoration: InputDecoration(
-//                     hintText: 'search By Devotee Name',
-//                     icon: Icon(Icons.search)),
-//               ),
-//               SizedBox(height: 24),
-//               Container(
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(12.0),
-//                     color: Colors.lightBlue[100]),
-//                 padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
-//                 child: Text(
-//                   'Name : Srinivas Panda',
-//                   style: TextStyle(fontSize: 22),
-//                 ),
-//                 width: double.infinity,
-//               ),
-//               SizedBox(height: 12),
-//               Container(
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(12.0),
-//                     color: Colors.lightBlue[100]),
-//                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-//                 child: Text(
-//                   'Branch : Mumbai',
-//                   style: TextStyle(fontSize: 22),
-//                 ),
-//                 width: double.infinity,
-//               ),
-//               SizedBox(height: 12),
-//               Container(
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(12.0),
-//                     color: Colors.lightBlue[100]),
-//                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-//                 child: Text(
-//                   'PPID : 201423',
-//                   style: TextStyle(fontSize: 22),
-//                 ),
-//                 width: double.infinity,
-//               ),
-//               SizedBox(height: 12),
-//               Container(
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(12.0),
-//                     color: Colors.lightBlue[100]),
-//                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-//                 child: Text(
-//                   'Joining Year : 2014',
-//                   style: TextStyle(fontSize: 22),
-//                 ),
-//                 width: double.infinity,
-//               ),
-//               SizedBox(height: 12),
-//               Container(
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(12.0),
-//                     color: Colors.lightBlue[100]),
-//                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-//                 child: Text(
-//                   'Contact : 7738261091',
-//                   style: TextStyle(fontSize: 22),
-//                 ),
-//                 width: double.infinity,
-//               ),
-//               SizedBox(height: 12),
-//               Container(
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(12.0),
-//                     color: Colors.lightBlue[100]),
-//                 padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-//                 child: Text(
-//                   'Email : srinivaspanda@gmail.com',
-//                   style: TextStyle(fontSize: 22),
-//                 ),
-//                 width: double.infinity,
-//               ),
-//               SizedBox(height: 20),
-//               ElevatedButton(
-//                   style: CommonStyle.elevatedSubmitButtonStyle(),
-//                   onPressed: () {
-//                     Navigator.push(
-//                         context,
-//                         MaterialPageRoute(
-//                             builder: (context) => ManageDevoteeEdit()));
-//                   },
-//                   child: Text(
-//                     'Edit',
-//                     style: TextStyle(fontSize: 24),
-//                   ))
-//             ],
-//           ),
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           Navigator.push(context,
-//               MaterialPageRoute(builder: (context) => ManageDevoteeAdd()));
-//         },
-//         child: Text('Add'),
-//       ),
-//     );
-//   }
