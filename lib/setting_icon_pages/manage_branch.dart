@@ -23,25 +23,6 @@ class _ManageBranchState extends State<ManageBranch> {
 
   double _searchbarHeight = 60;
 
-  //static const historyLength = 5;
-
-  //List<String>? _branchHistory;
-  //  = [
-  //   'atanu',
-  //   'amrut',
-  //   'abhishek',
-  //   'aabha',
-  //   'arnav',
-  //   'badrinath',
-  //   'binayak',
-  //   'biswaprakash',
-  //   'biswanath',
-  //   'chetan',
-  //   'chintu',
-  //   'dinesh',
-  //   'digambar',
-  // ];
-
   List<String>? filteredSearchHistory;
 
   String? selectedTerm;
@@ -254,94 +235,185 @@ class _ManageBranchState extends State<ManageBranch> {
               ),
               SizedBox(height: 20),
               _isSearchSelected
-                  ? BranchDetails().getContainer(_selectedBranch)
+                  ? Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Branch Name: ${_selectedBranch?.branchName}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
+                            child: Text(
+                              'Address: ${_selectedBranch?.address}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Number of devotees: ${_selectedBranch?.devotees}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Established year: ${_selectedBranch?.year}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'City: ${_selectedBranch?.city}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'State: ${_selectedBranch?.state}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Country: ${_selectedBranch?.country}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: Colors.yellowAccent[700]),
+                            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                            child: Text(
+                              'Pincode: ${_selectedBranch?.pin}',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            width: double.infinity,
+                          ),
+                          SizedBox(height: 22),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green,
+                                    padding: EdgeInsets.only(
+                                        left: 30,
+                                        top: 10,
+                                        right: 30,
+                                        bottom: 10),
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () async {
+                                  if (_selectedBranch != null) {
+                                    updatedBranch = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ManageEditPage(
+                                          branch: _selectedBranch!,
+                                        ),
+                                      ),
+                                    );
+                                    // print(updatedBranch);
+                                    // _isSearchSelected = false;
+                                    setState(
+                                      () {
+                                        _selectedBranch = updatedBranch;
+                                      },
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  'Edit',
+                                  style: TextStyle(fontSize: 24),
+                                ),
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green,
+                                    padding: EdgeInsets.only(
+                                        left: 20,
+                                        top: 10,
+                                        right: 20,
+                                        bottom: 10),
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () async {
+                                  if (_selectedBranch != null) {
+                                    var collection = FirebaseFirestore.instance
+                                        .collection('branches');
+                                    collection
+                                        .doc(_selectedBranch!.branchId)
+                                        .delete();
+
+                                    setState(() {
+                                      _isSearchSelected = false;
+                                    });
+                                  }
+                                },
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(fontSize: 24),
+                                ),
+                              ),
+                            ],
+                          ),
+                          // EditBranch().getContainer1(_selectedBranch)
+                        ],
+                      ),
+                    )
                   : Text('Search Branch By Name'),
               SizedBox(height: 12),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              style: CommonStyle.elevatedSubmitButtonStyle(),
-              onPressed: () async {
-                if (_selectedBranch != null) {
-                  updatedBranch = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ManageEditPage(
-                        branch: _selectedBranch!,
-                      ),
-                    ),
-                  );
-                  print(updatedBranch);
-                  _isSearchSelected = false;
-                  setState(
-                    () {
-                      _isSearchSelected
-                          ? Text('Search Branch By Name')
-                          : BranchDetails().getContainer(updatedBranch);
-                    },
-                  );
-                }
-              },
-              child: Text(
-                'Edit',
-                style: TextStyle(fontSize: 24),
-              ),
-            ),
-            SizedBox(
-              width: 30,
-            ),
-            ElevatedButton(
-              style: CommonStyle.elevatedSubmitButtonStyle(),
-              onPressed: () async {
-                if (_selectedBranch != null) {
-                  var collection =
-                      FirebaseFirestore.instance.collection('branches');
-                  collection.doc(_selectedBranch!.branchId).delete();
-
-                  _isSearchSelected = false;
-
-                  setState(() {
-                    _isSearchSelected
-                        ? BranchDetails().getContainer(_selectedBranch)
-                        : Text('Search Branch By Name');
-                  });
-                }
-              },
-              child: Text(
-                'Delete',
-                style: TextStyle(fontSize: 24),
-              ),
-            ),
-          ],
-        ),
-      ),
-      // bottomNavigationBar: BottomAppBar(
-      //   child: ElevatedButton(
-      //     style: CommonStyle.elevatedSubmitButtonStyle(),
-      //     onPressed: () {
-      //       if (_selectedBranch != null) {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => ManageEditPage(
-      //               branch: _selectedBranch!,
-      //             ),
-      //           ),
-      //         );
-      //       }
-      //     },
-      //     child: Text(
-      //       'Edit',
-      //       style: TextStyle(fontSize: 24),
-      //     ),
-      //   ),
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
@@ -390,137 +462,3 @@ class SearchResultsListView extends StatelessWidget {
     );
   }
 }
-
-class BranchDetails extends _ManageBranchState {
-  Widget getContainer(branchValue) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Text(
-              'Branch Name: ${branchValue?.branchName}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
-            child: Text(
-              'Address: ${branchValue?.address}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Text(
-              'Number of devotees: ${branchValue?.devotees}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Text(
-              'Established year: ${branchValue?.year}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Text(
-              'City: ${branchValue?.city}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Text(
-              'State: ${branchValue?.state}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Text(
-              'Country: ${branchValue?.country}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.yellowAccent[700]),
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Text(
-              'Pincode: ${branchValue?.pin}',
-              style: TextStyle(fontSize: 22),
-            ),
-            width: double.infinity,
-          ),
-          SizedBox(height: 12),
-          // EditBranch().getContainer1(branchValue)
-        ],
-      ),
-    );
-  }
-}
-
-// class EditBranch extends UpdatedBranch {
-//   Widget getContainer1(branchValue1) {
-//     return ElevatedButton(
-//       style: CommonStyle.elevatedSubmitButtonStyle(),
-//       onPressed: () async {
-//         if (branchValue1 != null) {
-//           updatedBranch = await Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//               builder: (context) => ManageEditPage(
-//                 branch: branchValue1!,
-//               ),
-//             ),
-//           );
-//           UpdatedBranch().getContainer(updatedBranch);
-//           //print(updatedBranch);
-//         }
-//       },
-//       child: Text(
-//         'Edit',
-//         style: TextStyle(fontSize: 24),
-//       ),
-//     );
-//   }
-// }

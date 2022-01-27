@@ -298,9 +298,11 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                   }
                                   print(updateDevotee);
 
-                                  setState(() {
-                                    _selectedDevotee = updateDevotee;
-                                  });
+                                  setState(
+                                    () {
+                                      _selectedDevotee = updateDevotee;
+                                    },
+                                  );
                                 },
                                 child: Text(
                                   'Edit',
@@ -314,9 +316,11 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                     print(devoteeId);
                                     print(_selectedDevotee);
 
-                                    setState(() {
-                                      _isSearchedSelected = false;
-                                    });
+                                    setState(
+                                      () {
+                                        _isSearchedSelected = false;
+                                      },
+                                    );
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(

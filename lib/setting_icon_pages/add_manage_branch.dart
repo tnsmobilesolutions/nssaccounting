@@ -190,7 +190,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp('^[0-9]{1,6}'))
                   ],
-                  controller: _estYearController,
+                  controller: _pinController,
                   validator: (value) {
                     if (value!.length < 6) {
                       return 'Enter atleast 6 digit';
