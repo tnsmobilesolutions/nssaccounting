@@ -11,7 +11,7 @@ import 'package:nssaccounting/setting_icon_pages/edit_manage_branch.dart';
 
 class ManageBranch extends StatefulWidget {
   ManageBranch({Key? key}) : super(key: key);
-
+  Branch? currentBranch;
   @override
   _ManageBranchState createState() => _ManageBranchState();
 }
@@ -43,42 +43,6 @@ class _ManageBranchState extends State<ManageBranch> {
       return [];
     }
   }
-
-  // createAlertDialog(BuildContext context) {
-  //   return AlertDialog(
-  //     title: Text('Are you sure ?'),
-  //     actions: [
-  //       MaterialButton(onPressed: ,
-  //       elevation: 5,
-  //       child: Text('Yes'),)
-  //     ],
-  //   );
-  // }
-  // //adds the recent search branch
-  // void addSearchTerm(String branch) async {
-  //   if (_branchHistory?.contains(branch)) {
-  //     putSearchTermFirst(branch);
-  //     return;
-  //   }
-  //   _branchHistory.add(branch);
-  //   if (_branchHistory.length > historyLength) {
-  //     _branchHistory.removeRange(0, _branchHistory.length - historyLength);
-  //   }
-
-  //   filteredSearchHistory = await filterSearchTerms(filter: null);
-  // }
-
-  // // deletes the search history when someone touches 'x'
-  // void deleteSearchTerm(String branch) async {
-  //   _branchHistory.removeWhere((t) => t == branch);
-  //   filteredSearchHistory = await filterSearchTerms(filter: null);
-  // }
-
-  // // puts recent search item at top
-  // void putSearchTermFirst(String branch) {
-  //   deleteSearchTerm(branch);
-  //   addSearchTerm(branch);
-  // }
 
   late FloatingSearchBarController controller;
 
@@ -358,13 +322,16 @@ class _ManageBranchState extends State<ManageBranch> {
                                         ),
                                       ),
                                     );
+
                                     // print(updatedBranch);
                                     // _isSearchSelected = false;
-                                    setState(
-                                      () {
-                                        _selectedBranch = updatedBranch;
-                                      },
-                                    );
+                                    if (updatedBranch != null) {
+                                      setState(
+                                        () {
+                                          _selectedBranch = updatedBranch;
+                                        },
+                                      );
+                                    }
                                   }
                                 },
                                 child: Text(

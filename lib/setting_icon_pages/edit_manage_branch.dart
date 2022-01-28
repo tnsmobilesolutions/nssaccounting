@@ -93,6 +93,45 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]'))
+                  ],
+                  controller: _devoteeController,
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                            .hasMatch(value)) {
+                      return 'Please Enter number of devotees';
+                    }
+                    return null;
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Devotee No",
+                    hintTextStr: "Enter Total Devotee No",
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,4}'))
+                  ],
+                  controller: _yearController,
+                  validator: (value) {
+                    if (value!.length < 4) {
+                      return 'Enter a valid year';
+                    }
+                  },
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Year of Establishment",
+                    hintTextStr: "Enter Year of establishment",
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _cityController,
                   inputFormatters: [
@@ -173,43 +212,6 @@ class _ManageEditPageState extends State<ManageEditPage> {
                   ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  controller: _devoteeController,
-                  validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter Amount';
-                    }
-                    return null;
-                  },
-                  // style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Devotee No",
-                    hintTextStr: "Enter Total Devotee No",
-                  ),
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,4}'))
-                  ],
-                  controller: _yearController,
-                  validator: (value) {
-                    if (value!.length < 4) {
-                      return 'Enter a valid year';
-                    }
-                  },
-                  // style: TextStyle(height: 0.5),
-                  decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Year of Establishment",
-                    hintTextStr: "Enter Year of establishment",
-                  ),
-                ),
-                SizedBox(height: 20),
                 ElevatedButton(
                     style: CommonStyle.elevatedSubmitButtonStyle(),
                     onPressed: () {

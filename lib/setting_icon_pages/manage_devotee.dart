@@ -297,12 +297,13 @@ class _ManageDevoteeState extends State<ManageDevotee> {
                                     );
                                   }
                                   print(updateDevotee);
-
-                                  setState(
-                                    () {
-                                      _selectedDevotee = updateDevotee;
-                                    },
-                                  );
+                                  if (updateDevotee != null) {
+                                    setState(
+                                      () {
+                                        _selectedDevotee = updateDevotee;
+                                      },
+                                    );
+                                  }
                                 },
                                 child: Text(
                                   'Edit',
