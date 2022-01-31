@@ -11,7 +11,10 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('Hello Mr'),
+      appBar: AppBar(
+        title: Text("Payment Voucher"),
+      ),
+      body: Text('Payment Voucher content goes here'),
     );
   }
 }
