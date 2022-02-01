@@ -127,9 +127,10 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                   controller: _contactController,
                   validator: (value) {
                     if (value!.isEmpty ||
+                        value.length != 10 ||
                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                             .hasMatch(value)) {
-                      return 'Please Enter Conact No';
+                      return 'Please Enter Contact No';
                     }
                     return null;
                   },

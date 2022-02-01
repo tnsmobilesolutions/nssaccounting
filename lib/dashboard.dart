@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nssaccounting/dashboard_pages/kendra.dart';
-import 'package:nssaccounting/dashboard_pages/pv.dart';
+import 'package:nssaccounting/dashboard_pages/payment_voucher.dart';
 import 'package:nssaccounting/dashboard_pages/samilani.dart';
 import 'package:nssaccounting/dashboard_pages/sm.dart';
 import 'package:nssaccounting/dashboard_pages/ssm.dart';
@@ -32,9 +32,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 4) {
+      // Payment Voucher
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PaymentVoucher()),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
@@ -105,7 +113,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.payments_rounded),
-          label: 'P Voucher',
+          label: 'Payment',
           backgroundColor: Colors.blue,
         ),
       ],
