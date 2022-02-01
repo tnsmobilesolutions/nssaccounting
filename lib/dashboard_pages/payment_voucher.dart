@@ -27,6 +27,9 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
 
   final _paymentInfo = PaymentInfo();
 
+  List<String> _location = ['bbsr', 'mumbai', 'pune', 'delhi'];
+  String? _selectedLocation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +46,31 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Account Head',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    DropdownButton(
+                      hint: Text(
+                          'Please choose a location'), // Not necessary for Option 1
+                      value: _selectedLocation,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedLocation = newValue as String?;
+                        });
+                      },
+                      items: _location.map((location) {
+                        return DropdownMenuItem(
+                          child: new Text(location),
+                          value: location,
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 10),
                 TextFormField(
                   keyboardType: TextInputType.name,
@@ -131,7 +159,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                     hintTextStr: "Enter Approver Name",
                   ),
                 ),
-                SizedBox(height: 18),
+                SizedBox(height: 25),
                 ElevatedButton(
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
