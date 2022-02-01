@@ -77,7 +77,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                   controller: _numDevController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please Enter Number of Devotees';
+                      return null;
                     } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                       return 'Please Enter Correct Number';
                     }
@@ -97,7 +97,9 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                   ],
                   controller: _estYearController,
                   validator: (value) {
-                    if (value!.length < 4) {
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    } else if (value.length < 4) {
                       return 'Enter a valid year';
                     }
                   },

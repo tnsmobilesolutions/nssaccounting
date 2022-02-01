@@ -99,10 +99,10 @@ class _ManageEditPageState extends State<ManageEditPage> {
                   ],
                   controller: _devoteeController,
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter number of devotees';
+                    if (value == null || value.isEmpty) {
+                      return '';
+                    } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                      return 'Please Enter Correct Number';
                     }
                     return null;
                   },
@@ -120,7 +120,9 @@ class _ManageEditPageState extends State<ManageEditPage> {
                   ],
                   controller: _yearController,
                   validator: (value) {
-                    if (value!.length < 4) {
+                    if (value == null || value.isEmpty) {
+                      return '';
+                    } else if (value.length < 4) {
                       return 'Enter a valid year';
                     }
                   },
@@ -227,6 +229,7 @@ class _ManageEditPageState extends State<ManageEditPage> {
                             devotees: int.parse(_devoteeController.text),
                             year: int.parse(_yearController.text));
 
+                        // ignore: unused_local_variable
                         final branchId = BranchAPI().updateBranch(branch);
                         // print(branch);
                         print(branch.branchId);
