@@ -100,7 +100,7 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   controller: _joinedController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return '';
+                      return 'Enter year of joining';
                     } else if (value.length < 4) {
                       return 'Enter a valid year';
                     }
@@ -120,10 +120,10 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   controller: _contactController,
                   validator: (value) {
                     if (value!.isEmpty ||
-                        value.length != 10 ||
+                        value.length < 10 ||
                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                             .hasMatch(value)) {
-                      return 'Please enter atleast 10 digits';
+                      return 'Enter atleast 10 digits';
                     }
                     return null;
                   },
@@ -139,27 +139,17 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                   controller: _emailController,
                   validator: (value) {
                     String pattern =
-                        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-                        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-                        r"{0,253}[a-zA-Z0-9])?)*$";
+                        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@gmail.com{1}$";
+                    // r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                    // r"{0,253}[a-zA-Z0-9])?)*$";
                     RegExp regex = RegExp(pattern);
-                    if (value == null ||
-                        value.isEmpty ||
-                        !regex.hasMatch(value))
-                      return 'Enter a valid email address';
-                    else
+                    if (value == null || value.isEmpty) {
                       return null;
+                    } else if (!regex.hasMatch(value)) {
+                      return 'Enter correct email address';
+                    }
+                    return null;
                   },
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'Please Enter Email';
-                  //   } else if (!RegExp(
-                  //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                  //       .hasMatch(value)) {
-                  //     return 'Please Enter Email Address';
-                  //   }
-                  //   return null;
-                  // },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Email Address",

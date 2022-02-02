@@ -156,18 +156,23 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-                  // validator: (value) {
-                  //   if (value!.isEmpty ||
-                  //       !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                  //           .hasMatch(value)) {
-                  //     return 'Please Enter Email';
-                  //   }
-                  //   return null;
-                  // },
+                  validator: (value) {
+                    String pattern =
+                        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@gmail.com{1}$";
+                    // r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                    // r"{0,253}[a-zA-Z0-9])?)*$";
+                    RegExp regex = RegExp(pattern);
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    } else if (!regex.hasMatch(value)) {
+                      return 'Enter correct email address';
+                    }
+                    return null;
+                  },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Email",
-                    hintTextStr: "Enter Email",
+                    labelTextStr: "Email Address",
+                    hintTextStr: "Enter Email Address",
                   ),
                 ),
                 SizedBox(height: 20),
