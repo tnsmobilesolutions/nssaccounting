@@ -6,9 +6,12 @@ import 'package:uuid/uuid.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
+import 'package:nssaccounting/setting_icon_pages/manage_branch.dart';
 
 class ManageAddBranch extends StatefulWidget {
-  ManageAddBranch({Key? key}) : super(key: key);
+  ManageAddBranch({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ManageAddBranchState createState() => _ManageAddBranchState();
@@ -54,15 +57,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                     }
                     return null;
                   },
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please Enter Name';
-                  //   } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                  //     return 'Please Enter Correct Name';
-                  //   }
-                  //   return null;
-                  // },
-                  // style: TextStyle(height: 0.5),
+                  
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Sangha Name",
                     hintTextStr: "Enter Name",
@@ -223,7 +218,12 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                           pin: int.tryParse(_pinController.text),
                           year: int.tryParse(_estYearController.text),
                         );
+                        //print(_nameController.text);
 
+                        // if () {
+
+                        // } else {
+                        // },
                         final branchId = BranchAPI().createNewBranch(branch);
                         print(branchId);
 

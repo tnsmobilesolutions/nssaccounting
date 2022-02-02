@@ -383,8 +383,12 @@ class _ManageBranchState extends State<ManageBranch> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ManageAddBranch()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ManageAddBranch(),
+            ),
+          );
         },
         child: Text('Add'),
       ),

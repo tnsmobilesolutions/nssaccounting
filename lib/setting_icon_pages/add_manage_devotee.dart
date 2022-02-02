@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/devoteeAPI.dart';
 import 'package:nssaccounting/model/devotee.dart';
@@ -29,6 +30,7 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          autovalidateMode: AutovalidateMode.always,
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.all(22.0),
@@ -37,17 +39,17 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _nameController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Name';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Name';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter name';
                     }
                     return null;
                   },
-                  // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Name",
+                    labelTextStr: "Devotee name",
                     hintTextStr: "Enter Name",
                   ),
                 ),
@@ -55,18 +57,18 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _branchController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Branch';
-                    } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Branch';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter sangha name';
                     }
                     return null;
                   },
-                  // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Branch",
-                    hintTextStr: "Enter Branch",
+                    labelTextStr: "Sangha name",
+                    hintTextStr: "Enter sangha name",
                   ),
                 ),
                 SizedBox(height: 16),
@@ -91,33 +93,37 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 // ),
                 //SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,4}'))
+                  ],
                   controller: _joinedController,
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        value.length != 4 ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter Joined Year';
+                    if (value == null || value.isEmpty) {
+                      return '';
+                    } else if (value.length < 4) {
+                      return 'Enter a valid year';
                     }
-                    return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Joined Year ",
-                    hintTextStr: "Enter Joined Year",
+                    labelTextStr: "Year of joining",
+                    hintTextStr: "Enter Year of joining",
                   ),
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{1,10}'))
+                  ],
                   controller: _contactController,
                   validator: (value) {
                     if (value!.isEmpty ||
                         value.length != 10 ||
                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                             .hasMatch(value)) {
-                      return 'Please Enter Contact No';
+                      return 'Please enter atleast 10 digits';
                     }
                     return null;
                   },
@@ -131,7 +137,19 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-
+                  validator: (value) {
+                    String pattern =
+                        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                        r"{0,253}[a-zA-Z0-9])?)*$";
+                    RegExp regex = RegExp(pattern);
+                    if (value == null ||
+                        value.isEmpty ||
+                        !regex.hasMatch(value))
+                      return 'Enter a valid email address';
+                    else
+                      return null;
+                  },
                   // validator: (value) {
                   //   if (value!.isEmpty) {
                   //     return 'Please Enter Email';

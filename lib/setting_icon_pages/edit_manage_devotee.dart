@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/devoteeAPI.dart';
 import 'package:nssaccounting/model/devotee.dart';
@@ -50,6 +51,9 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _nameController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Name';
@@ -60,26 +64,29 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Name",
-                    hintTextStr: "Enter Name",
+                    labelTextStr: "Devotee name",
+                    hintTextStr: "Enter devotee name",
                   ),
                 ),
                 SizedBox(height: 16),
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _branchController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+                  ],
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please Enter Branch';
+                      return 'Please Enter Name';
                     } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Branch';
+                      return 'Please Enter Correct Name';
                     }
                     return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Branch",
-                    hintTextStr: "Enter Branch",
+                    labelTextStr: "Sangha name",
+                    hintTextStr: "Enter sangha name",
                   ),
                 ),
                 SizedBox(height: 16),
@@ -105,39 +112,44 @@ class _ManageDevoteeEditState extends State<ManageDevoteeEdit> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,4}'))
+                  ],
                   controller: _joinedController,
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                            .hasMatch(value)) {
-                      return 'Please Enter Joined Year';
+                    if (value == null || value.isEmpty) {
+                      return '';
+                    } else if (value.length < 4) {
+                      return 'Enter a valid year';
                     }
-                    return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Joined Year ",
-                    hintTextStr: "Enter Joined Year ",
+                    labelTextStr: "Year of joining",
+                    hintTextStr: "Enter Year of joining",
                   ),
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{1,10}'))
+                  ],
                   controller: _contactController,
                   validator: (value) {
                     if (value!.isEmpty ||
                         value.length != 10 ||
                         !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
                             .hasMatch(value)) {
-                      return 'Please Enter Contact No';
+                      return 'Please enter atleast 10 digits';
                     }
                     return null;
                   },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
-                    labelTextStr: "Contact No",
-                    hintTextStr: "Enter Contact No",
+                    labelTextStr: "Contact No ",
+                    hintTextStr: "Enter Contact No ",
                   ),
                 ),
                 SizedBox(height: 16),
