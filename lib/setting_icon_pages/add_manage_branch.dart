@@ -6,9 +6,12 @@ import 'package:uuid/uuid.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
+import 'package:nssaccounting/setting_icon_pages/manage_branch.dart';
 
 class ManageAddBranch extends StatefulWidget {
-  ManageAddBranch({Key? key}) : super(key: key);
+  ManageAddBranch({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ManageAddBranchState createState() => _ManageAddBranchState();
@@ -54,15 +57,6 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                     }
                     return null;
                   },
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please Enter Name';
-                  //   } else if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                  //     return 'Please Enter Correct Name';
-                  //   }
-                  //   return null;
-                  // },
-                  // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Sangha Name",
                     hintTextStr: "Enter Name",
@@ -206,36 +200,41 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                    onPressed: () async {
+                      final isBranchExist = await BranchAPI()
+                          .isBranchExists(_nameController.text);
+                      if (!isBranchExist) {
+                        if (_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Data Submitted.')),
+                          );
+
+                          Branch branch = Branch(
+                            branchId: Uuid().v1(),
+                            branchName: _nameController.text,
+                            address: _addressController.text,
+                            city: _cityController.text,
+                            state: _stateController.text,
+                            country: _countryController.text,
+                            devotees: int.tryParse(_numDevController.text),
+                            pin: int.tryParse(_pinController.text),
+                            year: int.tryParse(_estYearController.text),
+                          );
+
+                          final branchId = BranchAPI().createNewBranch(branch);
+                          print(branchId);
+
+                          Navigator.pop(context);
+                        }
+                      } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Data Submitted.')),
+                          const SnackBar(
+                            content: Text('Branch already exists'),
+                          ),
                         );
-
-                        Branch branch = Branch(
-                          branchId: Uuid().v1(),
-                          branchName: _nameController.text,
-                          address: _addressController.text,
-                          city: _cityController.text,
-                          state: _stateController.text,
-                          country: _countryController.text,
-                          devotees: int.tryParse(_numDevController.text),
-                          pin: int.tryParse(_pinController.text),
-                          year: int.tryParse(_estYearController.text),
-                        );
-
-                        final branchId = BranchAPI().createNewBranch(branch);
-                        print(branchId);
-
-                        Navigator.pop(context);
+                        // show  snackbar (homework)
                       }
-
-                      //
                     },
-                    // style: ElevatedButton.styleFrom(
-                    //   primary: Colors.teal[500],
-                    //   shadowColor: Colors.black12,
-                    // ),
                     style: CommonStyle.elevatedSubmitButtonStyle(),
                     child: Text('ADD BRANCH')),
               ],

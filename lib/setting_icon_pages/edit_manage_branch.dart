@@ -95,17 +95,18 @@ class _ManageEditPageState extends State<ManageEditPage> {
                 TextFormField(
                   keyboardType: TextInputType.phone,
                   inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp('^[0-9]'))
+                    FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,10}'))
                   ],
                   controller: _devoteeController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '';
-                    } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                      return 'Please Enter Correct Number';
-                    }
-                    return null;
-                  },
+                  //validator: _validateDevNo(),
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return '';
+                  //   } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                  //     return 'Please Enter Correct Number';
+                  //   }
+                  //   return null;
+                  // },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Devotee No",
@@ -119,13 +120,13 @@ class _ManageEditPageState extends State<ManageEditPage> {
                     FilteringTextInputFormatter.allow(RegExp('^[0-9]{0,4}'))
                   ],
                   controller: _yearController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '';
-                    } else if (value.length < 4) {
-                      return 'Enter a valid year';
-                    }
-                  },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return '';
+                  //   } else if (value.length < 4) {
+                  //     return 'Enter a valid year';
+                  //   }
+                  // },
                   // style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Year of Establishment",
@@ -219,15 +220,20 @@ class _ManageEditPageState extends State<ManageEditPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Branch branch = Branch(
-                            branchId: widget.branch.branchId,
-                            branchName: _nameController.text,
-                            address: _addressController.text,
-                            city: _cityController.text,
-                            state: _stateController.text,
-                            country: _countryController.text,
-                            pin: int.parse(_pinController.text),
-                            devotees: int.parse(_devoteeController.text),
-                            year: int.parse(_yearController.text));
+                          branchId: widget.branch.branchId,
+                          branchName: _nameController.text,
+                          address: _addressController.text,
+                          city: _cityController.text,
+                          state: _stateController.text,
+                          country: _countryController.text,
+                          pin: int.parse(_pinController.text),
+                          devotees: _devoteeController.text.isEmpty
+                              ? null
+                              : int.parse(_devoteeController.text),
+                          year: _yearController.text.isEmpty
+                              ? null
+                              : int.parse(_yearController.text),
+                        );
 
                         // ignore: unused_local_variable
                         final branchId = BranchAPI().updateBranch(branch);
