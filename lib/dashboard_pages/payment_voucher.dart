@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/payment_widget.dart';
-import 'package:nssaccounting/search/receipt_preview.dart';
-import 'package:nssaccounting/utility.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
-import 'package:nssaccounting/data/auth.dart';
-import 'package:nssaccounting/data/receiptAPI.dart';
-import 'package:nssaccounting/model/receipt.dart';
+import 'package:nssaccounting/data/paymentAPI.dart';
+import 'package:nssaccounting/model/payment.dart';
+import 'package:nssaccounting/utility.dart';
+import 'package:uuid/uuid.dart';
 
 class PaymentVoucher extends StatefulWidget {
   const PaymentVoucher({Key? key}) : super(key: key);
@@ -29,6 +28,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
 
   List<String> _location = ['bbsr', 'mumbai', 'pune', 'delhi'];
   String? _selectedLocation;
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -164,37 +164,65 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Receipt receipt = Receipt(
-                        // accountCode: "SSMBSP",
-                        amount: double.parse(_amountController.text),
-                        devoteeId: "NA",
-
-                        paaliaName: _nameController.text,
-                        paymentMode: Utility.getPaymentModeString(
-                            _paymentInfo.paymentMode),
+                      PaymentDatas paymentDatas = PaymentDatas(
+                        voucherNo: Uuid().v1(),
+                        accountHead: _selectedLocation,
+                        partyName: _nameController.text,
+                        amount: _amountController.text,
                         paymentType: Utility.getPaymentTypeString(
                             _paymentInfo.paymentType),
-                        preparedBy: Login.loggedInUser?.userId,
-                        receiptDate: DateTime.now(),
-                        receiptId: "",
-                        receiptNo: Utility.getReceiptNo(),
-                        transactionRefNo:
+                        paymentMode: Utility.getPaymentModeString(
+                            _paymentInfo.paymentMode),
+                        transactinRefNo:
                             _paymentInfo.paymentMode == Payment.bank
                                 ? _transactionController.text
                                 : null,
+                        preparedBy: '',
+                        authorizedBy: '',
+                        remark: '',
                       );
-                      final receiptId = ReceiptAPI().createNewReceipt(receipt);
-                      print(receiptId);
+
+                      final paymnentVoucherId =
+                          PaymentAPI().createNewPayment(paymentDatas);
+                      print(paymnentVoucherId);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ReceiptPreview(receipt: receipt)));
+                      Navigator.pop(context);
                     }
+                    // print(_selectedLocation);
+                    // String formattedDate =
+                    //     DateFormat('yyyy-MM-dd – kk:mm').format(now);
+                    // print(formattedDate);
+
+                    // if (_formKey.currentState!.validate()) {
+                    //   Receipt receipt = Receipt(
+                    //     // accountCode: "SSMBSP",
+                    //     amount: double.parse(_amountController.text),
+                    //     devoteeId: "NA",
+
+                    //     paaliaName: _nameController.text,
+                    //     paymentMode: Utility.getPaymentModeString(
+                    //         _paymentInfo.paymentMode),
+                    //     paymentType: Utility.getPaymentTypeString(
+                    //         _paymentInfo.paymentType),
+                    //     preparedBy: Login.loggedInUser?.userId,
+                    //     receiptDate: DateTime.now(),
+                    //     receiptId: "",
+                    //     receiptNo: Utility.getReceiptNo(),
+                    //     transactionRefNo:
+                    //         _paymentInfo.paymentMode == Payment.bank
+                    //             ? _transactionController.text
+                    //             : null,
+                    //   );
+                    //   final receiptId = ReceiptAPI().createNewReceipt(receipt);
+                    //   print(receiptId);
+
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     const SnackBar(content: Text('Data Submitted.')),
+                    //   );
+                    // }
                   },
                   child: Text('Submit'),
                 ),

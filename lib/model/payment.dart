@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class Payment {
+class PaymentDatas {
   final String? voucherNo;
   final String? paymentDate;
   final String? accountHead;
@@ -12,7 +12,7 @@ class Payment {
   final String? preparedBy;
   final String? authorizedBy;
   final String? remark;
-  Payment({
+  PaymentDatas({
     this.voucherNo,
     this.paymentDate,
     this.accountHead,
@@ -26,7 +26,7 @@ class Payment {
     this.remark,
   });
 
-  Payment copyWith({
+  PaymentDatas copyWith({
     String? voucherNo,
     String? paymentDate,
     String? accountHead,
@@ -39,7 +39,7 @@ class Payment {
     String? authorizedBy,
     String? remark,
   }) {
-    return Payment(
+    return PaymentDatas(
       voucherNo: voucherNo ?? this.voucherNo,
       paymentDate: paymentDate ?? this.paymentDate,
       accountHead: accountHead ?? this.accountHead,
@@ -70,8 +70,8 @@ class Payment {
     };
   }
 
-  factory Payment.fromMap(Map<String, dynamic> map) {
-    return Payment(
+  factory PaymentDatas.fromMap(Map<String, dynamic> map) {
+    return PaymentDatas(
       voucherNo: map['voucherNo'] != null ? map['voucherNo'] : null,
       paymentDate: map['paymentDate'] != null ? map['paymentDate'] : null,
       accountHead: map['accountHead'] != null ? map['accountHead'] : null,
@@ -89,8 +89,8 @@ class Payment {
 
   String toJson() => json.encode(toMap());
 
-  factory Payment.fromJson(String source) =>
-      Payment.fromMap(json.decode(source));
+  factory PaymentDatas.fromJson(String source) =>
+      PaymentDatas.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -101,7 +101,7 @@ class Payment {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Payment &&
+    return other is PaymentDatas &&
         other.voucherNo == voucherNo &&
         other.paymentDate == paymentDate &&
         other.accountHead == accountHead &&

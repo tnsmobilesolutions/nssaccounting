@@ -131,23 +131,23 @@ class _ManageDevoteeAddState extends State<ManageDevoteeAdd> {
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'Please Enter Email';
-                  //   } else if (!RegExp(
-                  //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                  //       .hasMatch(value)) {
-                  //     return 'Please Enter Email Address';
-                  //   }
-                  //   return null;
-                  // },
-                  // style: TextStyle(height: 0.5),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    } else if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
+                      return 'Please Enter Correct Number';
+                    }
+                    return null;
+                  },
+                  style: TextStyle(height: 0.5),
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Email Address",
                     hintTextStr: "Enter Email Address",
                   ),
                 ),
+
                 SizedBox(height: 26),
                 ElevatedButton(
                     onPressed: () {
