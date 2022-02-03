@@ -27,7 +27,8 @@ class BranchAPI {
       querySnapshot.docs.forEach((element) {
         final branchData = element.data() as Map<String, dynamic>;
         final branch = Branch.fromMap(branchData);
-        if ((branch.branchName ?? '').startsWith(branchName)) {
+        if ((branch.branchName?.toLowerCase() ?? '')
+            .startsWith(branchName.toLowerCase())) {
           lstBranch.add(branch);
         }
       });
@@ -41,6 +42,29 @@ class BranchAPI {
     //       .where('branchName', isGreaterThanOrEqualTo: queryString)
     //       .get();
     // }
+  }
+
+  Future<bool> isBranchExists(String branchName) {
+    CollectionReference branches =
+        FirebaseFirestore.instance.collection('branches');
+
+    final result = branches.get().then(
+      (querySnapshot) {
+        bool isPresent = false;
+        querySnapshot.docs.forEach(
+          (element) {
+            final branchData = element.data() as Map<String, dynamic>;
+            final branch = Branch.fromMap(branchData);
+            if ((branch.branchName?.toLowerCase() ?? '') ==
+                (branchName.toLowerCase())) {
+              isPresent = true;
+            }
+          },
+        );
+        return isPresent;
+      },
+    );
+    return result;
   }
 
   Future<void> createNewBranch(Branch branch) async {

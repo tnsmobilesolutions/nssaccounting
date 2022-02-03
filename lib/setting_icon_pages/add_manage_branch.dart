@@ -57,7 +57,6 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                     }
                     return null;
                   },
-                  
                   decoration: CommonStyle.textFieldStyle(
                     labelTextStr: "Sangha Name",
                     hintTextStr: "Enter Name",
@@ -201,41 +200,41 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                    onPressed: () async {
+                      final isBranchExist = await BranchAPI()
+                          .isBranchExists(_nameController.text);
+                      if (!isBranchExist) {
+                        if (_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Data Submitted.')),
+                          );
+
+                          Branch branch = Branch(
+                            branchId: Uuid().v1(),
+                            branchName: _nameController.text,
+                            address: _addressController.text,
+                            city: _cityController.text,
+                            state: _stateController.text,
+                            country: _countryController.text,
+                            devotees: int.tryParse(_numDevController.text),
+                            pin: int.tryParse(_pinController.text),
+                            year: int.tryParse(_estYearController.text),
+                          );
+
+                          final branchId = BranchAPI().createNewBranch(branch);
+                          print(branchId);
+
+                          Navigator.pop(context);
+                        }
+                      } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Data Submitted.')),
+                          const SnackBar(
+                            content: Text('Branch already exists'),
+                          ),
                         );
-
-                        Branch branch = Branch(
-                          branchId: Uuid().v1(),
-                          branchName: _nameController.text,
-                          address: _addressController.text,
-                          city: _cityController.text,
-                          state: _stateController.text,
-                          country: _countryController.text,
-                          devotees: int.tryParse(_numDevController.text),
-                          pin: int.tryParse(_pinController.text),
-                          year: int.tryParse(_estYearController.text),
-                        );
-                        //print(_nameController.text);
-
-                        // if () {
-
-                        // } else {
-                        // },
-                        final branchId = BranchAPI().createNewBranch(branch);
-                        print(branchId);
-
-                        Navigator.pop(context);
+                        // show  snackbar (homework)
                       }
-
-                      //
                     },
-                    // style: ElevatedButton.styleFrom(
-                    //   primary: Colors.teal[500],
-                    //   shadowColor: Colors.black12,
-                    // ),
                     style: CommonStyle.elevatedSubmitButtonStyle(),
                     child: Text('ADD BRANCH')),
               ],

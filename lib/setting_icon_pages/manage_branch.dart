@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/branchAPI.dart';
 import 'package:nssaccounting/model/branch.dart';
 import 'package:nssaccounting/setting_icon_pages/add_manage_branch.dart';
@@ -19,9 +18,9 @@ class ManageBranch extends StatefulWidget {
 class _ManageBranchState extends State<ManageBranch> {
   Branch? _selectedBranch;
   List<Branch?>? _filteredBranches;
-  var updatedBranch = null;
+  var updatedBranch;
 
-  double _searchbarHeight = 60;
+  //double _searchbarHeight = 60;
 
   List<String>? filteredSearchHistory;
 
@@ -72,11 +71,6 @@ class _ManageBranchState extends State<ManageBranch> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //       hintText: 'search By Devotee Name',
-              //       icon: Icon(Icons.search)),
-              // ),
               SizedBox(
                 height: 180,
                 child: FloatingSearchBar(
@@ -323,8 +317,6 @@ class _ManageBranchState extends State<ManageBranch> {
                                       ),
                                     );
 
-                                    // print(updatedBranch);
-                                    // _isSearchSelected = false;
                                     if (updatedBranch != null) {
                                       setState(
                                         () {
@@ -371,7 +363,6 @@ class _ManageBranchState extends State<ManageBranch> {
                               ),
                             ],
                           ),
-                          // EditBranch().getContainer1(_selectedBranch)
                         ],
                       ),
                     )
@@ -419,10 +410,7 @@ class SearchResultsListView extends StatelessWidget {
       );
     }
 
-    //final fsb = FloatingSearchBar.of(context);
-
     return ListView(
-      //padding: EdgeInsets.only(top: fsb.),//top: fsb.height + fsb.margins.vertical),
       children: List.generate(
         40,
         (index) => ListTile(
