@@ -5,6 +5,7 @@ import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/paymentAPI.dart';
 import 'package:nssaccounting/model/account.dart';
 import 'package:nssaccounting/model/payment.dart';
+import 'package:nssaccounting/payment_voucher_receipt/payment_oucher_receipt.dart';
 import 'package:nssaccounting/user_session.dart';
 import 'package:nssaccounting/utility.dart';
 import 'package:uuid/uuid.dart';
@@ -202,7 +203,12 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data Submitted.')),
                       );
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentVoucherReceipt(
+                                    Payment: paymentDatas,
+                                  )));
                     }
                     // print(_selectedLocation);
                     // String formattedDate =
