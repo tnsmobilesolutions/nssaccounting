@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nssaccounting/model/account.dart';
 
-class Accounts {
+class AccountsAPI {
   Future<List<Account?>> getAllAccounts() {
     CollectionReference accounts =
         FirebaseFirestore.instance.collection('accounts');

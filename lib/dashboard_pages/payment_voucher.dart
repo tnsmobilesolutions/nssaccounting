@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:nssaccounting/common_widgets/payment_widget.dart';
 import 'package:nssaccounting/common_widgets/common_style.dart';
 import 'package:nssaccounting/data/paymentAPI.dart';
+import 'package:nssaccounting/model/account.dart';
 import 'package:nssaccounting/model/payment.dart';
+import 'package:nssaccounting/user_session.dart';
 import 'package:nssaccounting/utility.dart';
 import 'package:uuid/uuid.dart';
 
@@ -26,8 +28,8 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
 
   final _paymentInfo = PaymentInfo();
 
-  List<String> _location = ['bbsr', 'mumbai', 'pune', 'delhi'];
-  String? _selectedLocation;
+  // List<String> _location = ['bbsr', 'mumbai', 'pune', 'delhi'];
+  Account? _selectedAccount;
   DateTime now = DateTime.now();
 
   @override
@@ -53,22 +55,33 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                       'Account Head',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    DropdownButton(
-                      hint: Text(
-                          'Please choose a location'), // Not necessary for Option 1
-                      value: _selectedLocation,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _selectedLocation = newValue as String?;
-                        });
-                      },
-                      items: _location.map((location) {
-                        return DropdownMenuItem(
-                          child: new Text(location),
-                          value: location,
-                        );
-                      }).toList(),
-                    ),
+                    FutureBuilder(
+                        future: UserSession().allPaymentAccounts,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return DropdownButton<Account>(
+                              hint: Text(
+                                  'Please choose an account'), // Not necessary for Option 1
+                              value: _selectedAccount,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _selectedAccount = newValue;
+                                });
+                              },
+                              items: (snapshot.data as List<Account?>)
+                                  .map<DropdownMenuItem<Account>>(
+                                      (paymentHead) {
+                                return DropdownMenuItem<Account>(
+                                  child:
+                                      new Text(paymentHead?.accountName ?? ""),
+                                  value: paymentHead,
+                                );
+                              }).toList(),
+                            );
+                          } else {
+                            return CircularProgressIndicator();
+                          }
+                        }),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -166,7 +179,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                     if (_formKey.currentState!.validate()) {
                       PaymentDatas paymentDatas = PaymentDatas(
                         voucherNo: Uuid().v1(),
-                        accountHead: _selectedLocation,
+                        accountHead: _selectedAccount?.accountName,
                         partyName: _nameController.text,
                         amount: _amountController.text,
                         paymentType: Utility.getPaymentTypeString(
