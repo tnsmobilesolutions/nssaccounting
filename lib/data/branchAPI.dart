@@ -35,15 +35,9 @@ class BranchAPI {
       return lstBranch;
     });
     return lstBranches;
-
-    // Future queryData(String queryString) async {
-    //   return FirebaseFirestore.instance
-    //       .collection('branches')
-    //       .where('branchName', isGreaterThanOrEqualTo: queryString)
-    //       .get();
-    // }
   }
 
+  // code for if branch exists
   Future<bool> isBranchExists(String branchName) {
     CollectionReference branches =
         FirebaseFirestore.instance.collection('branches');

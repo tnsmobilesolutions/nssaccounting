@@ -204,6 +204,7 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                       final isBranchExist = await BranchAPI()
                           .isBranchExists(_nameController.text);
                       if (!isBranchExist) {
+                        //TODO
                         if (_formKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Data Submitted.')),
@@ -232,7 +233,6 @@ class _ManageAddBranchState extends State<ManageAddBranch> {
                             content: Text('Branch already exists'),
                           ),
                         );
-                        // show  snackbar (homework)
                       }
                     },
                     style: CommonStyle.elevatedSubmitButtonStyle(),
