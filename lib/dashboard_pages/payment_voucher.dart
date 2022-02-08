@@ -26,6 +26,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
   final _amountController = TextEditingController();
   final _transactionController = TextEditingController();
   final _approverNameController = TextEditingController();
+  final _remarkController = TextEditingController();
 
   final _paymentInfo = PaymentInfo();
 
@@ -173,13 +174,24 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                     hintTextStr: "Enter Approver Name",
                   ),
                 ),
+                SizedBox(height: 20),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _remarkController,
+
+                  // style: TextStyle(height: 0.5),
+                  decoration: CommonStyle.textFieldStyle(
+                    labelTextStr: "Remark",
+                    hintTextStr: "Enter Your Remark Here",
+                  ),
+                ),
                 SizedBox(height: 25),
                 ElevatedButton(
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       PaymentDatas paymentDatas = PaymentDatas(
-                        voucherNo: Uuid().v1(),
+                        voucherNo: Utility.getReceiptNo(),
                         accountHead: _selectedAccount?.accountName,
                         partyName: _nameController.text,
                         amount: _amountController.text,
@@ -207,8 +219,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => PaymentVoucherReceipt(
-                                    Payment: paymentDatas,
-                                  )));
+                                  Payment: paymentDatas)));
                     }
                     // print(_selectedLocation);
                     // String formattedDate =

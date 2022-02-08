@@ -107,7 +107,6 @@ class _ReceiptPreviewState extends State<ReceiptPreview> {
                   children: [
                     Text('Received By', style: commonTextStyle()),
                     Text('widget.loggedInUser?.name', style: commonTextStyle()),
-                    Text('data')
                   ],
                 ),
                 SizedBox(height: 30),

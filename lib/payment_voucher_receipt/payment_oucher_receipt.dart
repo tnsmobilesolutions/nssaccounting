@@ -1,21 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nssaccounting/model/payment.dart';
+import 'package:nssaccounting/model/user.dart';
 
 class PaymentVoucherReceipt extends StatefulWidget {
-  PaymentVoucherReceipt({Key? key, this.Payment}) : super(key: key);
+  PaymentVoucherReceipt({
+    Key? key,
+    this.Payment,
+  }) : super(key: key);
 
   final PaymentDatas? Payment;
+  // final AppUser loggedInUser;
 
   @override
   State<PaymentVoucherReceipt> createState() => _PaymentVoucherReceiptState();
 }
 
 class _PaymentVoucherReceiptState extends State<PaymentVoucherReceipt> {
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+  String? paymentDate;
+
+  @override
+  void initState() {
+    if (widget.Payment?.paymentDate != null) {
+      final paymDt = widget.Payment?.paymentDate;
+      paymentDate = formatter.format(paymDt!);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Receipt Preview '),
+          title: Text('Payment Receipt Preview '),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -23,6 +41,8 @@ class _PaymentVoucherReceiptState extends State<PaymentVoucherReceipt> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Center(child: Text("NSS ACCOUNTING")),
+                Center(child: Text("Payment Receipt")),
                 Center(
                   child: Text(
                     widget.Payment?.voucherNo ?? '',
@@ -32,29 +52,12 @@ class _PaymentVoucherReceiptState extends State<PaymentVoucherReceipt> {
                 SizedBox(height: 16),
                 Divider(color: Colors.black, thickness: 2.0),
                 SizedBox(height: 16),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Voucher No', style: commonTextStyle()),
                     Text(widget.Payment?.voucherNo ?? '',
-                        style: commonTextStyle()),
-                  ],
-                ),
-                SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Paymenr Date', style: commonTextStyle()),
-                    Text(widget.Payment?.paymentDate ?? '',
-                        style: commonTextStyle()),
-                  ],
-                ),
-                SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Amount', style: commonTextStyle()),
-                    Text(widget.Payment?.amount ?? "",
                         style: commonTextStyle()),
                   ],
                 ),
@@ -68,6 +71,24 @@ class _PaymentVoucherReceiptState extends State<PaymentVoucherReceipt> {
                   ],
                 ),
                 SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Payment Date', style: commonTextStyle()),
+                    Text(paymentDate ?? '', style: commonTextStyle()),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Amount', style: commonTextStyle()),
+                    Text(widget.Payment?.amount ?? "",
+                        style: commonTextStyle()),
+                  ],
+                ),
+                SizedBox(height: 30),
+
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [
@@ -89,9 +110,8 @@ class _PaymentVoucherReceiptState extends State<PaymentVoucherReceipt> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Received By', style: commonTextStyle()),
+                    Text('Approved By', style: commonTextStyle()),
                     Text('widget.loggedInUser?.name', style: commonTextStyle()),
-                    Text('data')
                   ],
                 ),
                 SizedBox(height: 30),
