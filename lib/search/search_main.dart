@@ -64,7 +64,7 @@ class _SearchMainState extends State<SearchMain> {
                   style: CommonStyle.elevatedSubmitButtonStyle(),
                   child: Text("Search"),
                   onPressed: () async {
-                    print('search btn pressrd');
+                    print('search btn pressed');
 
                     final List<Receipt>? allReceipts;
 

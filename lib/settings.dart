@@ -3,6 +3,7 @@ import 'package:nssaccounting/common_widgets/common_style.dart';
 //import 'package:nssaccounting/data/auth.dart';
 import 'package:nssaccounting/login.dart';
 import 'package:nssaccounting/model/user.dart';
+import 'package:nssaccounting/setting_icon_pages/manage_SDP.dart';
 import 'package:nssaccounting/setting_icon_pages/manage_account.dart';
 import 'package:nssaccounting/setting_icon_pages/manage_branch.dart';
 import 'package:nssaccounting/setting_icon_pages/manage_devotee.dart';
@@ -59,17 +60,36 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             GestureDetector(
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    'Manage Account',
-                    style: CommonStyle.myStyle,
-                  ),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  'Manage Account',
+                  style: CommonStyle.myStyle,
                 ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ManageAccount()));
-                }),
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ManageAccount()));
+              },
+            ),
+            SizedBox(height: 8),
+            Divider(
+              thickness: 2,
+            ),
+            SizedBox(height: 8),
+            GestureDetector(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  'Manage SDP',
+                  style: CommonStyle.myStyle,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ManageSDP()));
+              },
+            ),
             SizedBox(height: 8),
             Divider(
               thickness: 2,

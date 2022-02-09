@@ -6,6 +6,7 @@ import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
 import 'package:nssaccounting/search/receipt_preview.dart';
 import 'package:nssaccounting/utility.dart';
+import 'package:uuid/uuid.dart';
 
 class SMPaadaPranaami extends StatefulWidget {
   const SMPaadaPranaami({Key? key}) : super(key: key);
@@ -102,7 +103,7 @@ class _SMPaadaPranaamiState extends State<SMPaadaPranaami> {
                         paymentType: null,
                         preparedBy: Login.loggedInUser?.userId,
                         receiptDate: DateTime.now(),
-                        receiptId: "",
+                        receiptId: Uuid().v1(),
                         receiptNo: Utility.getReceiptNo(),
                         remarks: _remarkController.text,
                         // transactionRefNo: _paymentMode == Payment.bank

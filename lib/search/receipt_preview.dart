@@ -52,71 +52,113 @@ class _ReceiptPreviewState extends State<ReceiptPreview> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Receipt No', style: commonTextStyle()),
-                    Text(widget.receipt?.receiptNo ?? '',
-                        style: commonTextStyle()),
+                    Text(
+                      'Receipt No',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.receiptNo ?? '',
+                      style: commonTextStyle(),
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Receipt Date', style: commonTextStyle()),
-                    Text(receiptDate ?? '', style: commonTextStyle()),
+                    Text(
+                      'Receipt Date',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      receiptDate ?? '',
+                      style: commonTextStyle(),
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Name', style: commonTextStyle()),
-                    Text(widget.receipt?.paaliaName ?? '',
-                        style: commonTextStyle()),
+                    Text(
+                      'Name',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.paaliaName ?? '',
+                      style: commonTextStyle(),
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Head', style: commonTextStyle()),
-                    Text(widget.receipt?.accountCode ?? '',
-                        style: commonTextStyle()),
+                    Text(
+                      'Head',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.accountCode ?? '',
+                      style: commonTextStyle(),
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Payment', style: commonTextStyle()),
-                    Text(widget.receipt?.paymentMode ?? '',
-                        style: commonTextStyle()),
+                    Text(
+                      'Payment',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.paymentMode ?? '',
+                      style: commonTextStyle(),
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Paid By', style: commonTextStyle()),
-                    Text(widget.receipt?.paidBy ?? '',
-                        style: commonTextStyle()),
+                    Text(
+                      'Paid By',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.paidBy ?? '',
+                      style: commonTextStyle(),
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Received By', style: commonTextStyle()),
-                    Text('widget.loggedInUser?.name', style: commonTextStyle()),
-                    Text('data')
+                    Text(
+                      'Prepared By',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.preparedBy ?? '',
+                      style: commonTextStyle(),
+                    ),
+                    Text('')
                   ],
                 ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Remark', style: commonTextStyle()),
-                    Text(widget.receipt?.remarks ?? '',
-                        style: commonTextStyle()),
+                    Text(
+                      'Remark',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.remarks ?? '',
+                      style: commonTextStyle(),
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),

@@ -6,6 +6,7 @@ import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
 import 'package:nssaccounting/search/receipt_preview.dart';
 import 'package:nssaccounting/utility.dart';
+import 'package:uuid/uuid.dart';
 
 // ignore: must_be_immutable
 class KendraWidget extends StatefulWidget {
@@ -140,7 +141,7 @@ class _KendraWidgetState extends State<KendraWidget> {
                       Utility.getPaymentTypeString(_paymentInfo.paymentType),
                   preparedBy: Login.loggedInUser?.userId,
                   receiptDate: DateTime.now(),
-                  receiptId: "",
+                  receiptId: Uuid().v1(),
                   receiptNo: Utility.getReceiptNo(),
                   remarks: _remarkController.text,
                   transactionRefNo: _paymentInfo.paymentMode == Payment.bank

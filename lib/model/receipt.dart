@@ -7,11 +7,13 @@ class Receipt {
   final double? amount;
   final String? devoteeId;
   final String? paaliaName;
+  final String? branchName;
   final bool? notMember;
   final String? paymentMode;
   final String? paymentType;
   final String? preparedBy;
   final DateTime? receiptDate;
+  final DateTime? paaliDate;
   final String? receiptId;
   final String? receiptNo;
   final String? remarks;
@@ -22,11 +24,13 @@ class Receipt {
     this.amount,
     this.devoteeId,
     this.paaliaName,
+    this.branchName,
     this.notMember,
     this.paymentMode,
     this.paymentType,
     this.preparedBy,
     this.receiptDate,
+    this.paaliDate,
     this.receiptId,
     this.receiptNo,
     this.remarks,
@@ -39,11 +43,13 @@ class Receipt {
     double? amount,
     String? devoteeId,
     String? paaliaName,
+    String? branchName,
     bool? notMember,
     String? paymentMode,
     String? paymentType,
     String? preparedBy,
     DateTime? receiptDate,
+    DateTime? paaliDate,
     String? receiptId,
     String? receiptNo,
     String? remarks,
@@ -55,11 +61,13 @@ class Receipt {
       amount: amount ?? this.amount,
       devoteeId: devoteeId ?? this.devoteeId,
       paaliaName: paaliaName ?? this.paaliaName,
+      branchName: branchName ?? this.branchName,
       notMember: notMember ?? this.notMember,
       paymentMode: paymentMode ?? this.paymentMode,
       paymentType: paymentType ?? this.paymentType,
       preparedBy: preparedBy ?? this.preparedBy,
       receiptDate: receiptDate ?? this.receiptDate,
+      paaliDate: paaliDate ?? this.paaliDate,
       receiptId: receiptId ?? this.receiptId,
       receiptNo: receiptNo ?? this.receiptNo,
       remarks: remarks ?? this.remarks,
@@ -74,11 +82,13 @@ class Receipt {
       'amount': amount,
       'devoteeId': devoteeId,
       'paaliaName': paaliaName,
+      'branchName': branchName,
       'notMember': notMember,
       'paymentMode': paymentMode,
       'paymentType': paymentType,
       'preparedBy': preparedBy,
       'receiptDate': receiptDate?.millisecondsSinceEpoch,
+      'paaliDate': paaliDate?.millisecondsSinceEpoch,
       'receiptId': receiptId,
       'receiptNo': receiptNo,
       'remarks': remarks,
@@ -88,19 +98,32 @@ class Receipt {
   }
 
   factory Receipt.fromMap(Map<String, dynamic> map) {
-    Timestamp timeStamp = map['receiptDate'];
-    final receiptDate =
-        DateTime.fromMillisecondsSinceEpoch(timeStamp.seconds * 1000);
+    DateTime? receiptDate;
+    DateTime? paaliDate;
+
+    if (map['receiptDate'] != null) {
+      Timestamp receiptDateTimeStamp = map['receiptDate'];
+      receiptDate = DateTime.fromMillisecondsSinceEpoch(
+          receiptDateTimeStamp.seconds * 1000);
+    }
+    if (map['paaliDate'] != null) {
+      Timestamp paaliDateTimeStamp = map['paaliDate'];
+      paaliDate = DateTime.fromMillisecondsSinceEpoch(
+          paaliDateTimeStamp.seconds * 1000);
+    }
+
     return Receipt(
       accountCode: map['accountCode'],
       amount: map['amount']?.toDouble(),
       devoteeId: map['devoteeId'],
       paaliaName: map['paaliaName'],
+      branchName: map['branchName'],
       notMember: map['notMember'],
       paymentMode: map['paymentMode'],
       paymentType: map['paymentType'],
       preparedBy: map['preparedBy'],
       receiptDate: receiptDate,
+      paaliDate: paaliDate,
       receiptId: map['receiptId'],
       receiptNo: map['receiptNo'],
       remarks: map['remarks'],
@@ -116,7 +139,7 @@ class Receipt {
 
   @override
   String toString() {
-    return 'Receipt(accountCode: $accountCode, amount: $amount, devoteeId: $devoteeId, paaliaName: $paaliaName, notMember: $notMember, paymentMode: $paymentMode, paymentType: $paymentType, preparedBy: $preparedBy, receiptDate: $receiptDate, receiptId: $receiptId, receiptNo: $receiptNo, remarks: $remarks, transactionRefNo: $transactionRefNo, paidBy: $paidBy)';
+    return 'Receipt(accountCode: $accountCode, amount: $amount, devoteeId: $devoteeId, paaliaName: $paaliaName, branchName: $branchName, notMember: $notMember, paymentMode: $paymentMode, paymentType: $paymentType, preparedBy: $preparedBy, receiptDate: $receiptDate, paaliDate: $paaliDate, receiptId: $receiptId, receiptNo: $receiptNo, remarks: $remarks, transactionRefNo: $transactionRefNo, paidBy: $paidBy)';
   }
 
   @override
@@ -128,11 +151,13 @@ class Receipt {
         other.amount == amount &&
         other.devoteeId == devoteeId &&
         other.paaliaName == paaliaName &&
+        other.branchName == branchName &&
         other.notMember == notMember &&
         other.paymentMode == paymentMode &&
         other.paymentType == paymentType &&
         other.preparedBy == preparedBy &&
         other.receiptDate == receiptDate &&
+        other.paaliDate == paaliDate &&
         other.receiptId == receiptId &&
         other.receiptNo == receiptNo &&
         other.remarks == remarks &&
@@ -146,11 +171,13 @@ class Receipt {
         amount.hashCode ^
         devoteeId.hashCode ^
         paaliaName.hashCode ^
+        branchName.hashCode ^
         notMember.hashCode ^
         paymentMode.hashCode ^
         paymentType.hashCode ^
         preparedBy.hashCode ^
         receiptDate.hashCode ^
+        paaliDate.hashCode ^
         receiptId.hashCode ^
         receiptNo.hashCode ^
         remarks.hashCode ^

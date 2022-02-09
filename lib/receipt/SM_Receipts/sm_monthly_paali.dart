@@ -6,6 +6,7 @@ import 'package:nssaccounting/data/auth.dart';
 import 'package:nssaccounting/data/receiptAPI.dart';
 import 'package:nssaccounting/model/receipt.dart';
 import 'package:nssaccounting/search/receipt_preview.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../utility.dart';
 
@@ -204,7 +205,7 @@ class _SMMonthlyPaaliState extends State<SMMonthlyPaali> {
                             _paymentInfo.paymentType),
                         preparedBy: Login.loggedInUser?.userId,
                         receiptDate: DateTime.now(),
-                        receiptId: "",
+                        receiptId: Uuid().v1(),
                         receiptNo: Utility.getReceiptNo(),
                         remarks: _remarkController.text,
                         transactionRefNo:
