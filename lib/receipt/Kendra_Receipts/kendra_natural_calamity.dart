@@ -17,7 +17,7 @@ class _KendraNaturalCalamityState extends State<KendraNaturalCalamity> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: "KeNaCa"),
+          child: KendraWidget(accountCodeName: "Kendra Natural Calamity"),
         ),
       ),
     );

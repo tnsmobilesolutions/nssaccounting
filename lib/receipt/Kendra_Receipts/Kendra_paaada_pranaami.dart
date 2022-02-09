@@ -94,7 +94,7 @@ class _KendraPaadaPranaamiState extends State<KendraPaadaPranaami> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "KePaPr",
+                        accountCode: "Kendra Paada Pranami",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

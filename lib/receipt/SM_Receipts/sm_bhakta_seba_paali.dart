@@ -184,7 +184,7 @@ class _SMBhaktaSebaPaaliState extends State<SMBhaktaSebaPaali> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SMBSP",
+                        accountCode: "SM Bhakta Seba Paali",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: notMember,

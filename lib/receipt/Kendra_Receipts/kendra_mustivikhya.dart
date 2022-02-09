@@ -17,7 +17,7 @@ class _KendraMustivikhyaState extends State<KendraMustivikhya> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: 'KeMuVi'),
+          child: KendraWidget(accountCodeName: 'Kendra Mustivikhya'),
         ),
       ),
     );

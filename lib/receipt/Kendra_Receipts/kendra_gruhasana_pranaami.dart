@@ -18,7 +18,7 @@ class _KendraGruhasanaPranaamiState extends State<KendraGruhasanaPranaami> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: 'KeGrPr'),
+          child: KendraWidget(accountCodeName: 'Kendra Gruhasana Pranaami'),
         ),
       ),
     );

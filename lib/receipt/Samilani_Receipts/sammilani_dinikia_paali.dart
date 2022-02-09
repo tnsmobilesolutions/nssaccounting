@@ -23,6 +23,7 @@ class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
 
   final _sanghaNameController = TextEditingController();
   final _nameController = TextEditingController();
+  final _branchNameController = TextEditingController();
   final _amountController = TextEditingController();
   final _transactionController = TextEditingController();
   final _paidController = TextEditingController();
@@ -163,8 +164,9 @@ class _SammilaniDinikiaPaaliState extends State<SammilaniDinikiaPaali> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SAMDiPi",
+                        accountCode: "Sammilani Dinikia Paali",
                         amount: double.parse(_amountController.text),
+                        branchName: _branchNameController.text,
                         devoteeId: "NA",
                         notMember: null,
                         paaliaName: _nameController.text,

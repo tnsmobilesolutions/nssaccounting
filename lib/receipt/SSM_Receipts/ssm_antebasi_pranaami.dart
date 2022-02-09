@@ -215,7 +215,7 @@ class _SSMAntebasiPranaamiState extends State<SSMAntebasiPranaami> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SSMABP",
+                        accountCode: "SSM Antebasi Pranami",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: notMember,

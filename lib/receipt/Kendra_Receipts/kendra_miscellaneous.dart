@@ -94,7 +94,7 @@ class _KendraMiscellaneousState extends State<KendraMiscellaneous> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "KeMisc",
+                        accountCode: "Kendra Miscellaneous",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

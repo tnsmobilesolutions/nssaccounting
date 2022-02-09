@@ -17,7 +17,7 @@ class _KendraBigrahaState extends State<KendraBigraha> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: "KeBigr"),
+          child: KendraWidget(accountCodeName: "Kendra Bigraha Fund"),
         ),
       ),
     );

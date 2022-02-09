@@ -94,7 +94,7 @@ class _SSMMiscellaneousState extends State<SSMMiscellaneous> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SSMMisc",
+                        accountCode: "SSM Miscellaneous",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

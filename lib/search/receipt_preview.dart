@@ -81,11 +81,25 @@ class _ReceiptPreviewState extends State<ReceiptPreview> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Name',
+                      'Paalia Name',
                       style: commonTextStyle(),
                     ),
                     Text(
                       widget.receipt?.paaliaName ?? '',
+                      style: commonTextStyle(),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Branch Name',
+                      style: commonTextStyle(),
+                    ),
+                    Text(
+                      widget.receipt?.branchName ?? '',
                       style: commonTextStyle(),
                     ),
                   ],

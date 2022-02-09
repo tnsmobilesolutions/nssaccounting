@@ -17,7 +17,7 @@ class _KendraBookState extends State<KendraBook> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: "KeBook"),
+          child: KendraWidget(accountCodeName: "Kendra Books Fund"),
         ),
       ),
     );

@@ -19,7 +19,8 @@ class _KendraNirvikalpaSiddhisthalaState
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: "KeNiSi"),
+          child: KendraWidget(
+              accountCodeName: "Kendra Nirvikalpa Siddhisthala Fund"),
         ),
       ),
     );

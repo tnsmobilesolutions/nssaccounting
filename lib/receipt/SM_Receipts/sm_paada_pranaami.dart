@@ -94,7 +94,7 @@ class _SMPaadaPranaamiState extends State<SMPaadaPranaami> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Receipt receipt = Receipt(
-                        accountCode: "SMPaPr",
+                        accountCode: "SM Paada Pranami",
                         amount: double.parse(_amountController.text),
                         devoteeId: "NA",
                         notMember: null,

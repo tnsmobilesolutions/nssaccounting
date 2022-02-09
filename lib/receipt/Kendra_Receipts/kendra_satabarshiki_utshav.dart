@@ -18,7 +18,8 @@ class _KendraSatabarshikiUtshavState extends State<KendraSatabarshikiUtshav> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: "KeSaUt"),
+          child:
+              KendraWidget(accountCodeName: "Kendra Satabarshiki Utshav Fund"),
         ),
       ),
     );

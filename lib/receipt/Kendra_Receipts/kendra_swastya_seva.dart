@@ -17,7 +17,7 @@ class _KendraSwastyaSevaState extends State<KendraSwastyaSeva> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SingleChildScrollView(
-          child: KendraWidget(accountCodeName: "KeSwSe"),
+          child: KendraWidget(accountCodeName: "Kendra Swastya Seva Fund"),
         ),
       ),
     );
