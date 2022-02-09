@@ -21,7 +21,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final _sanghaNameController = TextEditingController();
+  final _branchNameController = TextEditingController();
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
   final _transactionController = TextEditingController();
@@ -49,7 +49,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                 SizedBox(height: 10),
                 TextFormField(
                   keyboardType: TextInputType.name,
-                  controller: _sanghaNameController,
+                  controller: _branchNameController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Sangha Name';
@@ -186,6 +186,7 @@ class _SSMBhaktaSebaPaaliState extends State<SSMBhaktaSebaPaali> {
                       Receipt receipt = Receipt(
                         accountCode: "SSM Bhakta Seba Paali",
                         amount: double.parse(_amountController.text),
+                        branchName: _branchNameController.text,
                         devoteeId: "NA",
                         notMember: notMember,
                         paaliaName: _nameController.text,

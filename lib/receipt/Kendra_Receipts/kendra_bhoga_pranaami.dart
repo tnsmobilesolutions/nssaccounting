@@ -12,7 +12,7 @@ class _KendraBhogaPranaamiState extends State<KendraBhogaPranaami> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kendra Bhoga Pranaami"),
+        title: Text("Kendra Bhoga Pranami"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

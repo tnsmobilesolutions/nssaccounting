@@ -21,7 +21,7 @@ class KendraWidget extends StatefulWidget {
 class _KendraWidgetState extends State<KendraWidget> {
   final _formKey = GlobalKey<FormState>();
 
-  final _sanghaNameController = TextEditingController();
+  final _branchNameController = TextEditingController();
 
   final _nameController = TextEditingController();
 
@@ -47,7 +47,7 @@ class _KendraWidgetState extends State<KendraWidget> {
           SizedBox(height: 10),
           TextFormField(
             keyboardType: TextInputType.name,
-            controller: _sanghaNameController,
+            controller: _branchNameController,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please Enter Sangha Name';
@@ -132,6 +132,7 @@ class _KendraWidgetState extends State<KendraWidget> {
                 Receipt receipt = Receipt(
                   accountCode: widget.accountCodeName,
                   amount: double.parse(_amountController.text),
+                  branchName: _branchNameController.text,
                   devoteeId: "NA",
                   notMember: null,
                   paaliaName: _nameController.text,

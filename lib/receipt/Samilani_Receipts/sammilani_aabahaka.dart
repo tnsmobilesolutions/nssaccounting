@@ -18,7 +18,7 @@ class SammilaniAabahaka extends StatefulWidget {
 class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
   final _formKey = GlobalKey<FormState>();
 
-  final _sanghaNameController = TextEditingController();
+  final _branchNameController = TextEditingController();
   final _nameController = TextEditingController();
   final _sammilaniNumberontroller = TextEditingController();
   final _amountController = TextEditingController();
@@ -47,7 +47,7 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                 SizedBox(height: 10),
                 TextFormField(
                   keyboardType: TextInputType.name,
-                  controller: _sanghaNameController,
+                  controller: _branchNameController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Sangha Name';
@@ -151,6 +151,7 @@ class _SammilaniAabahakaState extends State<SammilaniAabahaka> {
                       Receipt receipt = Receipt(
                         accountCode: "Sammilani Abahaka",
                         amount: double.parse(_amountController.text),
+                        branchName: _branchNameController.text,
                         devoteeId: "NA",
                         notMember: null,
                         paaliaName: _nameController.text,
