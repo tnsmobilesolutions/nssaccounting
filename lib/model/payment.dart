@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class PaymentDatas {
   final String? voucherNo;
-  final String? paymentDate;
+  final DateTime? paymentDate;
   final String? accountHead;
   final String? partyName;
   final String? amount;
@@ -41,7 +43,7 @@ class PaymentDatas {
   }) {
     return PaymentDatas(
       voucherNo: voucherNo ?? this.voucherNo,
-      paymentDate: paymentDate ?? this.paymentDate,
+      // paymentDate: paymentDate ?? this.paymentDate,
       accountHead: accountHead ?? this.accountHead,
       partyName: partyName ?? this.partyName,
       amount: amount ?? this.amount,
@@ -71,9 +73,12 @@ class PaymentDatas {
   }
 
   factory PaymentDatas.fromMap(Map<String, dynamic> map) {
+    Timestamp timeStamp = map['receiptDate'];
+    final paymentDate =
+        DateTime.fromMillisecondsSinceEpoch(timeStamp.seconds * 1000);
     return PaymentDatas(
       voucherNo: map['voucherNo'] != null ? map['voucherNo'] : null,
-      paymentDate: map['paymentDate'] != null ? map['paymentDate'] : null,
+      paymentDate: paymentDate,
       accountHead: map['accountHead'] != null ? map['accountHead'] : null,
       partyName: map['partyName'] != null ? map['partyName'] : null,
       amount: map['amount'] != null ? map['amount'] : null,
