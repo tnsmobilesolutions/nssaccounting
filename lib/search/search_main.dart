@@ -61,46 +61,51 @@ class _SearchMainState extends State<SearchMain> {
               getAccountWidget(_selectedOption),
               SizedBox(height: 40),
               ElevatedButton(
-                  style: CommonStyle.elevatedSubmitButtonStyle(),
-                  child: Text("Search"),
-                  onPressed: () async {
-                    print('search btn pressed');
+                style: CommonStyle.elevatedSubmitButtonStyle(),
+                child: Text("Search"),
+                onPressed: () async {
+                  print('search btn pressed');
 
-                    final List<Receipt>? allReceipts;
+                  final List<Receipt>? allReceipts;
 
-                    final searchAPI = SearchAPI();
+                  final searchAPI = SearchAPI();
 
-                    if (_selectedOption == "Name") {
-                      allReceipts = await searchAPI
-                          .getReceiptByName(_nameController.text);
-                    } else if (_selectedOption == 'Date') {
-                      allReceipts =
-                          await searchAPI.getReceiptByReceiptDate(_dateTime);
-                    } else if (_selectedOption == "Account/Head") {
-                      allReceipts = await searchAPI
-                          .getReceiptByAccount(_accountController.text);
-                    } else {
-                      allReceipts = [];
-                    }
+                  if (_selectedOption == "Name") {
+                    allReceipts =
+                        await searchAPI.getReceiptByName(_nameController.text);
+                  } else if (_selectedOption == 'Date') {
+                    allReceipts =
+                        await searchAPI.getReceiptByReceiptDate(_dateTime);
+                  } else if (_selectedOption == "Account/Head") {
+                    allReceipts = await searchAPI
+                        .getReceiptByAccount(_accountController.text);
+                  } else {
+                    allReceipts = [];
+                  }
 
-                    print(allReceipts);
-                    if (_selectedOption == "Receipt No") {
-                      final singleReceipt = await searchAPI
-                          .getReceiptByReceiptNo(_receiptNoController.text);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ReceiptPreview(receipt: singleReceipt)));
-                    } else {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ReceiptList(
-                                    receipts: allReceipts,
-                                  )));
-                    }
-                  }),
+                  print(allReceipts);
+                  if (_selectedOption == "Receipt No") {
+                    final singleReceipt = await searchAPI
+                        .getReceiptByReceiptNo(_receiptNoController.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ReceiptPreview(receipt: singleReceipt),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReceiptList(
+                          receipts: allReceipts,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -141,7 +146,9 @@ class _SearchMainState extends State<SearchMain> {
           Text(
             _dateTime == null
                 ? 'Choose Date'
-                : DateFormat.yMMMEd().format(_dateTime ?? DateTime.now()),
+                : DateFormat.yMMMEd().format(
+                    _dateTime ?? DateTime.now(),
+                  ),
           ),
           ElevatedButton(
               onPressed: () {
@@ -150,11 +157,15 @@ class _SearchMainState extends State<SearchMain> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(2020),
                         lastDate: DateTime(2025))
-                    .then((date) {
-                  setState(() {
-                    _dateTime = date;
-                  });
-                });
+                    .then(
+                  (date) {
+                    setState(
+                      () {
+                        _dateTime = date;
+                      },
+                    );
+                  },
+                );
               },
               child: Icon(Icons.calendar_today_outlined)),
         ],
